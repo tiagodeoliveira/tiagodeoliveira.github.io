@@ -1,0 +1,45 @@
+baseurl: ""
+url: "tiagodeoliveira.github.io" # the base hostname & protocol for your site.
+title: "Tiago Oliveira"
+
+
+paginate: 10 #articles per page
+paginate_path: /blog/page:num
+
+
+#contacts
+git: "https://github.com/tiagodeoliveira"  #Add your github url here.
+stackoverflow: "stackoverflow.com/users/2910844/tiago-oliveira" #Add your stackoverflow url here.
+twitter: "https://twitter.com/_oliveira_tiago"  #Add your twitter url here.
+
+disqus: 
+  shortname: "railsr"
+
+google: 
+  tracking-id: "asdfas"
+
+gems:
+  - jekyll-sitemap
+
+# This is used by feed.xml. Uncomment if you want to use it.
+# description: "..."
+
+exclude:
+  - "README.md"
+  - "CHANGELOG.md"
+  - "Gemfile"
+  - "Gemfile.lock"
+permalink: :title
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
