@@ -1,19 +1,46 @@
-# Permalinks
-permalink:        pretty
-relative_permalinks: true
+baseurl: ""
+url: "tiagodeoliveira.github.io" # the base hostname & protocol for your site.
+title: "Tiago Oliveira"
+description: "I'm a passionate software engineer, currently working with microservices and reactive programming!"
 
-# Setup
-title:            Poole
-tagline:          The Jekyll Butler
-url:              http://getpoole.com
-paginate:         1
-baseurl:          /
-author:
-  name:           Mark Otto
-  url:            https://twitter.com/mdo
-  email:          markdotto@gmail.com
+paginate: 10 #articles per page
+paginate_path: /blog/page:num
 
-# Custom vars
-version:          1.0.0
-github:
-  repo:           https://github.com/poole/poole
+
+#contacts
+git: "https://github.com/tiagodeoliveira"  #Add your github url here.
+stackoverflow: "http://stackoverflow.com/users/2910844/tiago-oliveira" #Add your stackoverflow url here.
+twitter: "https://twitter.com/_oliveira_tiago"  #Add your twitter url here.
+email: "tiago.oliveira@gmx.us"
+
+disqus: 
+  shortname: "tiagooliveira"
+
+google: 
+  tracking-id: "asdfas"
+
+gems:
+  - jekyll-sitemap
+
+# This is used by feed.xml. Uncomment if you want to use it.
+# description: "..."
+
+exclude:
+  - "README.md"
+  - "CHANGELOG.md"
+  - "Gemfile"
+  - "Gemfile.lock"
+permalink: :title
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
