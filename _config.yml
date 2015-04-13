@@ -17,7 +17,7 @@ disqus:
   shortname: "tiagooliveira"
 
 google: 
-  tracking-id: "asdfas"
+  tracking-id: "UA-61834376-1"
 
 gems:
   - jekyll-sitemap
