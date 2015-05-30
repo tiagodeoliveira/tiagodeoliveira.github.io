@@ -7,12 +7,7 @@ tags: [spring, presentation, cloud, springboot]
 
 [Here](https://github.com/tiagodeoliveira/spring-micro-arch) is possible to see some code example of how use some Spring Projects (based on Spring Framework) to build modern, resilient, message driven and distibuted cloud applications.
 
-> The idea behind this project is to receive a REST json message on the receiver module, the expected message is:
-
-> ```json
-> { "callback" : "http://micro-arch-register-c9c4e156.tiagodeoliveira.svc.tutum.io:40082/register", 
-> "message" : "++++++++++[>+>+++>++++>+++++++>++++++++>+++++++++>++++++++++>+++++++++++>++++++++++++<<<<<<<<<-]>>>>> +.>>>>+..<.<++++++++.>>>+.<<+.<<<<++++.<++.>>>+++++++.>>>.+++.<+++++++.--------.<<<<<+.<+++.---."}
-> ```
+> The idea behind this project is to receive a REST json message on the receiver module.
 > The message holds a callback URL that will be called when the process is done, and a message on the [Brainfuck](http://en.wikipedia.org/wiki/Brainfuck) format. 
 > The receiver module will add a *start_time* tag on the message and post it on a RabbitMQ instance.
 >
