@@ -26,4 +26,5 @@ Enjoy :D
         src="https://rawgit.com/tiagodeoliveira/spring-framework-presentation/master/_site/index.html"
         allowfullscreen="true">&nbsp;</iframe>
 
-The presentation source is here https://github.com/tiagodeoliveira/spring-framework-presentation
+
+The presentation source is here [https://github.com/tiagodeoliveira/spring-framework-presentation](https://github.com/tiagodeoliveira/spring-framework-presentation).
