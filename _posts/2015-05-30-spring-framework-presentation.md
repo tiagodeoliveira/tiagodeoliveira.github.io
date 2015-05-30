@@ -5,7 +5,9 @@ tags: [spring, presentation, cloud, springboot]
 
 ### A presentation showing a bit of some Spring Framework capabilities
 
-[Here](https://github.com/tiagodeoliveira/spring-micro-arch) is possible to see some code example of how use some Spring Projects (based on Spring Framework) to build modern, resilient, message driven and distibuted cloud applications.
+[Here](https://github.com/tiagodeoliveira/spring-micro-arch) is possible to see some code example of how use some Spring Projects (based on Spring Framework) to build modern, resilient, message driven and distibuted cloud applications. 
+
+Another example of this kind of distributed microservices architecture is [this small project](https://github.com/tiagodeoliveira/BatchProcessor) developed with [vertx.io](http://vertx.io/). [Here an example of how to leverage some Spring capabilities inside vertx applications](https://github.com/bytor99999/mod-spring-appcontext).
 
 > The idea behind this project is to receive a REST json message on the receiver module.
 > The message holds a callback URL that will be called when the process is done, and a message on the [Brainfuck](http://en.wikipedia.org/wiki/Brainfuck) format. 
