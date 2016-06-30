@@ -9,9 +9,8 @@ paginate_path: /blog/page:num
 
 #contacts
 git: "https://github.com/tiagodeoliveira"  #Add your github url here.
-stackoverflow: "http://stackoverflow.com/users/2910844/tiago-oliveira" #Add your stackoverflow url here.
 twitter: "https://twitter.com/_oliveira_tiago"  #Add your twitter url here.
-email: "tiago.oliveira@gmx.us"
+email: "tiago@tiago.sh"
 
 disqus: 
   shortname: "tiagooliveira"
