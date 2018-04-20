@@ -12,13 +12,16 @@
 			<a target="_blank" id="twitter-ic" href="{{site.twitter}}"><i class="fa fa-twitter"></i></a>
 		{% endunless %}		
 
+		{% unless site.linkedin == "" %}
+			<a target="_blank" id="linkedin-ic" href="{{site.linkedin}}"><i class="fa fa-linkedin"></i></a>
+		{% endunless %}		
+
 		<a id="sitename" href="/">{{site.title}}</a>
 	</h1>
 
 	<p>{{site.description}}</p>
 	<hr/>
   
-	{% include nav-links.html %} 
   
 </div>
 

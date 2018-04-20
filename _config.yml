@@ -1,16 +1,16 @@
 baseurl: ""
 url: "tiagodeoliveira.github.io" # the base hostname & protocol for your site.
-title: "Tiago Oliveira"
-description: "I'm a passionate software engineer, currently working with microservices and reactive programming!"
+title: "Tiago Rodrigues de Oliveira"
+description: "Software architect, passionate about simple solutions, functional and reactive!"
 
 paginate: 10 #articles per page
 paginate_path: /blog/page:num
 
-
 #contacts
-git: "https://github.com/tiagodeoliveira"  #Add your github url here.
-twitter: "https://twitter.com/_oliveira_tiago"  #Add your twitter url here.
+git: "https://github.com/tiagodeoliveira"
+twitter: "https://twitter.com/_oliveira_tiago" 
 email: "tiago@tiago.sh"
+linkedin: "https://www.linkedin.com/in/tiagordeoliveira/"
 
 disqus: 
   shortname: "tiagooliveira"
