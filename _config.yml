@@ -16,7 +16,7 @@ disqus:
   shortname: "tiagooliveira"
 
 google: 
-  tracking-id: "UA-61834376-1"
+  tracking-id: "UA-117923824-1"
 
 gems:
   - jekyll-sitemap
