@@ -1,6 +1,6 @@
 baseurl: ""
 url: "tiagodeoliveira.github.io" # the base hostname & protocol for your site.
-title: "Tiago Rodrigues de Oliveira"
+title: "Tiago Oliveira"
 description: "Solutions Architect, passionate about simple, elastic and reactive solutions!"
 
 paginate: 10 #articles per page
