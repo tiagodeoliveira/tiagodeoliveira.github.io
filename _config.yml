@@ -18,7 +18,7 @@ disqus:
 google: 
   tracking-id: "UA-117923824-1"
 
-gems:
+plugins:
   - jekyll-sitemap
 
 # This is used by feed.xml. Uncomment if you want to use it.
@@ -29,6 +29,7 @@ exclude:
   - "CHANGELOG.md"
   - "Gemfile"
   - "Gemfile.lock"
+  - vendor
 permalink: :title
 defaults:
   -

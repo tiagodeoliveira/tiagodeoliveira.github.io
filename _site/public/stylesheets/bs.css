@@ -2284,7 +2284,7 @@ input[type="time"],
 input[type="datetime-local"],
 input[type="month"] {
   line-height: 41px;
-  line-height: 1.8 \0; }
+  line-height: 1.8 \0 ; }
   input[type="date"].input-sm, .form-horizontal .form-group-sm input[type="date"].form-control, .input-group-sm > input[type="date"].form-control,
   .input-group-sm > input[type="date"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="date"].btn,
