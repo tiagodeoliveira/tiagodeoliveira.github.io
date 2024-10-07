@@ -59,8 +59,81 @@
               ><i class="fa fa-linkedin"></i
             ></a>
           </h1>
+          
+          <div class="animation-container">
+            <div class="road"></div>
+            <div class="truck">
+              <div class="truck-body"></div>
+              <div class="wheel wheel1"></div>
+              <div class="wheel wheel2"></div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
+
+    <style>
+      .animation-container {
+        width: 100%;
+        height: 60px;
+        position: relative;
+        overflow: hidden;
+        margin-top: 20px;
+      }
+      .road {
+        width: 100%;
+        height: 10px;
+        background-color: #333;
+        position: absolute;
+        bottom: 0;
+      }
+      .truck {
+        width: 60px;
+        height: 30px;
+        position: absolute;
+        bottom: 10px;
+        left: -60px;
+        animation: drive 8s linear infinite;
+      }
+      .truck-body {
+        width: 60px;
+        height: 20px;
+        background-color: #f44336;
+        position: absolute;
+        bottom: 0;
+      }
+      .wheel {
+        width: 10px;
+        height: 10px;
+        background-color: #333;
+        border-radius: 50%;
+        position: absolute;
+        bottom: -5px;
+        animation: rotate 1s linear infinite;
+      }
+      .wheel1 { left: 5px; }
+      .wheel2 { right: 5px; }
+      
+      @keyframes drive {
+        0% { left: -60px; }
+        100% { left: 100%; }
+      }
+      
+      @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+
+    <script>
+      function resetAnimation() {
+        const truck = document.querySelector('.truck');
+        truck.style.animation = 'none';
+        truck.offsetHeight; // Trigger reflow
+        truck.style.animation = null;
+      }
+
+      setInterval(resetAnimation, 8000); // Reset every 8 seconds (matching animation duration)
+    </script>
   </body>
 </html>
