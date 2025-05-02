@@ -1,139 +1,104 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="public/styles.css" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css"
-      rel="stylesheet"
-    />
-    <link rel="canonical" href="https://tiago.sh/tiagodeoliveira.github.io/" />
-    <link rel="icon" type="image/x-icon" href="https://tiago.sh/favicon.ico" />
-    <title>Tiago Oliveira</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, user-scalable=no"
-    />
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-7M5FKY4BTZ"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="public/styles.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet" />
+  <link rel="canonical" href="https://tiago.sh/tiagodeoliveira.github.io/" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="icon" type="image/x-icon" href="https://tiago.sh/favicon.ico" />
+  <title>Tiago Oliveira</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7M5FKY4BTZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-7M5FKY4BTZ");
+  </script>
+  <script>
+    function navigate(route) {
+
+      const appDiv = document.getElementById('app');
+      const filePath = `posts/${route}.md`;
+      const closeBtn = document.getElementById('close-btn');
+      const navigationSection = document.getElementById('navigation');
+
+      if (route === '/') {
+        history.pushState({ route }, '', `#${route}`);
+        appDiv.innerHTML = '';
+        closeBtn.style.display = 'none';
+        navigationSection.style.display = 'inline-block';
+        return;
       }
-      gtag("js", new Date());
 
-      gtag("config", "G-7M5FKY4BTZ");
-    </script>
-  </head>
-  <body>
-    <div class="wrapper">
-      <section>
-        <div id="title">
-          <h1>
-            <a id="sitename" href="https://tiago.sh/">Tiago Oliveira</a>
 
-            <br />
+      fetch(filePath)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Page not found');
+          }
+          return response.text();
+        })
+        .then(markdown => {
+          const html = marked.parse(markdown);  // Convert markdown to HTML
+          appDiv.innerHTML = html;
+          history.pushState({ route }, '', `#${route}`);
+          closeBtn.style.display = (route !== '/') ? 'inline-block' : 'none';
+          navigationSection.style.display = (route === '/') ? 'inline-block' : 'none';
+        })
+        .catch(err => {
+          appDiv.innerHTML = `<h2>404</h2><p>Page not found.</p>`;
+          closeBtn.style.display = 'inline-block';
+          navigationSection.style.display = 'none';
+        });
+    }
 
-            <a target="_blank" id="email-ic" href="mailto:tiago@tiago.sh"
-              ><i class="fa fa-envelope-o"></i
-            ></a>
+    window.onpopstate = function (event) {
+      const route = (event.state && event.state.route) || '/';
+      navigate(route);
+    };
 
-            <a
-              target="_blank"
-              id="git-ic"
-              href="https://github.com/tiagodeoliveira"
-              ><i class="fa fa-github"></i
-            ></a>
+    window.onload = function () {
+      const route = window.location.hash.replace('#', '') || '/';
+      if (route !== '/') {
+        navigate(route);
+      }
+    };
 
-            <a
-              target="_blank"
-              id="linkedin-ic"
-              href="https://www.linkedin.com/in/tiagode/"
-              ><i class="fa fa-linkedin"></i
-            ></a>
-          </h1>
-          
-          <div class="animation-container">
-            <div class="road"></div>
-            <div class="truck">
-              <div class="truck-body"></div>
-              <div class="wheel wheel1"></div>
-              <div class="wheel wheel2"></div>
-            </div>
-          </div>
-        </div>
-      </section>
+  </script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <section>
+      <div id="title">
+        <h1>
+          <a id="sitename" href="https://tiago.sh/">Tiago Oliveira</a>
+          <br />
+          <a target="_blank" id="email-ic" href="mailto:tiago@tiago.sh"><i class="fa fa-envelope-o"></i></a>
+          <a target="_blank" id="git-ic" href="https://github.com/tiagodeoliveira"><i class="fa fa-github"></i></a>
+          <a target="_blank" id="linkedin-ic" href="https://www.linkedin.com/in/tiagode/"><i
+              class="fa fa-linkedin"></i></a>
+        </h1>
+      </div>
+    </section>
+
+    <button id="close-btn" style="display:none;" onclick="navigate('/')">✖ Close</button>
+    <div id="navigation">
+      <a onclick="navigate('aboutlifecareerandhappiness')">About Life, Career and Happiness</a>
     </div>
+    <div id="app">
+    </div>
+  </div>
+</body>
 
-    <style>
-      .animation-container {
-        width: 100%;
-        height: 60px;
-        position: relative;
-        overflow: hidden;
-        margin-top: 20px;
-      }
-      .road {
-        width: 100%;
-        height: 10px;
-        background-color: #333;
-        position: absolute;
-        bottom: 0;
-      }
-      .truck {
-        width: 60px;
-        height: 30px;
-        position: absolute;
-        bottom: 10px;
-        left: -60px;
-        animation: drive 8s linear infinite;
-      }
-      .truck-body {
-        width: 60px;
-        height: 20px;
-        background-color: #f44336;
-        position: absolute;
-        bottom: 0;
-      }
-      .wheel {
-        width: 10px;
-        height: 10px;
-        background-color: #333;
-        border-radius: 50%;
-        position: absolute;
-        bottom: -5px;
-        animation: rotate 1s linear infinite;
-      }
-      .wheel1 { left: 5px; }
-      .wheel2 { right: 5px; }
-      
-      @keyframes drive {
-        0% { left: -60px; }
-        100% { left: 100%; }
-      }
-      
-      @keyframes rotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    </style>
-
-    <script>
-      function resetAnimation() {
-        const truck = document.querySelector('.truck');
-        truck.style.animation = 'none';
-        truck.offsetHeight; // Trigger reflow
-        truck.style.animation = null;
-      }
-
-      setInterval(resetAnimation, 8000); // Reset every 8 seconds (matching animation duration)
-    </script>
-  </body>
 </html>
