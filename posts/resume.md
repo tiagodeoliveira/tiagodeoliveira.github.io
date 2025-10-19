@@ -1,178 +1,191 @@
 # Tiago Oliveira
 
-**Principal Engineer | Principal Architect | AI & Cloud Engineering Leader**
+**Hands-On Principal Architect | GenAI Platform Builder | Scale Engineer**
 
 [tiago@tiago.sh](mailto:tiago@tiago.sh) | [LinkedIn](https://www.linkedin.com/in/tiagode) | [tiago.sh](https://tiago.sh) | Greater Seattle Area
 
 ---
 
-## Summary
+## What I Do
 
-Principal Architect/Engineer with deep expertise architecting large-scale distributed systems, GenAI platforms, and cloud-native architectures. Proven track record designing high-performance solutions leveraging Kubernetes, Serverless, and AWS services for real-time processing at scale. Passionate about developing transformative technology solutions that deliver measurable operational improvements.
+I architect and personally build generative AI platforms that handle **tens of millions of concurrent requests**. Not just design—I write the proof of concepts, optimize the critical paths, and guide teams through implementation. Currently leading telecom-native GenAI initiatives that are redefining how billions of users will interact with AI.
+
+My approach: Frame the business problem → Build the POC myself → Architect for massive scale → Lead implementation → Optimize until it handles 10x the load. I code in Python, Go, Rust, JavaScript, and Java—whatever gets the job done best.
+
+From first principles thinking learned fixing trucks at age 8 to designing evolutionary AI platforms at AWS—I bring a unique perspective that simplifies complex problems and delivers measurable impact.
 
 ---
 
 ## Experience
 
-### Principal Solutions Architect
+### Principal Solutions Architect | Generative AI Platforms
 **Amazon Web Services (AWS)**  
 *October 2024 - Present | Seattle, WA*
 
-→ Engineered real-time AI inference platform processing 5,000+ predictions/second with sub-100ms latency for global telecom operators
+**Leading telecom-native GenAI platform serving tens of millions of concurrent users**
 
-→ Led innovation lifecycle from MVP to multi-region deployment, achieving production within 6 months
+→ Architecting multi-modal GenAI platform (text/voice/image/video) designed to handle unprecedented scale for major telecom operators—think WhatsApp-scale AI interactions
 
-→ Collaborated with telecom CTOs to realize double-digit OpEx savings while improving churn and spectrum utilization
+→ Invented evolutionary "manifest model" architecture enabling dynamic use-case definition without platform rewrites—solving the critical challenge of AI systems that must evolve daily
 
-→ Trusted advisor on AI governance and model risk management, influencing multi-million-dollar cloud strategies
+→ Personally developed all proof-of-concepts, from initial prototypes to production-grade components, validating technical feasibility before team scaling
 
-### Senior Product Architect
+→ Reduced telecom troubleshooting time by 25% through intelligent correlation of device crashes, network data, and customer profiles using real-time inference at massive scale
+
+→ Full-cycle technical leadership: customer problem framing → hands-on POC development → system architecture → team guidance on language selection, optimization, and integration
+
+### Senior Product Architect | Computer Vision & AI
 **Amazon Web Services (AWS)**  
 *October 2021 - October 2024 | Austin, TX*
 
-→ Pioneered CVOps (Computer Vision Operations) framework extending MLOps into computer vision workflows
+**Built AI platform reducing investigation time by 35% for major security companies**
 
-→ Designed LLM integration layer for CV model fine-tuning, reducing annotation time by 70%
+→ Designed and implemented video intelligence platform processing massive security footage databases through GenAI-powered summarization and RAG-based searching
 
-→ Architected multi-region solution with cell-based architecture for high availability and linear scalability
+→ Achieved 40% reduction in security personnel dispatch through intelligent video correlation across multiple streams with natural language querying
 
-→ Led Rust adoption for embedded edge devices, creating multi-device architecture for diverse computational capabilities
+→ Pioneered CVOps framework—personally coding the initial implementation in Python/Rust before scaling to team development
 
-→ Implemented advanced edge-to-cloud-to-edge architecture enabling seamless data flow and intelligent workload placement
+→ Created LLM-powered annotation system reducing manual labeling by 70% while improving model accuracy
 
-### Senior Solutions Architect
+→ Built production systems handling 5,000+ predictions/second at sub-100ms latency using custom optimization techniques
+
+### Senior Solutions Architect | Industry 4.0 & Edge AI
 **Amazon Web Services (AWS)**  
 *May 2020 - October 2021 | Stuttgart, Germany*
 
-→ Led Industry 4.0 digital transformation for Germany's premier manufacturing companies
+**Transformed manufacturing with edge-to-cloud AI achieving 99.99% reliability**
 
-→ Architected edge-to-cloud solutions achieving 99.99% reliability for mission-critical production systems
+→ Architected and personally implemented POCs for predictive maintenance platforms reducing downtime by 35%
 
-→ Developed predictive maintenance platforms reducing unplanned downtime by 35% for automotive clients
+→ Built real-time control systems reducing latency from seconds to milliseconds through custom edge computing frameworks
 
-→ Reduced infrastructure costs by 40% while maintaining strict data sovereignty compliance
+→ Hands-on development of IoT device fleet management for 10,000+ industrial endpoints
 
-### Principal Software Engineer
+→ Delivered 40% infrastructure cost reduction while maintaining strict compliance requirements
+
+### Principal Software Engineer | Platform Architecture
 **Mercedes-Benz.io**  
 *September 2018 - April 2020 | Stuttgart, Germany*
 
-→ Architected Vehicle Product Platform serving as foundation for global digital marketing across 60+ markets
+**Built the technical foundation for Mercedes-Benz's global digital transformation**
 
-→ Pioneered Hypothesis-Driven Development methodology for enterprise-scale application design
+→ Architected and coded initial version of Vehicle Product Platform serving 60+ global markets
 
-→ Engineered pricing engine processing 1,000+ evaluations/second with sub-ms response times using AWS Lambda, SageMaker, and DynamoDB
+→ Personally developed high-performance pricing engine processing 1,000+ evaluations/second using serverless architecture
 
-→ Delivered 47% cost reduction while improving scalability and reducing time-to-market from months to days
+→ Implemented machine learning pipelines on decades of sales data using Python and AWS SageMaker
 
-### Senior Staff Software Engineer
+→ Pioneered Hypothesis-Driven Development—building production MVPs to validate before scaling
+
+→ 47% cost reduction, months-to-days deployment velocity improvement
+
+### Senior Staff Software Engineer | Security & IoT
 **OSRAM**  
 *April 2018 - September 2018 | Berlin, Germany*
 
-→ Architected and led security infrastructure for IoT Platform with zero-trust networking model
+→ Architected and implemented zero-trust IoT security infrastructure from scratch
 
-→ Designed scalable IAM architecture with OAuth 2.0/OpenID Connect for fine-grained permission controls
+→ Built custom OAuth 2.0/OpenID Connect extensions for fine-grained device permissions
 
-→ Implemented RBAC and ABAC security models enabling sophisticated multi-tenant access patterns
+→ Hands-on cryptographic implementation with HSM integration for key management
 
-### Senior Staff Software Engineer
+### Senior Staff Software Engineer | FinTech Platform
 **PayU**  
 *May 2017 - March 2018 | Berlin, Germany*
 
-→ Pioneered flexible platform architecture deployable across 14 diverse global markets
+**Built fraud detection AI processing millions of transactions daily across 14 markets**
 
-→ Led serverless transformation reducing infrastructure costs by 60% while improving scalability
+→ Developed ML-based fraud detection system with weekly autonomous retraining—personally coded the initial Python implementation
 
-→ Developed AI-based fraud detection system with market-specific models and weekly autonomous retraining
+→ Architected serverless platform reducing costs by 60% while handling massive transaction volumes
 
-→ Architected online reconciliation platform harmonizing disparate data streams from merchants, acquirers, and banks
+→ Built reconciliation engine harmonizing disparate data streams from banks, merchants, and acquirers
 
-### Senior Software Architect
+### Senior Software Architect | AgTech IoT
 **e-Core**  
 *February 2016 - March 2017 | Porto Alegre, Brazil*
 
-→ Architected mission-critical IoT platform for AGCO's agricultural machinery with military-grade security
+**Military-grade IoT platform for agricultural machinery**
 
-→ Pioneered functional programming with Erlang for distributed, latency-sensitive workloads
+→ Pioneered Erlang for distributed systems—achieving sub-millisecond latency for critical operations
 
-→ Implemented zero-trust access control with hardware attestation for CAN-Bus protection
+→ Implemented formal verification for cryptographic functions using mathematical proofs
 
-→ Designed machine-to-machine pairing system for grain transfer operations with sub-meter accuracy
+→ Built machine-to-machine pairing for grain transfer with sub-meter GPS accuracy
 
-### Principal Software Engineer
+→ 30% infrastructure cost reduction through deep protocol optimization
+
+### Principal Software Engineer | Mobile Platforms
 **Zenvia Mobile**  
 *December 2014 - February 2016 | Porto Alegre, Brazil*
 
-→ Architected scalable platforms managing millions of consumer contacts with comprehensive traceability
+→ Architected platforms handling millions of users with unpredictable traffic spikes
 
-→ Pioneered Docker containerization for testing environments and production delivery
+→ Pioneer of Docker containerization for both testing and production deployments
 
-→ Led DevOps transformation and established vibrant technology community through knowledge exchanges
+→ Built the "FireFighter" rotation system for distributed support—still in use today
 
-→ Received multiple recognitions for technical excellence and team collaboration
-
-### Senior Software Engineer
+### Senior Software Engineer | Enterprise Systems
 **Dell Technologies**  
 *October 2013 - December 2014*
 
-→ Transformed customer needs into software solutions for global client portfolio
+→ First recipient of "Application Development Quality Award" for removing thousands of lines of dead code
 
-→ Pioneered Code Quality initiative removing thousands of unused code lines, earning "Application Development Quality Award"
+→ Selected for Agile Committee—one of first teams successfully implementing SCRUM at Dell
 
-→ Championed Agile methodologies, selected for company's Agile Committee
+### Early Career Foundation
+**Nokia Solutions and Networks** (2013) | **NewFocus Sistemas** (2013) | **Incrosolda Serviços e Mecânica** (2000-2013)
 
-→ Evangelized modern development tools including Grails, backbone.js, and SonarQube
+→ 13 years as truck mechanic—developed first principles thinking and systems understanding
 
-### Software Engineer
-**Nokia Solutions and Networks**  
-*July 2013 - October 2013*
+→ Self-funded transition to software engineering while supporting family and paying off debt
 
-→ Developed complex maintenance matrix for cellphone sites across multiple geographic regions
-
-→ Implemented sophisticated SLA frameworks differentiating service levels based on population density
-
-→ Introduced advanced data structures leveraging graph theory and finite state machines
+→ Built automation systems and manufacturing machines before pivoting to software
 
 ---
 
-## Technical Expertise
+## What I Build
 
-### Cloud & Infrastructure
-AWS (Lambda, SageMaker, IoT, Greengrass, DynamoDB, Kinesis, Step Functions), Kubernetes, Docker, Serverless, Cell-based Architecture, Edge Computing, Infrastructure as Code (Terraform)
+### Generative AI at Massive Scale
+Multi-modal platforms (text/voice/image/video) handling tens of millions concurrent requests. Real-time inference systems with sub-100ms latency. Evolutionary architectures that adapt without rewrites. RAG implementations that actually work in production.
 
-### AI & Machine Learning
-GenAI Platforms, LLM Integration, Computer Vision, MLOps/CVOps, Real-time Inference Systems, Fraud Detection, Predictive Maintenance
+### Production Systems That Don't Break
+99.99% reliability for mission-critical systems. From POC to production in 6 months or less. Infrastructure that costs 40-60% less while handling 10x the load. Security that passes military-grade audits.
 
-### Languages & Frameworks
-Python, Java, Rust, Erlang, JavaScript, Distributed Systems, Event Sourcing, Functional Programming, Microservices
-
-### Domains
-Telecommunications, Automotive, Manufacturing (Industry 4.0), FinTech, IoT, AgTech
-
----
-
-## Education & Certifications
-
-**AWS Certified AI Practitioner**  
-Amazon Web Services
-
-**AWS Certified Solutions Architect – Associate**  
-Amazon Web Services
-
-**Well-Architected Proficient**  
-Amazon Web Services
-
-**Bachelor of Technology, Information Technology**  
-Universidade do Oeste de Santa Catarina (2004 - 2007)
-
-**Mechanical Engineering Studies**  
-Unochapecó (2011 - 2013)
+### Code in Whatever Gets the Job Done
+**Daily drivers:** Python (AI/ML), Go (high-performance services), Rust (edge/embedded)  
+**Also fluent in:** JavaScript/TypeScript, Java, Erlang  
+**Frameworks:** Everything AWS, Kubernetes, Serverless, PyTorch, LangChain, Vector DBs
 
 ---
 
-## Languages
+## Why I'm Different
 
-- **English**: Native/Bilingual
-- **Portuguese**: Native/Bilingual
-- **Spanish**: Professional Working
-- **German**: Elementary
-- **Italian**: Elementary
+**I build what I design.** No ivory tower architecture—I write the POCs, optimize the critical paths, and debug production issues at 3 AM.
+
+**First principles from fixing trucks.** 13 years as a mechanic taught me how systems really work. Every complex system can be understood, debugged, and improved.
+
+**Scale isn't theoretical to me.** I've built systems serving millions. When I say "massive scale," I mean it—not slides, actual running code.
+
+**Fast learner.** New framework? Give me a weekend. New domain? Give me a week. I learn by building, not reading.
+
+**Humble despite the resume.** Started at the bottom, earned everything through grit. I know everyone has something to teach me.
+
+---
+
+## What I'm Looking For
+
+Senior technical leadership roles where I can architect AND build transformative systems. Think Staff/Principal Engineer, Technical Director, Distinguished Engineer—titles don't matter, impact does. I want to solve problems that affect millions of users while mentoring the next generation of builders.
+
+---
+
+## Education & Recognition
+
+**AWS Certified AI Practitioner** | **AWS Certified Solutions Architect** | **Well-Architected Proficient**
+
+**Mechanical Engineer (incomplete)** | UnoChapecó
+
+**Bachelor of Technology, Information Technology** | Universidade do Oeste de Santa Catarina
+
+**Languages:** English (Native), Portuguese (Native), Spanish (Professional), German (Conversational), Italian (Basic)
