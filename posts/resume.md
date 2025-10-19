@@ -180,7 +180,7 @@ Senior technical leadership roles where I can architect AND build transformative
 
 ---
 
-## Education & Recognition
+## Education & Skills
 
 **AWS Certified AI Practitioner** | **AWS Certified Solutions Architect** | **Well-Architected Proficient**
 
