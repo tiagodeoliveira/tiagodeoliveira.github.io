@@ -215,7 +215,7 @@ dt {
 section {
   max-width: 960px;
   /*  //750*/
-  padding: 30px 0px 20px 0px;
+  padding: 30px 0px 0px 0px;
   margin: 20px 0;
   margin-top: 70px;
 }
@@ -280,7 +280,7 @@ footer .right {
 }
 
 .resume p {
-  mfont-size: 15px;
+  font-size: 15px;
   line-height: 24px;
   margin: 0 0 10px;
   font-family: "OpenSansRegular", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -320,5 +320,29 @@ footer .right {
 #title #sitename,
 .resume span,
 .resume h2 {
+  color: #ec4e3b;
+}
+
+#navigation a {
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+#post-header {
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #434343;
+  text-align: right;
+}
+
+#post-header a {
+  font-size: 24px;
+  font-weight: normal;
+  color: #49b1f7;
+  text-decoration: none;
+}
+
+#post-header a:hover {
   color: #ec4e3b;
 }

@@ -6,13 +6,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Personal website of Tiago Oliveira, Principal Engineer at AWS. Resume, career journey, and technical insights." />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tiago.sh/" />
+  <meta property="og:title" content="Tiago Oliveira" />
+  <meta property="og:description" content="Personal website of Tiago Oliveira, Principal Engineer at AWS. Resume, career journey, and technical insights." />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary" />
+  <meta property="twitter:url" content="https://tiago.sh/" />
+  <meta property="twitter:title" content="Tiago Oliveira" />
+  <meta property="twitter:description" content="Personal website of Tiago Oliveira, Principal Engineer at AWS. Resume, career journey, and technical insights." />
+
   <link rel="stylesheet" href="/styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet" />
-  <link rel="canonical" href="https://tiago.sh/tiagodeoliveira.github.io/" />
+  <link rel="canonical" href="https://tiago.sh/" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <title>Tiago Oliveira</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7M5FKY4BTZ"></script>
   <script>
@@ -29,14 +42,15 @@
 
       const appDiv = document.getElementById('app');
       const filePath = `posts/${route}.md`;
-      const closeBtn = document.getElementById('close-btn');
+      const postHeader = document.getElementById('post-header');
       const navigationSection = document.getElementById('navigation');
 
       if (route === '/') {
         history.pushState({ route }, '', `#${route}`);
         appDiv.innerHTML = '';
-        closeBtn.style.display = 'none';
+        postHeader.style.display = 'none';
         navigationSection.style.display = 'inline-block';
+        document.title = 'Tiago Oliveira';
         return;
       }
 
@@ -51,13 +65,19 @@
         .then(markdown => {
           const html = marked.parse(markdown);  // Convert markdown to HTML
           appDiv.innerHTML = html;
+
+          const h1 = appDiv.querySelector('h1');
+          const pageTitle = h1 ? h1.textContent : route.replace(/([A-Z])/g, ' $1').trim();
+          document.title = `${pageTitle} | Tiago Oliveira`;
+
           history.pushState({ route }, '', `#${route}`);
-          closeBtn.style.display = (route !== '/') ? 'inline-block' : 'none';
+          postHeader.style.display = (route !== '/') ? 'block' : 'none';
           navigationSection.style.display = (route === '/') ? 'inline-block' : 'none';
         })
         .catch(err => {
           appDiv.innerHTML = `<h2>404</h2><p>Page not found.</p>`;
-          closeBtn.style.display = 'inline-block';
+          document.title = '404 | Tiago Oliveira';
+          postHeader.style.display = 'block';
           navigationSection.style.display = 'none';
         });
     }
@@ -92,10 +112,13 @@
       </div>
     </section>
 
-    <button id="close-btn" style="display:none;" onclick="navigate('/')">✖ Close</button>
-    <div id="navigation">
-      <a onclick="navigate('aboutlifecareerandhappiness')">About Life, Career and Happiness</a>
+    <div id="post-header" style="display:none;">
+      <a href="#" onclick="navigate('/'); return false;">← Back</a>
     </div>
+    <nav id="navigation">
+      <a href="#resume" onclick="navigate('resume'); return false;">Resume</a>
+      <a href="#aboutlifecareerandhappiness" onclick="navigate('aboutlifecareerandhappiness'); return false;">About Life, Career and Happiness</a>
+    </nav>
     <div id="app">
     </div>
   </div>
