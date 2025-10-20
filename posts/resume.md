@@ -174,12 +174,6 @@ Multi-modal platforms (text/voice/image/video) handling tens of millions concurr
 
 ---
 
-## What I'm Looking For
-
-Senior technical leadership roles where I can architect AND build transformative systems. Think Staff/Principal Engineer, Technical Director, Distinguished Engineer—titles don't matter, impact does. I want to solve problems that affect millions of users while mentoring the next generation of builders.
-
----
-
 ## Education & Skills
 
 **AWS Certified AI Practitioner** | **AWS Certified Solutions Architect** | **Well-Architected Proficient**
