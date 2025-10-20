@@ -1,6 +1,6 @@
 # Tiago Oliveira
 
-**Hands-On Principal Architect | GenAI Platform Builder | Scale Engineer**
+**Hands-On Principal Architect | GenAI Platform Builder | Scale Principal Engineer**
 
 [tiago@tiago.sh](mailto:tiago@tiago.sh) | [LinkedIn](https://www.linkedin.com/in/tiagode) | [tiago.sh](https://tiago.sh) | Greater Seattle Area
 
