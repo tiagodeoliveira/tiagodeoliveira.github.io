@@ -26,7 +26,7 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 → Architecting multi-modal GenAI platform (text/voice/image/video) designed to handle unprecedented scale for major telecom operators—think WhatsApp-scale AI interactions
 
-→ Invented evolutionary "manifest model" architecture enabling dynamic use-case definition without platform rewrites—solving the critical challenge of AI systems that must evolve daily
+→ Invented evolutionary 'manifest model' architecture enabling dynamic use-case definition without platform rewrites—solving the critical challenge of AI systems that must evolve daily
 
 → Personally developed all proof-of-concepts, from initial prototypes to production-grade components, validating technical feasibility before team scaling
 
@@ -124,18 +124,19 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 → Pioneer of Docker containerization for both testing and production deployments
 
-→ Built the "FireFighter" rotation system for distributed support—still in use today
+→ Built the 'FireFighter' rotation system for distributed support—still in use today
 
 ### Senior Software Engineer | Enterprise Systems
 **Dell Technologies**  
 *October 2013 - December 2014*
 
-→ First recipient of "Application Development Quality Award" for removing thousands of lines of dead code
+→ First recipient of 'Application Development Quality Award' for removing thousands of lines of dead code
 
 → Selected for Agile Committee—one of first teams successfully implementing SCRUM at Dell
 
 ### Early Career Foundation
-**Nokia Solutions and Networks** (2013) | **NewFocus Sistemas** (2013) | **Incrosolda Serviços e Mecânica** (2000-2013)
+**Nokia Solutions and Networks | NewFocus Sistemas | Incrosolda Serviços e Mecânica**
+*2000 - 2013*
 
 → 13 years as truck mechanic—developed first principles thinking and systems understanding
 
@@ -154,9 +155,9 @@ Multi-modal platforms (text/voice/image/video) handling tens of millions concurr
 99.99% reliability for mission-critical systems. From POC to production in 6 months or less. Infrastructure that costs 40-60% less while handling 10x the load. Security that passes military-grade audits.
 
 ### Code in Whatever Gets the Job Done
-**Daily drivers:** Python (AI/ML), Go (high-performance services), Rust (edge/embedded)  
-**Also fluent in:** JavaScript/TypeScript, Java, Erlang  
-**Frameworks:** Everything AWS, Kubernetes, Serverless, PyTorch, LangChain, Vector DBs
+→ **Daily drivers:** Python (AI/ML), Go (high-performance services), Rust (edge/embedded)  
+→ **Also fluent in:** JavaScript/TypeScript, Java, Erlang  
+→ **Frameworks:** Everything AWS, Kubernetes, Serverless, PyTorch, LangChain, Vector DBs
 
 ---
 
@@ -166,7 +167,7 @@ Multi-modal platforms (text/voice/image/video) handling tens of millions concurr
 
 **First principles from fixing trucks.** 13 years as a mechanic taught me how systems really work. Every complex system can be understood, debugged, and improved.
 
-**Scale isn't theoretical to me.** I've built systems serving millions. When I say "massive scale," I mean it—not slides, actual running code.
+**Scale isn't theoretical to me.** I've built systems serving millions. When I say 'massive scale' I mean it—not slides, actual running code.
 
 **Fast learner.** New framework? Give me a weekend. New domain? Give me a week. I learn by building, not reading.
 
