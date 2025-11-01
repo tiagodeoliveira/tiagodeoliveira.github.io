@@ -24,15 +24,11 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 **Leading telecom-native GenAI platform serving tens of millions of concurrent users**
 
-→ Architecting multi-modal GenAI platform (text/voice/image) designed to handle unprecedented scale for major telecom operators
-
-→ Architected multi-region EKS platform (4 regions, active-active with Route53 latency routing) using EKS Auto Mode, achieving elastic scaling for tens of millions of concurrent multi-modal (text/voice/image/video) requests
+→ Architecting multi-modal GenAI platform (text/voice/image) designed to handle unprecedented scale for major telecom operators, across multiple AWS regions, leveraging Amazon EKS and Amazon DynamoDB
 
 → Invented evolutionary "manifest model" architecture enabling dynamic use-case definition without platform rewrites—solving the critical challenge of AI systems that must evolve daily
 
 → Reduced telecom troubleshooting time by 25% through intelligent correlation of device crashes, network data, and customer profiles using real-time inference at massive scale
-
-→ Implemented ML-based proactive alerting infrastructure (LSTM/XGBoost forecasting) alongside OpenTelemetry/CloudWatch reactive monitoring, enabling predictive incident prevention
 
 → Full-cycle technical leadership: personally develop POCs, architect production systems, conduct hands-on code reviews, debug production issues, and guide teams through infrastructure automation using CDK/CloudFormation
 
@@ -128,7 +124,7 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 → Pioneer of Docker containerization for both testing and production deployments
 
-→ Built the "FireFighter" rotation system and escaltion matrix for distributed support — still in use today
+→ Built the "FireFighter" rotation system and escalation matrix for distributed support — still in use today
 
 ### Senior Software Engineer | Enterprise Systems
 **Dell Technologies**  
@@ -156,7 +152,7 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 Multi-modal platforms (text/voice/image/video) handling tens of millions concurrent requests. Real-time inference systems with sub-100ms latency. Evolutionary architectures that adapt without rewrites. RAG implementations that actually work in production.
 
 ### Platform Engineering & Infrastructure
-Multi-region Kubernetes orchestration (EKS with Auto Mode). Edge-to-cloud continuum architectures. Infrastructure as code across Terraform, CDK, CloudFormation, CloudFoundry, Heroku. ML-based proactive alerting systems. OpenTelemetry observability stacks. Developer tooling, shared libraries, and CI/CD pipelines enabling teams to scale from POC to production.
+Multi-region Kubernetes orchestration. Edge-to-cloud continuum architectures. Infrastructure as code across Terraform, CDK, CloudFormation, CloudFoundry, Heroku. ML-based proactive alerting systems. OpenTelemetry observability stacks. Developer tooling, shared libraries, and CI/CD pipelines enabling teams to scale from POC to production.
 
 ### Production Systems That Don't Break
 99.99% reliability for mission-critical systems. From POC to production in 6 months or less. Infrastructure that costs 40-60% less while handling 10x the load. Security that passes military-grade audits.
