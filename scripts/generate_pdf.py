@@ -423,12 +423,8 @@ class PDFGenerator:
             contact_html = self._format_contact_line(self.parser.contact_line)
             story.append(Paragraph(contact_html, self.styles['Contact']))
 
-        # Add sections - FOR NOW, ONLY "What I Do", "Experience", and "What I Build"
+        # Add all sections
         for section in self.parser.sections:
-            # Only render these sections for now
-            if section['title'] not in ['What I Do', 'Experience', 'What I Build']:
-                continue
-
             # Section header
             story.append(Paragraph(section['title'], self.styles['SectionHeader']))
 

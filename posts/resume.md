@@ -1,6 +1,6 @@
 # Tiago Oliveira
 
-**Hands-On Principal Architect | GenAI Platform Builder | Scale Principal Engineer**
+**Principal Engineer | Principal Architect | AI & Cloud Engineering Leader**
 
 [tiago@tiago.sh](mailto:tiago@tiago.sh) | [LinkedIn](https://www.linkedin.com/in/tiagode) | [tiago.sh](https://tiago.sh) | Greater Seattle Area
 
@@ -24,15 +24,17 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 **Leading telecom-native GenAI platform serving tens of millions of concurrent users**
 
-→ Architecting multi-modal GenAI platform (text/voice/image/video) designed to handle unprecedented scale for major telecom operators—think WhatsApp-scale AI interactions
+→ Architecting multi-modal GenAI platform (text/voice/image) designed to handle unprecedented scale for major telecom operators
 
-→ Invented evolutionary 'manifest model' architecture enabling dynamic use-case definition without platform rewrites—solving the critical challenge of AI systems that must evolve daily
+→ Architected multi-region EKS platform (4 regions, active-active with Route53 latency routing) using EKS Auto Mode, achieving elastic scaling for tens of millions of concurrent multi-modal (text/voice/image/video) requests
 
-→ Personally developed all proof-of-concepts, from initial prototypes to production-grade components, validating technical feasibility before team scaling
+→ Invented evolutionary "manifest model" architecture enabling dynamic use-case definition without platform rewrites—solving the critical challenge of AI systems that must evolve daily
 
 → Reduced telecom troubleshooting time by 25% through intelligent correlation of device crashes, network data, and customer profiles using real-time inference at massive scale
 
-→ Full-cycle technical leadership: customer problem framing → hands-on POC development → system architecture → team guidance on language selection, optimization, and integration
+→ Implemented ML-based proactive alerting infrastructure (LSTM/XGBoost forecasting) alongside OpenTelemetry/CloudWatch reactive monitoring, enabling predictive incident prevention
+
+→ Full-cycle technical leadership: personally develop POCs, architect production systems, conduct hands-on code reviews, debug production issues, and guide teams through infrastructure automation using CDK/CloudFormation
 
 ### Senior Product Architect | Computer Vision & AI
 **Amazon Web Services (AWS)**  
@@ -40,15 +42,15 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 **Built AI platform reducing investigation time by 35% for major security companies**
 
-→ Designed and implemented video intelligence platform processing massive security footage databases through GenAI-powered summarization and RAG-based searching
+→ Built edge-to-cloud continuum architecture leveraging MEC/AWS Outposts for near-edge processing and TFLite for embedded edge inference—Lambda-based control plane with auto-scaling Fargate data plane - handling 5,000+ predictions/second at sub-100ms latency
 
-→ Achieved 40% reduction in security personnel dispatch through intelligent video correlation across multiple streams with natural language querying
+→ Achieved 40% reduction in security personnel dispatch through intelligent video correlation across multiple streams with natural language querying using GenAI-powered summarization and RAG
 
-→ Pioneered CVOps framework—personally coding the initial implementation in Python/Rust before scaling to team development
+→ Pioneered CVOps framework—personally coding the initial implementation in Python/Rust before scaling to team development, establishing CI/CD patterns and shared libraries
 
 → Created LLM-powered annotation system reducing manual labeling by 70% while improving model accuracy
 
-→ Built production systems handling 5,000+ predictions/second at sub-100ms latency using custom optimization techniques
+→ Built auto-scaling infrastructure with Fargate data plane and Lambda control plane, enabling seamless scaling from POC to production handling massive video processing workloads
 
 ### Senior Solutions Architect | Industry 4.0 & Edge AI
 **Amazon Web Services (AWS)**  
@@ -70,13 +72,13 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 **Built the technical foundation for Mercedes-Benz's global digital transformation**
 
-→ Architected and coded initial version of Vehicle Product Platform serving 60+ global markets
+→ Architected and coded initial version of Vehicle Product Platform serving 60+ global markets, implementing infrastructure as code using CloudFoundry for repeatable deployment patterns
 
 → Personally developed high-performance pricing engine processing 1,000+ evaluations/second using serverless architecture
 
 → Implemented machine learning pipelines on decades of sales data using Python and AWS SageMaker
 
-→ Pioneered Hypothesis-Driven Development—building production MVPs to validate before scaling
+→ Pioneered Hypothesis-Driven Development—building production MLPs to validate before scaling
 
 → 47% cost reduction, months-to-days deployment velocity improvement
 
@@ -84,7 +86,7 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 **OSRAM**  
 *April 2018 - September 2018 | Berlin, Germany*
 
-→ Architected and implemented zero-trust IoT security infrastructure from scratch
+→ Architected and implemented zero-trust IoT security infrastructure from scratch using Azure with Terraform for infrastructure automation
 
 → Built custom OAuth 2.0/OpenID Connect extensions for fine-grained device permissions
 
@@ -95,6 +97,8 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 *May 2017 - March 2018 | Berlin, Germany*
 
 **Built fraud detection AI processing millions of transactions daily across 14 markets**
+
+→ Architected multi-cloud infrastructure using Terraform with custom modules for private cloud integration, managing infrastructure across AWS and on-premises data centers
 
 → Developed ML-based fraud detection system with weekly autonomous retraining—personally coded the initial Python implementation
 
@@ -112,7 +116,7 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 → Implemented formal verification for cryptographic functions using mathematical proofs
 
-→ Built machine-to-machine pairing for grain transfer with sub-meter GPS accuracy
+→ Built machine-to-machine pairing for grain transfer with sub-meter GPS accuracy using Heroku infrastructure as code
 
 → 30% infrastructure cost reduction through deep protocol optimization
 
@@ -124,13 +128,13 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 
 → Pioneer of Docker containerization for both testing and production deployments
 
-→ Built the 'FireFighter' rotation system for distributed support—still in use today
+→ Built the "FireFighter" rotation system and escaltion matrix for distributed support — still in use today
 
 ### Senior Software Engineer | Enterprise Systems
 **Dell Technologies**  
 *October 2013 - December 2014*
 
-→ First recipient of 'Application Development Quality Award' for removing thousands of lines of dead code
+→ First recipient of "Application Development Quality Award" for removing thousands of lines of dead code
 
 → Selected for Agile Committee—one of first teams successfully implementing SCRUM at Dell
 
@@ -151,6 +155,9 @@ From first principles thinking learned fixing trucks at age 8 to designing evolu
 ### Generative AI at Massive Scale
 Multi-modal platforms (text/voice/image/video) handling tens of millions concurrent requests. Real-time inference systems with sub-100ms latency. Evolutionary architectures that adapt without rewrites. RAG implementations that actually work in production.
 
+### Platform Engineering & Infrastructure
+Multi-region Kubernetes orchestration (EKS with Auto Mode). Edge-to-cloud continuum architectures. Infrastructure as code across Terraform, CDK, CloudFormation, CloudFoundry, Heroku. ML-based proactive alerting systems. OpenTelemetry observability stacks. Developer tooling, shared libraries, and CI/CD pipelines enabling teams to scale from POC to production.
+
 ### Production Systems That Don't Break
 99.99% reliability for mission-critical systems. From POC to production in 6 months or less. Infrastructure that costs 40-60% less while handling 10x the load. Security that passes military-grade audits.
 
@@ -167,7 +174,7 @@ Multi-modal platforms (text/voice/image/video) handling tens of millions concurr
 
 **First principles from fixing trucks.** 13 years as a mechanic taught me how systems really work. Every complex system can be understood, debugged, and improved.
 
-**Scale isn't theoretical to me.** I've built systems serving millions. When I say 'massive scale' I mean it—not slides, actual running code.
+**Scale isn't theoretical to me.** I've built systems serving millions. When I say "massive scale" I mean it—not slides, actual running code.
 
 **Fast learner.** New framework? Give me a weekend. New domain? Give me a week. I learn by building, not reading.
 
@@ -176,8 +183,6 @@ Multi-modal platforms (text/voice/image/video) handling tens of millions concurr
 ---
 
 ## Education & Skills
-
-**AWS Certified AI Practitioner** | **AWS Certified Solutions Architect** | **Well-Architected Proficient**
 
 **Mechanical Engineer (incomplete)** | UnoChapecó
 
