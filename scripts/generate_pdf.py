@@ -12,6 +12,7 @@ from reportlab.lib.units import inch
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.enums import TA_CENTER, TA_LEFT
 from reportlab.lib.colors import HexColor
+from reportlab.pdfgen import canvas
 import argparse
 import sys
 
@@ -72,7 +73,6 @@ class MarkdownParser:
         in_body = False
         current_section = None
         current_job = None
-        current_subsection = None
 
         i = 0
         while i < len(self.lines):
@@ -92,11 +92,6 @@ class MarkdownParser:
 
             # H2 = Section header
             if line.startswith('## '):
-                # Save previous subsection if exists
-                if current_subsection and current_section:
-                    current_section['subsections'].append(current_subsection)
-                    current_subsection = None
-
                 # Save previous job if exists
                 if current_job and current_section:
                     current_section['jobs'].append(current_job)
@@ -109,11 +104,11 @@ class MarkdownParser:
                 # Start new section
                 section_title = line[3:].strip()
 
-                # Determine section type
+                # Determine section type based on content
+                # Experience section contains job entries with bullets
+                # All other sections are prose (paragraphs)
                 if section_title == 'Experience':
                     section_type = 'experience'
-                elif section_title == 'What I Build':
-                    section_type = 'subsections'
                 else:
                     section_type = 'prose'
 
@@ -121,8 +116,7 @@ class MarkdownParser:
                     'title': section_title,
                     'type': section_type,
                     'paragraphs': [],
-                    'jobs': [],
-                    'subsections': []
+                    'jobs': []
                 }
                 i += 1
                 continue
@@ -132,66 +126,55 @@ class MarkdownParser:
                 i += 1
                 continue
 
-            # H3 handling - depends on section type
-            if line.startswith('### ') and current_section:
-                # In Experience section = Job title
-                if current_section['type'] == 'experience':
-                    # Save previous job if exists
-                    if current_job:
-                        current_section['jobs'].append(current_job)
+            # H3 = Job title in Experience section
+            if line.startswith('### ') and current_section and current_section['type'] == 'experience':
+                # Save previous job if exists
+                if current_job:
+                    current_section['jobs'].append(current_job)
 
-                    # Parse job title
-                    job_title_line = line[4:].strip()
-                    if '|' in job_title_line:
-                        parts = job_title_line.split('|', 1)
-                        job_title = parts[0].strip()
-                        job_subtitle = parts[1].strip()
-                    else:
-                        job_title = job_title_line
-                        job_subtitle = ''
+                # Parse job title
+                job_title_line = line[4:].strip()
+                if '|' in job_title_line:
+                    parts = job_title_line.split('|', 1)
+                    job_title = parts[0].strip()
+                    job_subtitle = parts[1].strip()
+                else:
+                    job_title = job_title_line
+                    job_subtitle = ''
 
-                    current_job = {
-                        'title': job_title,
-                        'subtitle': job_subtitle,
-                        'company': '',
-                        'dates': '',
-                        'description': '',
-                        'bullets': []
-                    }
-                    i += 1
-                    continue
-
-                # In subsections section = Subsection header
-                elif current_section['type'] == 'subsections':
-                    # Save previous subsection if exists
-                    if current_subsection:
-                        current_section['subsections'].append(current_subsection)
-
-                    # Start new subsection
-                    current_subsection = {
-                        'title': line[4:].strip(),
-                        'paragraphs': []
-                    }
-                    i += 1
-                    continue
+                current_job = {
+                    'title': job_title,
+                    'subtitle': job_subtitle,
+                    'company': '',
+                    'dates': '',
+                    'description': '',
+                    'bullets': []
+                }
+                i += 1
+                continue
 
             # If we're in a job, parse job details
             if current_job:
-                # Company name (bold line)
-                if line.startswith('**') and line.endswith('**') and not current_job['company']:
-                    current_job['company'] = line[2:-2].strip()
+                # Company and dates line: **Company** | *dates*
+                if '|' in line and '**' in line and '*' in line and not current_job['company']:
+                    # Split by pipe to separate company and dates
+                    parts = line.split('|', 1)
+                    if len(parts) == 2:
+                        # Extract company (remove **)
+                        company_part = parts[0].strip()
+                        if company_part.startswith('**') and company_part.endswith('**'):
+                            current_job['company'] = company_part[2:-2].strip()
+
+                        # Extract dates (remove *)
+                        dates_part = parts[1].strip()
+                        if dates_part.startswith('*') and dates_part.endswith('*'):
+                            current_job['dates'] = dates_part[1:-1].strip()
                     i += 1
                     continue
 
-                # Dates (italic line)
-                if line.startswith('*') and line.endswith('*') and not current_job['dates']:
-                    current_job['dates'] = line[1:-1].strip()
-                    i += 1
-                    continue
-
-                # Description (bold line after dates)
-                if line.startswith('**') and line.endswith('**') and current_job['dates'] and not current_job['description']:
-                    current_job['description'] = line[2:-2].strip()
+                # Description (italic line after dates)
+                if line.startswith('*') and line.endswith('*') and not line.startswith('**') and current_job['dates'] and not current_job['description']:
+                    current_job['description'] = line[1:-1].strip()
                     i += 1
                     continue
 
@@ -201,20 +184,13 @@ class MarkdownParser:
                     i += 1
                     continue
 
-            # Collect paragraphs based on context
-            if current_section:
-                # If in a subsection, add to subsection paragraphs
-                if current_subsection:
-                    current_subsection['paragraphs'].append(line)
-                # If in prose section, add to section paragraphs
-                elif current_section['type'] == 'prose':
-                    current_section['paragraphs'].append(line)
+            # Collect paragraphs in prose sections
+            if current_section and current_section['type'] == 'prose':
+                current_section['paragraphs'].append(line)
 
             i += 1
 
         # Don't forget the last items
-        if current_subsection and current_section:
-            current_section['subsections'].append(current_subsection)
         if current_job and current_section:
             current_section['jobs'].append(current_job)
         if current_section:
@@ -236,132 +212,120 @@ class PDFGenerator:
         styles['Name'] = ParagraphStyle(
             'Name',
             fontName='Helvetica-Bold',
-            fontSize=16,
+            fontSize=12,
             alignment=TA_CENTER,
             textColor=HexColor('#000000'),
             spaceBefore=0,
             spaceAfter=0,
-            leading=18  # Line height
+            leading=15  # Line height
         )
 
         # Title/tagline - smaller, centered
         styles['Title'] = ParagraphStyle(
             'Title',
             fontName='Helvetica',
-            fontSize=11,
+            fontSize=8,
             alignment=TA_CENTER,
             textColor=HexColor('#333333'),
-            spaceBefore=6,
-            spaceAfter=6,
-            leading=13
+            spaceBefore=1,
+            spaceAfter=1,
+            leading=10
         )
 
         # Contact line - small, centered
         styles['Contact'] = ParagraphStyle(
             'Contact',
             fontName='Helvetica',
-            fontSize=9,
+            fontSize=6,
             alignment=TA_CENTER,
             textColor=HexColor('#555555'),
             spaceBefore=0,
-            spaceAfter=16,
-            leading=11
+            spaceAfter=5,
+            leading=6
         )
 
         # Section headers (H2)
         styles['SectionHeader'] = ParagraphStyle(
             'SectionHeader',
             fontName='Helvetica-Bold',
-            fontSize=12,
+            fontSize=11,
             alignment=TA_LEFT,
             textColor=HexColor('#000000'),
             spaceBefore=8,
             spaceAfter=8,
-            leading=14
-        )
-
-        # Subsection headers (H3 in non-Experience sections)
-        styles['SubsectionHeader'] = ParagraphStyle(
-            'SubsectionHeader',
-            fontName='Helvetica-Bold',
-            fontSize=10,
-            alignment=TA_LEFT,
-            textColor=HexColor('#000000'),
-            spaceBefore=6,
-            spaceAfter=4,
-            leading=12
+            leading=13
         )
 
         # Body text / paragraphs - SMALLER FONT, TIGHTER SPACING
         styles['Body'] = ParagraphStyle(
             'Body',
             fontName='Helvetica',
-            fontSize=9,
+            fontSize=8,
             alignment=TA_LEFT,
             textColor=HexColor('#333333'),
             spaceBefore=0,
             spaceAfter=4,
-            leading=12
+            leading=11
         )
 
         # Job title
         styles['JobTitle'] = ParagraphStyle(
             'JobTitle',
             fontName='Helvetica-Bold',
-            fontSize=11,
+            fontSize=9,
             alignment=TA_LEFT,
             textColor=HexColor('#000000'),
             spaceBefore=8,
             spaceAfter=2,
-            leading=13
+            leading=12
         )
 
         # Company name
         styles['Company'] = ParagraphStyle(
             'Company',
             fontName='Helvetica-Bold',
-            fontSize=10,
+            fontSize=8,
             alignment=TA_LEFT,
             textColor=HexColor('#333333'),
             spaceBefore=0,
             spaceAfter=1,
-            leading=12
+            leading=11
         )
 
         # Dates
         styles['Dates'] = ParagraphStyle(
             'Dates',
             fontName='Helvetica-Oblique',
-            fontSize=9,
+            fontSize=8,
             alignment=TA_LEFT,
             textColor=HexColor('#666666'),
             spaceBefore=0,
             spaceAfter=4,
-            leading=11
+            leading=10
         )
 
-        # Job description (bold summary) - SMALLER FONT
+        # Job description (italic summary) - SMALLER FONT
         styles['JobDescription'] = ParagraphStyle(
             'JobDescription',
-            fontName='Helvetica-Bold',
-            fontSize=9,
+            fontName='Helvetica-Oblique',
+            fontSize=8,
             alignment=TA_LEFT,
             textColor=HexColor('#000000'),
             spaceBefore=0,
             spaceAfter=4,
-            leading=11
+            leading=10
         )
 
         # Bullet points - SMALLER FONT
         styles['Bullet'] = ParagraphStyle(
             'Bullet',
             fontName='Helvetica',
-            fontSize=9,
+            fontSize=8,
             alignment=TA_LEFT,
             textColor=HexColor('#333333'),
             spaceBefore=0,
             spaceAfter=3,
-            leading=12,
+            leading=11,
             leftIndent=10,
             firstLineIndent=0
         )
@@ -393,6 +357,18 @@ class PDFGenerator:
 
         return text
 
+    def _add_page_number(self, canvas_obj, doc):
+        """Add page number at bottom right corner"""
+        page_num = canvas_obj.getPageNumber()
+        text = str(page_num)
+        canvas_obj.setFont('Helvetica', 8)
+        canvas_obj.setFillColor(HexColor('#666666'))
+        canvas_obj.drawRightString(
+            letter[0] - 0.4 * inch,  # Right margin
+            0.3 * inch,              # 0.3 inch from bottom
+            text
+        )
+
     def generate_pdf(self, filename='resume.pdf'):
         """Generate PDF"""
 
@@ -400,10 +376,10 @@ class PDFGenerator:
         doc = SimpleDocTemplate(
             filename,
             pagesize=letter,
-            rightMargin=0.75*inch,
-            leftMargin=0.75*inch,
-            topMargin=0.6*inch,
-            bottomMargin=0.6*inch,
+            rightMargin=0.4*inch,
+            leftMargin=0.4*inch,
+            topMargin=0.3*inch,
+            bottomMargin=0.4*inch,
             title="Resume",
             author=self.parser.name
         )
@@ -445,13 +421,15 @@ class PDFGenerator:
                         title_text = job['title']
                     story.append(Paragraph(title_text, self.styles['JobTitle']))
 
-                    # Company
-                    if job['company']:
-                        story.append(Paragraph(job['company'], self.styles['Company']))
-
-                    # Dates
-                    if job['dates']:
-                        story.append(Paragraph(job['dates'], self.styles['Dates']))
+                    # Company and dates on one line
+                    if job['company'] or job['dates']:
+                        company_dates_parts = []
+                        if job['company']:
+                            company_dates_parts.append(f"<b>{job['company']}</b>")
+                        if job['dates']:
+                            company_dates_parts.append(f'<i><font color="#666666">{job["dates"]}</font></i>')
+                        company_dates_text = " | ".join(company_dates_parts)
+                        story.append(Paragraph(company_dates_text, self.styles['Company']))
 
                     # Job description
                     if job['description']:
@@ -462,19 +440,8 @@ class PDFGenerator:
                         bullet_text = f"→ {self._format_text(bullet)}"
                         story.append(Paragraph(bullet_text, self.styles['Bullet']))
 
-            elif section['type'] == 'subsections':
-                # Render subsections
-                for subsection in section['subsections']:
-                    # Subsection header
-                    story.append(Paragraph(subsection['title'], self.styles['SubsectionHeader']))
-
-                    # Subsection paragraphs
-                    for paragraph in subsection['paragraphs']:
-                        formatted_text = self._format_text(paragraph)
-                        story.append(Paragraph(formatted_text, self.styles['Body']))
-
-        # Build PDF
-        doc.build(story)
+        # Build PDF with page numbers
+        doc.build(story, onFirstPage=self._add_page_number, onLaterPages=self._add_page_number)
         return filename
 
 

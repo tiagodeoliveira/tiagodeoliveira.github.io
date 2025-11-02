@@ -8,180 +8,104 @@
 
 ## What I Do
 
-I architect and personally build generative AI platforms that handle **tens of millions of concurrent requests**. Not just design—I write the proof of concepts, optimize the critical paths, and guide teams through implementation. Currently leading telecom-native GenAI initiatives that are redefining how billions of users will interact with AI.
+I solve the architectural problems that keep organizations from scaling. Not theoretical problems—the ones where teams are stuck, leadership is worried, and the wrong choice costs millions or 6 months.
 
-My approach: Frame the business problem → Build the POC myself → Architect for massive scale → Lead implementation → Optimize until it handles 10x the load. I code in Python, Go, Rust, JavaScript, and Java—whatever gets the job done best.
+My pattern: Understand the constraint that matters most → Frame the tradeoffs clearly → Build proof that changes the conversation → Design for 10x the load → Enable teams to execute without me becoming the bottleneck.
 
-From first principles thinking learned fixing trucks at age 8 to designing evolutionary AI platforms at AWS—I bring a unique perspective that simplifies complex problems and delivers measurable impact.
+Currently architecting telecom-native GenAI platforms serving tens of millions of concurrent users. Multi-modal systems (text/voice/image) where the real challenge isn't today's scale—it's building systems that evolve daily without platform rewrites. When major carriers need AI at network scale, the question is: "how do we build it so it doesn't become legacy in 6 months."
+
+I spent 19 years rebuilding truck transmissions before writing my first line of code. That's why I understand complex systems from first principles—every distributed system is just another machine with predictable failure modes you can debug and prevent.
+
+I learn new technologies fast — languages, frameworks, entire ecosystems — and ship production systems in weeks, not months. I've built at scale across AWS, Azure, private clouds, from serverless to Kubernetes to bare metal. The technology stack is the easy part. The hard part is knowing which problem actually needs solving.
 
 ---
 
 ## Experience
 
 ### Principal Solutions Architect | Generative AI Platforms
-**Amazon Web Services (AWS)**  
-*October 2024 - Present | Seattle, WA*
+**Amazon Web Services (AWS)** | *October 2024 - Present | Seattle, WA*
 
-**Leading telecom-native GenAI platform serving tens of millions of concurrent users**
+*Leading telecom-native GenAI platform serving tens of millions of concurrent users*
 
-→ Architecting multi-modal GenAI platform (text/voice/image) designed to handle unprecedented scale for major telecom operators, across multiple AWS regions, leveraging Amazon EKS and Amazon DynamoDB
+→ Invented evolutionary "manifest model" architecture - Major telecom operators faced a paradox: platforms rigid enough to handle tens of millions of concurrent users, yet flexible enough to add use-cases daily without rewrites. Traditional approaches forced choosing scale OR flexibility. The manifest model eliminated that tradeoff—use-case definitions live outside core infrastructure, enabling product teams to ship new AI capabilities independently. This architectural decision makes carrier-scale AI operationally viable.
 
-→ Invented evolutionary "manifest model" architecture enabling dynamic use-case definition without platform rewrites—solving the critical challenge of AI systems that must evolve daily
+→ Reduced troubleshooting time 25% by reframing the problem - Teams were drowning in device crashes, network logs, and customer profiles with no way to correlate. The breakthrough was recognizing this as a data architecture problem, not an AI model problem. Built real-time inference architecture that surfaces causation across previously siloed streams.
 
-→ Reduced telecom troubleshooting time by 25% through intelligent correlation of device crashes, network data, and customer profiles using real-time inference at massive scale
+→ Established reusable architectural patterns across the AWS stack - Reference architectures spanning SageMaker, ECS/EKS, Lambda, ElastiCache, and multi-region load balancing. Teams deploy production AI services in weeks instead of quarters because the hard decisions around scale, cost, and reliability are proven. When to use serverless vs. containers vs. managed ML isn't a debate—it's a decision tree with known tradeoffs.
 
-→ Full-cycle technical leadership: personally develop POCs, architect production systems, conduct hands-on code reviews, debug production issues, and guide teams through infrastructure automation using CDK/CloudFormation
+→ Direct technical influence at C-level and executive leadership - Working with VPs and Senior VPs at North America's largest telecom, where architectural decisions affect platforms serving hundreds of millions of subscribers. When critical bets need making—build vs. buy, multi-region strategy, AI model hosting — I build the proof that shifts executive conviction.
 
 ### Senior Product Architect | Computer Vision & AI
-**Amazon Web Services (AWS)**  
-*October 2021 - October 2024 | Austin, TX*
+**Amazon Web Services (AWS)** | *October 2021 - October 2024 | Austin, TX*
 
-**Built AI platform reducing investigation time by 35% for major security companies**
+*Built AI platform reducing investigation time by 35% for major security companies*
 
-→ Built edge-to-cloud continuum architecture leveraging MEC/AWS Outposts for near-edge processing and TFLite for embedded edge inference—Lambda-based control plane with auto-scaling Fargate data plane - handling 5,000+ predictions/second at sub-100ms latency
+→ Built video intelligence platform reducing security investigation time 35% - Solved the "too much footage, no insight" problem by architecting edge-to-cloud continuum (MEC/Outposts for near-edge, TFLite for embedded edge). 40% reduction in false-positive dispatches through intelligent multi-stream correlation and GenAI-powered summarization.
 
-→ Achieved 40% reduction in security personnel dispatch through intelligent video correlation across multiple streams with natural language querying using GenAI-powered summarization and RAG
+→ Pioneered CVOps framework that became the team's foundation - Personally coded initial Python/Rust implementation to prove the pattern, then established CI/CD and shared libraries enabling the team to scale independently.
 
-→ Pioneered CVOps framework—personally coding the initial implementation in Python/Rust before scaling to team development, establishing CI/CD patterns and shared libraries
-
-→ Created LLM-powered annotation system reducing manual labeling by 70% while improving model accuracy
-
-→ Built auto-scaling infrastructure with Fargate data plane and Lambda control plane, enabling seamless scaling from POC to production handling massive video processing workloads
+→ Achieved sub-100ms latency at 5,000+ predictions/second - Lambda control plane with auto-scaling Fargate data plane. Architecture handled seamless scaling from POC to production video processing workloads.
 
 ### Senior Solutions Architect | Industry 4.0 & Edge AI
-**Amazon Web Services (AWS)**  
-*May 2020 - October 2021 | Stuttgart, Germany*
+**Amazon Web Services (AWS)** | *May 2020 - October 2021 | Stuttgart, Germany*
 
-**Transformed manufacturing with edge-to-cloud AI achieving 99.99% reliability**
+*Transformed manufacturing with edge-to-cloud AI achieving 99.99% reliability*
 
-→ Architected and personally implemented POCs for predictive maintenance platforms reducing downtime by 35%
+→ Solved the "cloud latency kills production lines" problem - Manufacturing control systems needed millisecond response times. Architected edge computing framework keeping critical decisions local while maintaining cloud connectivity for analytics. 99.99% reliability, 35% reduction in unplanned downtime.
 
-→ Built real-time control systems reducing latency from seconds to milliseconds through custom edge computing frameworks
+→ Built IoT fleet management for 10,000+ heterogeneous industrial endpoints - The challenge was enabling modern AI/ML on decades-old legacy machinery that couldn't be replaced. Created abstraction layer bridging legacy equipment with cloud intelligence.
 
-→ Hands-on development of IoT device fleet management for 10,000+ industrial endpoints
-
-→ Delivered 40% infrastructure cost reduction while maintaining strict compliance requirements
+→ Reduced robot safety incidents through simulation, not sensors - Robotic arms with fixed routes became hazards as human behavior evolved. Architectural insight: optimize routes in the cloud where you can simulate thousands of variations. Built ROS-based system learning from human patterns and generating collision-free routes automatically. 33% reduction in space invasion, 21% fewer safety stops.
 
 ### Principal Software Engineer | Platform Architecture
-**Mercedes-Benz.io**  
-*September 2018 - April 2020 | Stuttgart, Germany*
+**Mercedes-Benz.io** | *September 2018 - May 2020 | Stuttgart, Germany*
 
-**Built the technical foundation for Mercedes-Benz's global digital transformation**
+*Built the technical foundation for Mercedes-Benz's global digital transformation*
 
-→ Architected and coded initial version of Vehicle Product Platform serving 60+ global markets, implementing infrastructure as code using CloudFoundry for repeatable deployment patterns
+→ Solved the "every department needs a different view of the vehicle" problem through event sourcing - Legacy system required manual view creation and individual integrations per department. Architected event-sourcing platform (Lambda, containers, S3, DynamoDB, EventBridge, ElastiCache) creating unified vehicle state across all lifecycle stages. Any department could materialize their own view from the same event stream with query flexibility. 47% cost reduction by eliminating manual integration and view maintenance. Deployment velocity from months to days.
 
-→ Personally developed high-performance pricing engine processing 1,000+ evaluations/second using serverless architecture
-
-→ Implemented machine learning pipelines on decades of sales data using Python and AWS SageMaker
-
-→ Pioneered Hypothesis-Driven Development—building production MLPs to validate before scaling
-
-→ 47% cost reduction, months-to-days deployment velocity improvement
+→ Pioneered Hypothesis-Driven Development for ML - Built production-grade MVPs to validate before scaling full pipelines. High-performance pricing engine processing 1,000+ evaluations/second on decades of sales data proved the pattern works under real load.
 
 ### Senior Staff Software Engineer | Security & IoT
-**OSRAM**  
-*April 2018 - September 2018 | Berlin, Germany*
+**OSRAM** | *April 2018 - September 2018 | Berlin, Germany*
 
-→ Architected and implemented zero-trust IoT security infrastructure from scratch using Azure with Terraform for infrastructure automation
-
-→ Built custom OAuth 2.0/OpenID Connect extensions for fine-grained device permissions
-
-→ Hands-on cryptographic implementation with HSM integration for key management
+→ Architected zero-trust IoT security from scratch - Built custom OAuth 2.0/OpenID Connect extensions for fine-grained device permissions with HSM-backed cryptography. Azure infrastructure with Terraform automation.
 
 ### Senior Staff Software Engineer | FinTech Platform
-**PayU**  
-*May 2017 - March 2018 | Berlin, Germany*
+**PayU** | *May 2017 - April 2018 | Berlin, Germany*
 
-**Built fraud detection AI processing millions of transactions daily across 14 markets**
+→ Consolidated 14 markets' payment reconciliation into single serverless platform - Each market was running independent reconciliation infrastructure and processes—expensive and duplicated effort. The architectural challenge was data engineering: normalizing disparate formats from banks, merchants, and acquirers across markets into a common model. Serverless architecture auto-scaled for any market's reconciliation jobs and scaled to zero when idle. 60% cost reduction from consolidation and elastic scaling.
 
-→ Architected multi-cloud infrastructure using Terraform with custom modules for private cloud integration, managing infrastructure across AWS and on-premises data centers
-
-→ Developed ML-based fraud detection system with weekly autonomous retraining—personally coded the initial Python implementation
-
-→ Architected serverless platform reducing costs by 60% while handling massive transaction volumes
-
-→ Built reconciliation engine harmonizing disparate data streams from banks, merchants, and acquirers
+→ Built ML-based fraud detection with autonomous weekly retraining - Fraud patterns evolve faster than manual model updates. Architected pipeline handling millions of daily transactions across all markets.
 
 ### Senior Software Architect | AgTech IoT
-**e-Core**  
-*February 2016 - March 2017 | Porto Alegre, Brazil*
+**e-Core** | *February 2016 - May 2017 | Porto Alegre, Brazil*
 
-**Military-grade IoT platform for agricultural machinery**
+*Military-grade IoT platform for agricultural machinery*
 
-→ Pioneered Erlang for distributed systems—achieving sub-millisecond latency for critical operations
+→ Built near-realtime auth platform without sacrificing security - IoT devices needed sub-millisecond authorization, but military-grade requirements meant standard approaches were too slow or too weak. Implemented custom nonce calculation on mutual TLS using Erlang and RabbitMQ—contributed plugin back to RabbitMQ project. Built air-gapped firmware signing process using Yubikey hardware API (libuv) for supply chain integrity. 30% infrastructure cost reduction through protocol optimization.
 
-→ Implemented formal verification for cryptographic functions using mathematical proofs
-
-→ Built machine-to-machine pairing for grain transfer with sub-meter GPS accuracy using Heroku infrastructure as code
-
-→ 30% infrastructure cost reduction through deep protocol optimization
-
-### Principal Software Engineer | Mobile Platforms
-**Zenvia Mobile**  
-*December 2014 - February 2016 | Porto Alegre, Brazil*
-
-→ Architected platforms handling millions of users with unpredictable traffic spikes
-
-→ Pioneer of Docker containerization for both testing and production deployments
-
-→ Built the "FireFighter" rotation system and escalation matrix for distributed support — still in use today
-
-### Senior Software Engineer | Enterprise Systems
-**Dell Technologies**  
-*October 2013 - December 2014*
-
-→ First recipient of "Application Development Quality Award" for removing thousands of lines of dead code
-
-→ Selected for Agile Committee—one of first teams successfully implementing SCRUM at Dell
+→ Orchestrated autonomous machine-to-machine coordination - Harvesters and grain carts needed to communicate directly for autonomous operation (approach, align, transfer grain, signal when full, separate), then transition to manual control. Built MQTT-based handshake mechanism matching certificates and nonces, enabling machines to coordinate with sub-meter GPS accuracy. The challenge was the state machine across autonomous/manual transitions.
 
 ### Early Career Foundation
-**Nokia Solutions and Networks | NewFocus Sistemas | Incrosolda Serviços e Mecânica**
-*2000 - 2013*
+**Incrosolda Serviços e Mecânica - NewFocus - Nokia NSN - Zenvia Mobile - Dell technologies** | *1994 - 2016*
 
-→ 13 years as truck mechanic—developed first principles thinking and systems understanding
+→ Bridged physical and digital systems before the software career - Started at age 8 as truck mechanic, spent years automating industrial machinery using PLCs, PIC MCUs, and Arduinos. Built digital controllers interfacing with mechanical, hydraulic, and pneumatic systems for wood processing, tube bending, and food manufacturing. Edge computing and IoT came naturally—I was already solving hardware/software integration at industrial scale.
 
-→ Self-funded transition to software engineering while supporting family and paying off debt
+→ Built ERP integrations connecting software to physical operations - At NewFocus, customized ERP modules for real-world integration: PDAs tracking truck departures, weighing systems feeding load data, connecting factory floor operations to business systems. Solved the "last mile" problem of getting physical world data into digital systems.
 
-→ Built automation systems and manufacturing machines before pivoting to software
+→ Pioneered early web and containerization architectures - At Dell, built Single Page Application with server-side JavaScript rendering via Java Nashorn—years before React SSR. At Zenvia, dockerized applications for unpredictable SMS traffic spikes when Docker was pre-1.0 (2014), enabling seamless vertical scaling for millions of users.
 
----
-
-## What I Build
-
-### Generative AI at Massive Scale
-Multi-modal platforms (text/voice/image/video) handling tens of millions concurrent requests. Real-time inference systems with sub-100ms latency. Evolutionary architectures that adapt without rewrites. RAG implementations that actually work in production.
-
-### Platform Engineering & Infrastructure
-Multi-region Kubernetes orchestration. Edge-to-cloud continuum architectures. Infrastructure as code across Terraform, CDK, CloudFormation, CloudFoundry, Heroku. ML-based proactive alerting systems. OpenTelemetry observability stacks. Developer tooling, shared libraries, and CI/CD pipelines enabling teams to scale from POC to production.
-
-### Production Systems That Don't Break
-99.99% reliability for mission-critical systems. From POC to production in 6 months or less. Infrastructure that costs 40-60% less while handling 10x the load. Security that passes military-grade audits.
-
-### Code in Whatever Gets the Job Done
-→ **Daily drivers:** Python (AI/ML), Go (high-performance services), Rust (edge/embedded)  
-→ **Also fluent in:** JavaScript/TypeScript, Java, Erlang  
-→ **Frameworks:** Everything AWS, Kubernetes, Serverless, PyTorch, LangChain, Vector DBs
-
----
-
-## Why I'm Different
-
-**I build what I design.** No ivory tower architecture—I write the POCs, optimize the critical paths, and debug production issues at 3 AM.
-
-**First principles from fixing trucks.** 13 years as a mechanic taught me how systems really work. Every complex system can be understood, debugged, and improved.
-
-**Scale isn't theoretical to me.** I've built systems serving millions. When I say "massive scale" I mean it—not slides, actual running code.
-
-**Fast learner.** New framework? Give me a weekend. New domain? Give me a week. I learn by building, not reading.
-
-**Humble despite the resume.** Started at the bottom, earned everything through grit. I know everyone has something to teach me.
+→ Created operational frameworks still in use - Built personnel safety system using cellular triangulation at Nokia Siemens. Created L1/L2/L3 escalation and "FireFighter" on-duty rotation at Zenvia when DevOps culture didn't exist—framework still operational today.
 
 ---
 
 ## Education & Skills
 
-**Mechanical Engineer (incomplete)** | UnoChapecó
+→ **Bachelor of Technology, Information Technology** | Universidade do Oeste de Santa Catarina
 
-**Bachelor of Technology, Information Technology** | Universidade do Oeste de Santa Catarina
+→ **Post-Graduate Specialization, Software Development with Java** | Universidade do Oeste de Santa Catarina
 
-**Languages:** English (Native), Portuguese (Native), Spanish (Professional), German (Conversational), Italian (Basic)
+→ **Mechanical Engineer (incomplete)** | UnoChapecó
+
+→ **Languages:** English (Native), Portuguese (Native), Spanish (Professional), German (Conversational), Italian (Basic)
