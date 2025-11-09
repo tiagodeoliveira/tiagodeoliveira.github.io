@@ -22,12 +22,12 @@ I learn new technologies fast — languages, frameworks, entire ecosystems — a
 
 ## Experience
 
-### Principal Solutions Architect | Generative AI Platforms
+### Principal Architect | Generative AI Platforms
 **Amazon Web Services (AWS)** | *October 2024 - Present | Seattle, WA*
 
 *Leading telecom-native GenAI platform serving tens of millions of concurrent users*
 
-→ Invented evolutionary "manifest model" architecture - Major telecom operators faced a paradox: platforms rigid enough to handle tens of millions of concurrent users, yet flexible enough to add use-cases daily without rewrites. Traditional approaches forced choosing scale OR flexibility. The manifest model eliminated that tradeoff—use-case definitions live outside core infrastructure, enabling product teams to ship new AI capabilities independently. This architectural decision makes carrier-scale AI operationally viable.
+→ Invented evolutionary "manifest model" architecture - Major telecom operators face a paradox: platforms rigid enough to handle tens of millions of concurrent users, yet flexible enough to add use-cases daily without rewrites. Traditional approaches forced choosing scale OR flexibility. The manifest model eliminated that tradeoff—use-case definitions live outside core infrastructure, enabling product teams to ship new AI capabilities independently. This architectural decision makes carrier-scale AI operationally viable.
 
 → Reduced troubleshooting time 25% by reframing the problem - Teams were drowning in device crashes, network logs, and customer profiles with no way to correlate. The breakthrough was recognizing this as a data architecture problem, not an AI model problem. Built real-time inference architecture that surfaces causation across previously siloed streams.
 
