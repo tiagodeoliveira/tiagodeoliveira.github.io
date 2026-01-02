@@ -68,6 +68,12 @@
           const html = marked.parse(markdown);
           appDiv.innerHTML = html;
 
+          // Add back button at the bottom
+          const backFooter = document.createElement('div');
+          backFooter.className = 'post-footer';
+          backFooter.innerHTML = '<a href="#" onclick="navigate(\'/\'); return false;">← Back to home</a>';
+          appDiv.appendChild(backFooter);
+
           const h1 = appDiv.querySelector('h1');
           const pageTitle = h1 ? h1.textContent : route.replace(/([A-Z])/g, ' $1').trim();
           document.title = `${pageTitle} | Tiago Oliveira`;
@@ -127,9 +133,26 @@
         <!-- Decorative gear element -->
         <div class="hero-deco hero-deco-left">
           <svg viewBox="0 0 100 100" class="gear-icon">
-            <path d="M50 30 L53 10 L47 10 Z M50 70 L53 90 L47 90 Z M30 50 L10 53 L10 47 Z M70 50 L90 53 L90 47 Z M35.9 35.9 L21.7 21.7 L26 17.4 L40.2 31.6 Z M64.1 64.1 L78.3 78.3 L74 82.6 L59.8 68.4 Z M35.9 64.1 L21.7 78.3 L26 82.6 L40.2 68.4 Z M64.1 35.9 L78.3 21.7 L74 17.4 L59.8 31.6 Z" fill="currentColor"/>
-            <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="6"/>
-            <circle cx="50" cy="50" r="8" fill="currentColor"/>
+            <!-- Gear teeth (8 teeth, properly shaped) -->
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor"/>
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(45 50 50)"/>
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(90 50 50)"/>
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(135 50 50)"/>
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(180 50 50)"/>
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(225 50 50)"/>
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(270 50 50)"/>
+            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(315 50 50)"/>
+            <!-- Main gear body -->
+            <circle cx="50" cy="50" r="32" fill="currentColor"/>
+            <!-- Inner ring cutout -->
+            <circle cx="50" cy="50" r="20" fill="#1a1e23"/>
+            <!-- Spokes -->
+            <rect x="48" y="30" width="4" height="40" fill="currentColor"/>
+            <rect x="30" y="48" width="40" height="4" fill="currentColor"/>
+            <!-- Center hub -->
+            <circle cx="50" cy="50" r="10" fill="currentColor"/>
+            <!-- Center axle hole -->
+            <circle cx="50" cy="50" r="4" fill="#1a1e23"/>
           </svg>
         </div>
 
@@ -233,13 +256,6 @@
 
     <!-- Content Area -->
     <div id="app"></div>
-
-    <!-- Legacy navigation (hidden, kept for fallback) -->
-    <nav id="navigation" style="display:none;">
-      <a href="#journey" onclick="navigate('journey'); return false;">Journey</a>
-      <a href="#resume" onclick="navigate('resume'); return false;">Resume</a>
-      <a href="#philosophy" onclick="navigate('philosophy'); return false;">Philosophy</a>
-    </nav>
   </div>
 </body>
 

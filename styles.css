@@ -268,8 +268,8 @@ body {
 }
 
 @keyframes gearSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
 }
 
 @keyframes circuitPulse {
@@ -508,7 +508,7 @@ section img {
   width: 120px;
   height: 120px;
   color: var(--rust-warm);
-  animation: gearSpin 20s linear infinite;
+  animation: gearSpin 4s ease-in-out infinite;
 }
 
 .circuit-icon {
@@ -709,16 +709,30 @@ section img {
   color: var(--rust-warm);
 }
 
-/* ============================================
-   OLD NAVIGATION (hidden)
-   ============================================ */
+/* Post footer - back button at bottom */
+.post-footer {
+  margin-top: 48px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border-dark);
+}
 
-#navigation {
-  display: none;
+.post-footer a {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-footer a:hover {
+  color: var(--rust-warm);
 }
 
 /* ============================================
-   CONTENT AREA - JOURNEY/WORK/PHILOSOPHY
+   CONTENT AREA
    ============================================ */
 
 #app {
