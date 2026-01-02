@@ -6,22 +6,27 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Personal website of Tiago Oliveira, Principal Engineer at AWS. Resume, career journey, and technical insights." />
+  <meta name="description" content="Tiago Oliveira - Principal Solutions Architect at AWS. From truck mechanic to cloud architect. 30 years of systems thinking." />
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tiago.sh/" />
   <meta property="og:title" content="Tiago Oliveira" />
-  <meta property="og:description" content="Personal website of Tiago Oliveira, Principal Engineer at AWS. Resume, career journey, and technical insights." />
+  <meta property="og:description" content="Principal Solutions Architect at AWS. From truck mechanic to cloud architect. 30 years of systems thinking." />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary" />
   <meta property="twitter:url" content="https://tiago.sh/" />
   <meta property="twitter:title" content="Tiago Oliveira" />
-  <meta property="twitter:description" content="Personal website of Tiago Oliveira, Principal Engineer at AWS. Resume, career journey, and technical insights." />
+  <meta property="twitter:description" content="Principal Solutions Architect at AWS. From truck mechanic to cloud architect. 30 years of systems thinking." />
+
+  <!-- Distinctive Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/styles.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
   <link rel="canonical" href="https://tiago.sh/" />
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -34,26 +39,23 @@
       dataLayer.push(arguments);
     }
     gtag("js", new Date());
-
     gtag("config", "G-7M5FKY4BTZ");
   </script>
   <script>
     function navigate(route) {
-
       const appDiv = document.getElementById('app');
       const filePath = `posts/${route}.md`;
       const postHeader = document.getElementById('post-header');
-      const navigationSection = document.getElementById('navigation');
+      const homeSection = document.getElementById('home-section');
 
       if (route === '/') {
         history.pushState({ route }, '', `#${route}`);
         appDiv.innerHTML = '';
         postHeader.style.display = 'none';
-        navigationSection.style.display = 'inline-block';
+        homeSection.style.display = 'block';
         document.title = 'Tiago Oliveira';
         return;
       }
-
 
       fetch(filePath)
         .then(response => {
@@ -63,7 +65,7 @@
           return response.text();
         })
         .then(markdown => {
-          const html = marked.parse(markdown);  // Convert markdown to HTML
+          const html = marked.parse(markdown);
           appDiv.innerHTML = html;
 
           const h1 = appDiv.querySelector('h1');
@@ -71,14 +73,14 @@
           document.title = `${pageTitle} | Tiago Oliveira`;
 
           history.pushState({ route }, '', `#${route}`);
-          postHeader.style.display = (route !== '/') ? 'block' : 'none';
-          navigationSection.style.display = (route === '/') ? 'inline-block' : 'none';
+          postHeader.style.display = 'block';
+          homeSection.style.display = 'none';
         })
         .catch(err => {
           appDiv.innerHTML = `<h2>404</h2><p>Page not found.</p>`;
           document.title = '404 | Tiago Oliveira';
           postHeader.style.display = 'block';
-          navigationSection.style.display = 'none';
+          homeSection.style.display = 'none';
         });
     }
 
@@ -93,34 +95,151 @@
         navigate(route);
       }
     };
-
   </script>
 </head>
 
 <body>
+  <!-- Blueprint Grid Background -->
+  <div class="blueprint-bg">
+    <div class="scan-line"></div>
+    <div class="scan-line"></div>
+    <div class="scan-line-v"></div>
+    <div class="scan-line-v"></div>
+    <div class="grid-pulse"></div>
+    <div class="grid-pulse"></div>
+    <div class="grid-pulse"></div>
+    <div class="grid-pulse"></div>
+    <div class="grid-pulse"></div>
+    <div class="grid-pulse"></div>
+    <div class="corner-mark top-left"></div>
+    <div class="corner-mark top-right"></div>
+    <div class="corner-mark bottom-left"></div>
+    <div class="corner-mark bottom-right"></div>
+  </div>
+
+  <!-- Noise texture overlay -->
+  <div class="noise-overlay"></div>
+
   <div class="wrapper">
-    <section>
-      <div id="title">
-        <h1>
-          <a id="sitename" href="https://tiago.sh/">Tiago Oliveira</a>
-          <br />
-          <a target="_blank" id="email-ic" href="mailto:tiago@tiago.sh"><i class="fa fa-envelope-o"></i></a>
-          <a target="_blank" id="git-ic" href="https://github.com/tiagodeoliveira"><i class="fa fa-github"></i></a>
-          <a target="_blank" id="linkedin-ic" href="https://www.linkedin.com/in/tiagode/"><i
-              class="fa fa-linkedin"></i></a>
-        </h1>
+    <!-- Home Section -->
+    <section id="home-section">
+      <div class="home-hero">
+        <!-- Decorative gear element -->
+        <div class="hero-deco hero-deco-left">
+          <svg viewBox="0 0 100 100" class="gear-icon">
+            <path d="M50 30 L53 10 L47 10 Z M50 70 L53 90 L47 90 Z M30 50 L10 53 L10 47 Z M70 50 L90 53 L90 47 Z M35.9 35.9 L21.7 21.7 L26 17.4 L40.2 31.6 Z M64.1 64.1 L78.3 78.3 L74 82.6 L59.8 68.4 Z M35.9 64.1 L21.7 78.3 L26 82.6 L40.2 68.4 Z M64.1 35.9 L78.3 21.7 L74 17.4 L59.8 31.6 Z" fill="currentColor"/>
+            <circle cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="6"/>
+            <circle cx="50" cy="50" r="8" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="hero-content">
+          <div class="hero-label anim-fade-in">First-principles systems builder</div>
+          <h1 class="hero-name anim-fade-in anim-delay-1">TIAGO OLIVEIRA</h1>
+          <div class="hero-tagline anim-fade-in anim-delay-2">
+            <span class="tagline-rust">30 years of systems thinking</span>
+            <span class="tagline-divider">//</span>
+            <span class="tagline-blue">from diesel engines to distributed systems</span>
+          </div>
+          <p class="hero-subtitle anim-fade-in anim-delay-3">
+           Bridging domains others avoid: mechanical to software, operations to computer vision, telephony to AI. 
+           Same systems thinking, different tools!
+          </p>
+          <div class="hero-icons anim-fade-in anim-delay-4">
+            <a target="_blank" href="mailto:tiago@tiago.sh" title="Email" class="icon-link">
+              <i class="fa-regular fa-envelope"></i>
+            </a>
+            <a target="_blank" href="https://github.com/tiagodeoliveira" title="GitHub" class="icon-link">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a target="_blank" href="https://www.linkedin.com/in/tiagode/" title="LinkedIn" class="icon-link">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Decorative circuit element -->
+        <div class="hero-deco hero-deco-right">
+          <svg viewBox="0 0 100 100" class="circuit-icon">
+            <circle cx="50" cy="50" r="6" fill="currentColor"/>
+            <circle cx="20" cy="20" r="4" fill="currentColor"/>
+            <circle cx="80" cy="20" r="4" fill="currentColor"/>
+            <circle cx="20" cy="80" r="4" fill="currentColor"/>
+            <circle cx="80" cy="80" r="4" fill="currentColor"/>
+            <path d="M50 44 L50 20 L24 20 M50 44 L50 20 L76 20 M50 56 L50 80 L24 80 M50 56 L50 80 L76 80 M44 50 L20 50 L20 24 M56 50 L80 50 L80 24 M44 50 L20 50 L20 76 M56 50 L80 50 L80 76" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="nav-cards">
+        <a class="nav-card anim-slide-up anim-delay-3" href="#journey" onclick="navigate('journey'); return false;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 8V4l8 8-8 8v-4H4V8h8z" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="4" cy="12" r="2" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title">Journey</div>
+            <p class="card-desc">From truck mechanic to cloud architect—the story of systems thinking</p>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+        <a class="nav-card anim-slide-up anim-delay-4" href="#philosophy" onclick="navigate('philosophy'); return false;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title">Philosophy</div>
+            <p class="card-desc">First principles from the shop floor—how I think about problems</p>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
+        <a class="nav-card anim-slide-up anim-delay-5" href="#resume" onclick="navigate('resume'); return false;">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="2" width="16" height="20" rx="2"/>
+              <path d="M8 6h8M8 10h8M8 14h5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="card-content">
+            <div class="card-title">Resume</div>
+            <p class="card-desc">Career timeline, technical expertise, and achievements</p>
+          </div>
+          <div class="card-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </div>
+        </a>
       </div>
     </section>
 
+    <!-- Back Navigation (shown on content pages) -->
     <div id="post-header" style="display:none;">
       <a href="#" onclick="navigate('/'); return false;">← Back</a>
     </div>
-    <nav id="navigation">
+
+    <!-- Content Area -->
+    <div id="app"></div>
+
+    <!-- Legacy navigation (hidden, kept for fallback) -->
+    <nav id="navigation" style="display:none;">
+      <a href="#journey" onclick="navigate('journey'); return false;">Journey</a>
       <a href="#resume" onclick="navigate('resume'); return false;">Resume</a>
-      <a href="#aboutlifecareerandhappiness" onclick="navigate('aboutlifecareerandhappiness'); return false;">About Life, Career and Happiness</a>
+      <a href="#philosophy" onclick="navigate('philosophy'); return false;">Philosophy</a>
     </nav>
-    <div id="app">
-    </div>
   </div>
 </body>
 
