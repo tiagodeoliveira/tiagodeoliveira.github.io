@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -28,83 +28,27 @@
   <link rel="stylesheet" href="/styles.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
   <link rel="canonical" href="https://tiago.sh/" />
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <title>Tiago Oliveira</title>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7M5FKY4BTZ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
+    function gtag() { dataLayer.push(arguments); }
     gtag("js", new Date());
     gtag("config", "G-7M5FKY4BTZ");
-  </script>
-  <script>
-    function navigate(route) {
-      const appDiv = document.getElementById('app');
-      const filePath = `posts/${route}.md`;
-      const postHeader = document.getElementById('post-header');
-      const homeSection = document.getElementById('home-section');
-
-      if (route === '/') {
-        history.pushState({ route }, '', `#${route}`);
-        appDiv.innerHTML = '';
-        postHeader.style.display = 'none';
-        homeSection.style.display = 'block';
-        document.title = 'Tiago Oliveira';
-        return;
-      }
-
-      fetch(filePath)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Page not found');
-          }
-          return response.text();
-        })
-        .then(markdown => {
-          const html = marked.parse(markdown);
-          appDiv.innerHTML = html;
-
-          // Add back button at the bottom
-          const backFooter = document.createElement('div');
-          backFooter.className = 'post-footer';
-          backFooter.innerHTML = '<a href="#" onclick="navigate(\'/\'); return false;">← Back to home</a>';
-          appDiv.appendChild(backFooter);
-
-          const h1 = appDiv.querySelector('h1');
-          const pageTitle = h1 ? h1.textContent : route.replace(/([A-Z])/g, ' $1').trim();
-          document.title = `${pageTitle} | Tiago Oliveira`;
-
-          history.pushState({ route }, '', `#${route}`);
-          postHeader.style.display = 'block';
-          homeSection.style.display = 'none';
-        })
-        .catch(err => {
-          appDiv.innerHTML = `<h2>404</h2><p>Page not found.</p>`;
-          document.title = '404 | Tiago Oliveira';
-          postHeader.style.display = 'block';
-          homeSection.style.display = 'none';
-        });
-    }
-
-    window.onpopstate = function (event) {
-      const route = (event.state && event.state.route) || '/';
-      navigate(route);
-    };
-
-    window.onload = function () {
-      const route = window.location.hash.replace('#', '') || '/';
-      if (route !== '/') {
-        navigate(route);
-      }
-    };
   </script>
 </head>
 
 <body>
+  <!-- Fixed Navigation -->
+  <nav class="fixed-nav" id="fixedNav">
+    <a href="#hero" class="nav-link active" data-section="hero">Home</a>
+    <a href="#journey" class="nav-link" data-section="journey">Journey</a>
+    <a href="#philosophy" class="nav-link" data-section="philosophy">Philosophy</a>
+    <a href="#resume" class="nav-link" data-section="resume">Resume</a>
+  </nav>
+
   <!-- Blueprint Grid Background -->
   <div class="blueprint-bg">
     <div class="scan-line"></div>
@@ -126,137 +70,503 @@
   <!-- Noise texture overlay -->
   <div class="noise-overlay"></div>
 
-  <div class="wrapper">
-    <!-- Home Section -->
-    <section id="home-section">
-      <div class="home-hero">
-        <!-- Decorative gear element -->
-        <div class="hero-deco hero-deco-left">
-          <svg viewBox="0 0 100 100" class="gear-icon">
-            <!-- Gear teeth (8 teeth, properly shaped) -->
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor"/>
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(45 50 50)"/>
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(90 50 50)"/>
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(135 50 50)"/>
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(180 50 50)"/>
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(225 50 50)"/>
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(270 50 50)"/>
-            <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(315 50 50)"/>
-            <!-- Main gear body -->
-            <circle cx="50" cy="50" r="32" fill="currentColor"/>
-            <!-- Inner ring cutout -->
-            <circle cx="50" cy="50" r="20" fill="#1a1e23"/>
-            <!-- Spokes -->
-            <rect x="48" y="30" width="4" height="40" fill="currentColor"/>
-            <rect x="30" y="48" width="40" height="4" fill="currentColor"/>
-            <!-- Center hub -->
-            <circle cx="50" cy="50" r="10" fill="currentColor"/>
-            <!-- Center axle hole -->
-            <circle cx="50" cy="50" r="4" fill="#1a1e23"/>
-          </svg>
-        </div>
-
-        <div class="hero-content">
-          <div class="hero-label anim-fade-in">First-principles systems builder</div>
-          <h1 class="hero-name anim-fade-in anim-delay-1">TIAGO OLIVEIRA</h1>
-          <div class="hero-tagline anim-fade-in anim-delay-2">
-            <span class="tagline-rust">30 years of systems thinking</span>
-            <span class="tagline-divider">//</span>
-            <span class="tagline-blue">from diesel engines to distributed systems</span>
-          </div>
-          <p class="hero-subtitle anim-fade-in anim-delay-3">
-           Bridging domains others avoid: mechanical to software, operations to computer vision, telephony to AI. 
-           Same systems thinking, different tools!
-          </p>
-          <div class="hero-icons anim-fade-in anim-delay-4">
-            <a target="_blank" href="mailto:tiago@tiago.sh" title="Email" class="icon-link">
-              <i class="fa-regular fa-envelope"></i>
-            </a>
-            <a target="_blank" href="https://github.com/tiagodeoliveira" title="GitHub" class="icon-link">
-              <i class="fa-brands fa-github"></i>
-            </a>
-            <a target="_blank" href="https://www.linkedin.com/in/tiagode/" title="LinkedIn" class="icon-link">
-              <i class="fa-brands fa-linkedin-in"></i>
-            </a>
-          </div>
-        </div>
-
-        <!-- Decorative circuit element -->
-        <div class="hero-deco hero-deco-right">
-          <svg viewBox="0 0 100 100" class="circuit-icon">
-            <circle cx="50" cy="50" r="6" fill="currentColor"/>
-            <circle cx="20" cy="20" r="4" fill="currentColor"/>
-            <circle cx="80" cy="20" r="4" fill="currentColor"/>
-            <circle cx="20" cy="80" r="4" fill="currentColor"/>
-            <circle cx="80" cy="80" r="4" fill="currentColor"/>
-            <path d="M50 44 L50 20 L24 20 M50 44 L50 20 L76 20 M50 56 L50 80 L24 80 M50 56 L50 80 L76 80 M44 50 L20 50 L20 24 M56 50 L80 50 L80 24 M44 50 L20 50 L20 76 M56 50 L80 50 L80 76" fill="none" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </div>
-      </div>
-
-      <div class="nav-cards">
-        <a class="nav-card anim-slide-up anim-delay-3" href="#journey" onclick="navigate('journey'); return false;">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 8V4l8 8-8 8v-4H4V8h8z" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="4" cy="12" r="2" fill="currentColor" stroke="none"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <div class="card-title">Journey</div>
-            <p class="card-desc">From truck mechanic to cloud architect—the story of systems thinking</p>
-          </div>
-          <div class="card-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </div>
-        </a>
-        <a class="nav-card anim-slide-up anim-delay-4" href="#philosophy" onclick="navigate('philosophy'); return false;">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <div class="card-title">Philosophy</div>
-            <p class="card-desc">First principles from the shop floor—how I think about problems</p>
-          </div>
-          <div class="card-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </div>
-        </a>
-        <a class="nav-card anim-slide-up anim-delay-5" href="#resume" onclick="navigate('resume'); return false;">
-          <div class="card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="4" y="2" width="16" height="20" rx="2"/>
-              <path d="M8 6h8M8 10h8M8 14h5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="card-content">
-            <div class="card-title">Resume</div>
-            <p class="card-desc">Career timeline, technical expertise, and achievements</p>
-          </div>
-          <div class="card-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <!-- Back Navigation (shown on content pages) -->
-    <div id="post-header" style="display:none;">
-      <a href="#" onclick="navigate('/'); return false;">← Back</a>
-    </div>
-
-    <!-- Content Area -->
-    <div id="app"></div>
+  <!-- Parallax decorative layers -->
+  <div class="parallax-layer parallax-gears" id="parallaxGears">
+    <svg class="parallax-gear gear-1" viewBox="0 0 100 100">
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(45 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(90 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(135 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(180 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(225 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(270 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(315 50 50)"/>
+      <circle cx="50" cy="50" r="32" fill="currentColor"/>
+      <circle cx="50" cy="50" r="20" fill="#1a1e23"/>
+      <rect x="48" y="30" width="4" height="40" fill="currentColor"/>
+      <rect x="30" y="48" width="40" height="4" fill="currentColor"/>
+      <circle cx="50" cy="50" r="10" fill="currentColor"/>
+      <circle cx="50" cy="50" r="4" fill="#1a1e23"/>
+    </svg>
+    <svg class="parallax-gear gear-2" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="6" fill="currentColor"/>
+      <circle cx="20" cy="20" r="4" fill="currentColor"/>
+      <circle cx="80" cy="20" r="4" fill="currentColor"/>
+      <circle cx="20" cy="80" r="4" fill="currentColor"/>
+      <circle cx="80" cy="80" r="4" fill="currentColor"/>
+      <path d="M50 44 L50 20 L24 20 M50 44 L50 20 L76 20 M50 56 L50 80 L24 80 M50 56 L50 80 L76 80 M44 50 L20 50 L20 24 M56 50 L80 50 L80 24 M44 50 L20 50 L20 76 M56 50 L80 50 L80 76" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <svg class="parallax-gear gear-3" viewBox="0 0 100 100">
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(60 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(120 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(180 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(240 50 50)"/>
+      <path d="M46 8 L54 8 L56 18 L44 18 Z" fill="currentColor" transform="rotate(300 50 50)"/>
+      <circle cx="50" cy="50" r="28" fill="currentColor"/>
+      <circle cx="50" cy="50" r="16" fill="#1a1e23"/>
+      <circle cx="50" cy="50" r="8" fill="currentColor"/>
+      <circle cx="50" cy="50" r="3" fill="#1a1e23"/>
+    </svg>
+    <svg class="parallax-gear gear-4" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="6" fill="currentColor"/>
+      <circle cx="20" cy="20" r="4" fill="currentColor"/>
+      <circle cx="80" cy="20" r="4" fill="currentColor"/>
+      <circle cx="20" cy="80" r="4" fill="currentColor"/>
+      <circle cx="80" cy="80" r="4" fill="currentColor"/>
+      <path d="M50 44 L50 20 L24 20 M50 44 L50 20 L76 20 M50 56 L50 80 L24 80 M50 56 L50 80 L76 80" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
   </div>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="parallax-section" id="hero">
+    <div class="section-content hero-section">
+      <div class="hero-content">
+        <div class="hero-label">First-principles systems builder</div>
+        <h1 class="hero-name">TIAGO OLIVEIRA</h1>
+        <div class="hero-tagline">
+          <span class="tagline-rust">30 years of systems thinking</span>
+          <span class="tagline-divider">//</span>
+          <span class="tagline-blue">from diesel engines to distributed systems</span>
+        </div>
+        <p class="hero-subtitle">
+          Bridging domains others avoid: mechanical to software, operations to computer vision, telephony to AI.
+          Same systems thinking, different tools!
+        </p>
+        <div class="hero-icons">
+          <a target="_blank" href="mailto:tiago@tiago.sh" title="Email" class="icon-link">
+            <i class="fa-regular fa-envelope"></i>
+          </a>
+          <a target="_blank" href="https://github.com/tiagodeoliveira" title="GitHub" class="icon-link">
+            <i class="fa-brands fa-github"></i>
+          </a>
+          <a target="_blank" href="https://www.linkedin.com/in/tiagode/" title="LinkedIn" class="icon-link">
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+        </div>
+        <div class="scroll-hint">
+          <span>Scroll to explore</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+            <path d="M12 5v14M5 12l7 7 7-7"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JOURNEY SECTION ==================== -->
+  <div class="section-banner" style="background-image: url('images/journey.jpg');">
+    <div class="banner-overlay"></div>
+    <h2 class="banner-title">The Journey</h2>
+  </div>
+  <section class="parallax-section" id="journey">
+    <div class="section-content">
+      <div class="content-wrapper">
+        <h1 class="section-title">The Journey</h1>
+        <p class="section-lead">From rebuilding diesel engines in rural Brazil to architecting AI platforms serving tens of millions—this is a story of systems thinking.</p>
+
+        <hr>
+
+        <h2>The Shop Floor <span class="year-tag">1994–2013</span></h2>
+        <p>I started working at age 8 in my father's truck mechanic shop in <a href="https://maps.app.goo.gl/mwV16AmwHwieV14i6" target="_blank">Xanxerê</a>, a small city in southern Brazil. For 19 years, I worked on diesel engines, hydraulic systems, and pneumatic equipment.</p>
+        <p>This wasn't hobby work. It was full-time mechanical engineering in an environment where diagnostic manuals didn't exist and parts had to be fabricated rather than ordered.</p>
+        <p>Diagnosing why a diesel engine fails under load requires systematic elimination of variables—fuel delivery, compression, timing, electrical systems. This same mental model later applied to debugging distributed systems at scale.</p>
+        <p>As automation became more common in heavy machinery, I began working with PLCs, PIC microcontrollers, and early Arduino boards. I built digital controllers interfacing with mechanical, hydraulic, and pneumatic systems for wood processing equipment, tube bending machines, and food manufacturing.</p>
+        <p><strong>The critical insight:</strong> Edge computing and IoT came naturally later because I was already solving hardware-software integration at industrial scale. The jump to cloud infrastructure wasn't abandoning mechanical work—it was taking the same systems thinking from factory floors to distributed platforms.</p>
+
+        <hr>
+
+        <h2>The Forced Upgrade <span class="year-tag">2004–2007</span></h2>
+        <p>My mother recognized that physical labor, while honorable, limited long-term opportunity. She insisted I enroll in a three-year software development bootcamp while continuing to work in the shop.</p>
+        <p>This wasn't a gentle suggestion. It was a forced update—Mom.exe pushing a mandatory patch.</p>
+        <p>The bootcamp taught Java, SQL, and web development basics. The value wasn't the specific technologies—it was learning that software systems could be decomposed and debugged using the same systematic thinking I'd developed with diesel engines.</p>
+        <p>I earned a Bachelor of Technology in Information Technology and a Post-Graduate Specialization in Software Development with Java from Universidade do Oeste de Santa Catarina.</p>
+
+        <hr>
+
+        <h2>The Bridge Years <span class="year-tag">2013–2017</span></h2>
+        <p>My first professional software role at <strong>NewFocus</strong> involved customizing ERP systems for industrial clients. This was the perfect bridge between my mechanical background and software development—solving the "last mile" problem of connecting physical operations to digital systems.</p>
+        <p>A wood processing company needed to track trucks leaving their premises and capture load weights automatically. I built custom ERP modules integrating PDA devices, industrial weighing scales, and real-time data pipelines. I wasn't just writing database queries—I was solving how to make factory floor operations visible to business systems.</p>
+        <p>At <strong>Nokia Siemens Networks</strong>, I built a personnel safety system for cell tower technicians using cellular triangulation before GPS was ubiquitous in mobile devices.</p>
+        <p>At <strong>Dell Technologies</strong>, I pioneered server-side JavaScript rendering in 2013—years before React SSR became standard practice.</p>
+        <p>At <strong>Zenvia Mobile</strong>, I dockerized applications when Docker was pre-1.0. I built L1/L2/L3 escalation procedures and a "FireFighter" on-duty rotation system that's still operational at Zenvia today, a decade later.</p>
+        <p>At <strong>AGCO</strong>, I built military-grade IoT security for agricultural machinery: sub-millisecond authorization using custom nonce calculation on mutual TLS with Erlang and RabbitMQ. Orchestrated autonomous machine-to-machine coordination for harvesters and grain carts using MQTT-based handshakes with sub-meter GPS accuracy.</p>
+
+        <hr>
+
+        <h2>The International Protocol <span class="year-tag">2017–2020</span></h2>
+        <p>In 2017, I moved to Berlin.</p>
+        <p>At <strong>PayU</strong>, I consolidated 14 markets' payment reconciliation—normalizing disparate formats from banks, merchants, and acquirers into serverless platform. 60% cost reduction.</p>
+        <p>At <strong>OSRAM</strong>, I architected zero-trust IoT security with OAuth 2.0 extensions and HSM-backed cryptography.</p>
+        <p>Then to Stuttgart at <strong>Mercedes-Benz.io</strong>. Multiple departments needed different views of vehicle data across the lifecycle. Legacy system required manual view creation and individual integrations per department.</p>
+        <p>My architectural insight: event sourcing. Unified vehicle state across all lifecycle stages, allowing any department to materialize their own view from the same event stream.</p>
+        <p>Built platform using AWS Lambda, containers, S3, DynamoDB, EventBridge, ElastiCache. Connected 60+ global systems, 47% cost reduction, deployment velocity from months to days.</p>
+        <p><strong>The principle:</strong> One source of truth, infinite flexible views, no tight coupling.</p>
+
+        <hr>
+
+        <h2>The Cloud Native Era <span class="year-tag">2020–Present</span></h2>
+        <p>I joined AWS in May 2020 as Senior Solutions Architect in Stuttgart, focused on Germany's premier manufacturing companies: BMW, Bosch, Siemens, Festo; implementing Industry 4.0 initiatives.</p>
+        <p>In October 2021, I moved to Austin as Senior Product Architect at AWS Industry Products, working on computer vision platforms. I invented the <strong>CVOps framework</strong>: extending MLOps principles to cover the entire computer vision lifecycle.</p>
+        <p>In October 2024, I became Principal Architect focused on telecommunications and generative AI, moving to Seattle.</p>
+
+        <h3>Real-Time AI Telephony</h3>
+        <p>My current work focuses on real-time AI-powered voice platforms: enabling generative AI interactions over traditional phone systems for major telecommunications carriers.</p>
+        <p><strong>The technical challenge:</strong> Building systems that bridge 1970s telephony protocols (SIP/RTP) with modern AI inference platforms, maintaining carrier-grade reliability and real-time performance.</p>
+        <p>This is genuinely uncharted territory. When new AI capabilities emerge, I build working prototypes within hours to validate architectural approaches. These prototypes become the foundation for production systems spanning multiple regions, handling sub-100ms latency requirements at massive scale.</p>
+
+        <hr>
+
+        <h2>The Through-Line</h2>
+        <p>From 1994 to today—truck mechanic's shop in rural Brazil to architecting AI systems at global scale—the through-line is consistent:</p>
+        <p><strong>Systems thinking applied to ambiguous problems with real-world constraints.</strong></p>
+        <ol>
+          <li>Decompose to fundamental components</li>
+          <li>Identify where constraints bite</li>
+          <li>Build prototype to test assumptions</li>
+          <li>Iterate based on reality, not theory</li>
+          <li>Make it operationally excellent before scaling</li>
+        </ol>
+        <p>The tools changed—wrenches to keyboards, diesel engines to distributed systems, mechanical shops to cloud infrastructure, <strong>but the approach remained constant!</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PHILOSOPHY SECTION ==================== -->
+  <div class="section-banner" style="background-image: url('images/philosophy.jpg');">
+    <div class="banner-overlay"></div>
+    <h2 class="banner-title">How I Think</h2>
+  </div>
+  <section class="parallax-section" id="philosophy">
+    <div class="section-content">
+      <div class="content-wrapper">
+        <h1 class="section-title">How I Think</h1>
+
+        <blockquote>
+          <p>"The gap between demo and production is where I live."</p>
+        </blockquote>
+
+        <p>Most architects can design for the happy path. The value is in knowing what breaks at 3am under 10x load with a team that's never seen the code.</p>
+
+        <hr>
+
+        <h2><a href="https://en.wikipedia.org/wiki/First_principle" target="_blank">First Principles</a> from the Shop Floor</h2>
+        <p>Every distributed system is just another machine with predictable failure modes you can debug and prevent. <em>The more complex the systems get the harder it is to predict, but never impossible!</em></p>
+        <p>I spent 19 years diagnosing mechanical failures without manuals. When a diesel engine fails under load, you don't guess. You systematically eliminate variables: fuel delivery, compression, timing, electrical systems. You decompose the problem until you find the constraint.</p>
+        <p>Software systems work the same way. The abstractions are different, but the physics are the same: latency is limited by speed of light, compute requires energy, energy generates heat, heat requires cooling. Every system has constraints. Find them.</p>
+
+        <hr>
+
+        <h2>Core Beliefs</h2>
+
+        <h3><a href="https://thedecisionlab.com/reference-guide/management/theory-of-constraints" target="_blank">Constraint Thinking</a></h3>
+        <p>Every problem has one constraint that matters most. Find it. Everything else is noise until that constraint is addressed.</p>
+        <p>In manufacturing, it's usually throughput at a specific station. In distributed systems, it's usually the slowest component in the critical path. In organizations, it's usually the decision that's blocked or the person who's overloaded.</p>
+
+        <h3>Tradeoff Clarity</h3>
+        <p>Frame decisions so stakeholders can choose. Don't hide complexity. <strong>Expose it clearly enough that the right people can make informed tradeoffs.</strong></p>
+        <p>"We can have consistency or availability, not both during a partition" is useful. "It's complicated" is not.</p>
+
+        <h3>Teaching as Liberation</h3>
+        <p>I love teaching. But not the kind that produces copies of the teacher.</p>
+        <p>Following <a href="https://www.freire.org/paulo-freire" target="_blank">Paulo Freire's</a> thinking, <a href="https://sph.emory.edu/info/faculty-staff/rollins-teaching-learning-core/teaching-learning-principles/critical-pedagogy" target="_blank">I see education as a tool for liberation, not indoctrination</a>. The goal isn't to make people think like me. It's to help them think for themselves.</p>
+        <p>Individual contribution doesn't scale. What scales is enabling others to solve problems you'll never see. The best architectural decisions are the ones teams can extend without you.</p>
+
+        <h3><a href="https://evolutionaryarchitecture.com/" target="_blank">Design for Evolution</a></h3>
+        <p>Today's architecture is tomorrow's legacy. Build systems that can be replaced piece by piece, not rewritten wholesale.</p>
+        <p>Event sourcing at Mercedes-Benz wasn't just about current requirements. It was about enabling views we couldn't predict yet. One source of truth, infinite flexible views.</p>
+
+        <h3><a href="https://www.youtube.com/watch?v=rxsdOQa_QkM" target="_blank">Two-Way Door Decisions</a></h3>
+        <p>One-way doors are decisions that are costly or impossible to undo. They deserve caution, analysis, and buy-in. Two-way doors are decisions you can reverse if wrong. They deserve speed and experimentation.</p>
+        <p>Most decisions are two-way doors mistaken for one-way doors. Teams slow down unnecessarily, seeking consensus for choices that could simply be tried and reverted.</p>
+
+        <hr>
+
+        <h2>The Mechanical Foundation</h2>
+        <p>I maintain a full workshop in my garage for building metal pieces. This isn't nostalgia. It's philosophy.</p>
+        <p>Pure abstraction without physical reality feels incomplete. The best software systems account for real-world constraints that pure software engineers often miss:</p>
+        <ul>
+          <li><strong>Vibration</strong> affects sensors and connections</li>
+          <li><strong>Temperature</strong> changes component behavior</li>
+          <li><strong>Electromagnetic interference</strong> corrupts signals</li>
+          <li><strong>Network reliability</strong> varies by environment</li>
+          <li><strong>Power availability</strong> isn't guaranteed</li>
+        </ul>
+        <p>One lesson that stuck: never assemble without proof you're going in the right direction. I've mounted an engine back into the chassis only to discover I needed to pull it again for one oil retainer I missed. In software, this translates directly: don't merge without confidence, don't deploy without verification, don't architect yourself into a corner you can't back out of.</p>
+
+        <hr>
+
+        <h2>How I Work</h2>
+
+        <h3>Hands-On Leadership</h3>
+        <p>I don't design systems in ivory towers. For my current telephony work, I didn't just draw architecture diagrams. I built WebSocket servers, tuned GStreamer pipelines, debugged SIP flows, and solved jitter buffer timing issues.</p>
+
+        <h3>Prototype-First Validation</h3>
+        <p>Plans are hypotheses. Prototypes are evidence.</p>
+        <p>The pattern:</p>
+        <ol>
+          <li>Identify the riskiest assumption</li>
+          <li>Build the smallest thing that tests it</li>
+          <li>Learn from reality, not theory</li>
+          <li>Scale what works</li>
+        </ol>
+
+        <h3>Navigating Organizations</h3>
+        <p><a href="https://en.wikipedia.org/wiki/Conway%27s_law" target="_blank">Technical problems are often organizational problems in disguise.</a> A system that requires three teams to coordinate for every deployment isn't a technical architecture problem. It's a team boundary problem.</p>
+
+        <h3>Operational Excellence as Default</h3>
+        <p>I come from environments where system failure had immediate economic consequences. Factory lines stopping. Trucks broken down. I build observability and failure recovery from day one. Not as an afterthought. Not as a "phase 2." <strong>From day one.</strong></p>
+
+        <hr>
+
+        <h2>What I'm Skeptical Of</h2>
+        <p><strong>Process theater.</strong> Meetings about meetings. Documentation that no one reads. Ceremonies that don't produce decisions.</p>
+        <p><strong>Premature abstraction.</strong> Three similar lines of code are better than a premature abstraction.</p>
+        <p><strong>Architecture astronauts.</strong> People who design systems they'll never implement or operate.</p>
+        <p><strong>"Best practices" without context.</strong> What works for Google doesn't work for a 5-person startup. Context determines correctness.</p>
+
+        <hr>
+
+        <h2>What I Optimize For</h2>
+        <p><strong>Clarity over cleverness.</strong> Readable code over clever code. Explicit over implicit. Boring technology over exciting technology.</p>
+        <p><strong>Operational simplicity.</strong> Can someone debug this at 3am? Can a new team member understand it in a week?</p>
+        <p><strong>Speed on two-way doors.</strong> If a decision can be reversed, make it fast.</p>
+        <p><strong>Learning velocity.</strong> How fast can we discover what we don't know? Prototypes beat documents.</p>
+        <p><strong>Team capability.</strong> Am I leaving this team better equipped than I found them?</p>
+
+        <hr>
+
+        <h2>The Through-Line</h2>
+        <ol>
+          <li><strong>Decompose</strong> to fundamental components</li>
+          <li><strong>Identify</strong> where constraints bite</li>
+          <li><strong>Build</strong> prototype to test assumptions</li>
+          <li><strong>Iterate</strong> based on reality, not theory</li>
+          <li><strong>Operationalize</strong> before scaling</li>
+        </ol>
+        <p>The tools changed. The thinking didn't.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESUME SECTION ==================== -->
+  <div class="section-banner" style="background-image: url('images/resume.jpg');">
+    <div class="banner-overlay"></div>
+    <h2 class="banner-title">Resume</h2>
+  </div>
+  <section class="parallax-section" id="resume">
+    <div class="section-content">
+      <div class="content-wrapper">
+        <h1 class="section-title">Tiago Oliveira</h1>
+        <p class="resume-headline"><strong>Principal Engineer | Principal Architect | AI & Cloud Engineering Leader</strong></p>
+        <p class="resume-contact">
+          <a href="mailto:tiago@tiago.sh">tiago@tiago.sh</a> ·
+          <a href="https://www.linkedin.com/in/tiagode" target="_blank">LinkedIn</a> ·
+          <a href="https://tiago.sh">tiago.sh</a> ·
+          Greater Seattle Area
+        </p>
+
+        <hr>
+
+        <h2>What I Do</h2>
+        <p>I solve the architectural problems that keep organizations from scaling. Not theoretical problems—the ones where teams are stuck, leadership is worried, and the wrong choice costs millions or 6 months.</p>
+        <p><strong>My pattern:</strong> Understand the constraint that matters most → Frame the tradeoffs clearly → Build proof that changes the conversation → Design for 10x the load → Enable teams to execute without me becoming the bottleneck.</p>
+        <p>Currently architecting telecom-native GenAI platforms serving tens of millions of concurrent users. Multi-modal systems (text/voice/image) where the real challenge isn't today's scale—it's building systems that evolve daily without platform rewrites.</p>
+        <p>I spent 19 years rebuilding truck transmissions before writing my first line of code. That's why I understand complex systems from first principles—every distributed system is just another machine with predictable failure modes you can debug and prevent.</p>
+
+        <hr>
+
+        <h2>Experience</h2>
+
+        <div class="resume-role">
+          <h3>Principal Architect | Generative AI Platforms</h3>
+          <p class="role-meta"><strong>Amazon Web Services (AWS)</strong> · October 2024 – Present · Seattle, WA</p>
+          <p><em>Leading telecom-native GenAI platform serving tens of millions of concurrent users</em></p>
+          <ul>
+            <li>→ Invented evolutionary "manifest model" architecture — use-case definitions live outside core infrastructure, enabling product teams to ship new AI capabilities independently. Makes carrier-scale AI operationally viable.</li>
+            <li>→ Reduced troubleshooting time 25% by reframing as a data architecture problem, not an AI model problem. Built real-time inference architecture surfacing causation across previously siloed streams.</li>
+            <li>→ Established reusable architectural patterns across the AWS stack — reference architectures spanning SageMaker, ECS/EKS, Lambda, ElastiCache, multi-region load balancing. Teams deploy production AI services in weeks instead of quarters.</li>
+            <li>→ Direct technical influence at C-level and executive leadership — working with VPs and SVPs at North America's largest telecom, where architectural decisions affect platforms serving hundreds of millions of subscribers.</li>
+          </ul>
+        </div>
+
+        <div class="resume-role">
+          <h3>Senior Product Architect | Computer Vision & AI</h3>
+          <p class="role-meta"><strong>Amazon Web Services (AWS)</strong> · October 2021 – October 2024 · Austin, TX</p>
+          <p><em>Built AI platform reducing investigation time by 35% for major security companies</em></p>
+          <ul>
+            <li>→ Built video intelligence platform reducing security investigation time 35%. 40% reduction in false-positive dispatches through intelligent multi-stream correlation and GenAI-powered summarization.</li>
+            <li>→ Pioneered CVOps framework — personally coded initial Python/Rust implementation, then established CI/CD and shared libraries enabling the team to scale independently.</li>
+            <li>→ Achieved sub-100ms latency at 5,000+ predictions/second — Lambda control plane with auto-scaling Fargate data plane.</li>
+          </ul>
+        </div>
+
+        <div class="resume-role">
+          <h3>Senior Solutions Architect | Industry 4.0 & Edge AI</h3>
+          <p class="role-meta"><strong>Amazon Web Services (AWS)</strong> · May 2020 – October 2021 · Stuttgart, Germany</p>
+          <p><em>Transformed manufacturing with edge-to-cloud AI achieving 99.99% reliability</em></p>
+          <ul>
+            <li>→ Solved "cloud latency kills production lines" — architected edge computing framework keeping critical decisions local. 99.99% reliability, 35% reduction in unplanned downtime.</li>
+            <li>→ Built IoT fleet management for 10,000+ heterogeneous industrial endpoints bridging legacy machinery with cloud intelligence.</li>
+            <li>→ Reduced robot safety incidents through simulation — built ROS-based system learning from human patterns. 33% reduction in space invasion, 21% fewer safety stops.</li>
+          </ul>
+        </div>
+
+        <div class="resume-role">
+          <h3>Principal Software Engineer | Platform Architecture</h3>
+          <p class="role-meta"><strong>Mercedes-Benz.io</strong> · September 2018 – May 2020 · Stuttgart, Germany</p>
+          <ul>
+            <li>→ Event-sourcing platform creating unified vehicle state across all lifecycle stages. 47% cost reduction. Deployment velocity from months to days.</li>
+            <li>→ Pioneered Hypothesis-Driven Development for ML — high-performance pricing engine processing 1,000+ evaluations/second.</li>
+          </ul>
+        </div>
+
+        <div class="resume-role">
+          <h3>Senior Staff Software Engineer | Security & IoT</h3>
+          <p class="role-meta"><strong>OSRAM</strong> · April 2018 – September 2018 · Berlin, Germany</p>
+          <ul>
+            <li>→ Architected zero-trust IoT security from scratch — custom OAuth 2.0/OpenID Connect extensions with HSM-backed cryptography. Azure + Terraform.</li>
+          </ul>
+        </div>
+
+        <div class="resume-role">
+          <h3>Senior Staff Software Engineer | FinTech Platform</h3>
+          <p class="role-meta"><strong>PayU</strong> · May 2017 – April 2018 · Berlin, Germany</p>
+          <ul>
+            <li>→ Consolidated 14 markets' payment reconciliation into single serverless platform. 60% cost reduction.</li>
+            <li>→ Built ML-based fraud detection with autonomous weekly retraining handling millions of daily transactions.</li>
+          </ul>
+        </div>
+
+        <div class="resume-role">
+          <h3>Senior Software Architect | AgTech IoT</h3>
+          <p class="role-meta"><strong>e-Core / AGCO</strong> · February 2016 – May 2017 · Porto Alegre, Brazil</p>
+          <ul>
+            <li>→ Military-grade IoT: sub-millisecond auth with custom nonce calculation on mutual TLS (Erlang + RabbitMQ). Air-gapped firmware signing via Yubikey. 30% infrastructure cost reduction.</li>
+            <li>→ Autonomous machine-to-machine coordination for harvesters and grain carts using MQTT-based handshakes with sub-meter GPS accuracy.</li>
+          </ul>
+        </div>
+
+        <div class="resume-role">
+          <h3>Early Career Foundation</h3>
+          <p class="role-meta"><strong>Incrosolda · NewFocus · Nokia NSN · Zenvia Mobile · Dell Technologies</strong> · 1994–2016</p>
+          <ul>
+            <li>→ Started at age 8 as truck mechanic, spent years automating industrial machinery using PLCs, PIC MCUs, and Arduinos.</li>
+            <li>→ Built ERP integrations connecting software to physical operations at NewFocus.</li>
+            <li>→ Pioneered server-side JS rendering at Dell (2013) and Docker containerization at Zenvia (pre-1.0, 2014).</li>
+            <li>→ Created "FireFighter" on-duty rotation at Zenvia — still operational today.</li>
+          </ul>
+        </div>
+
+        <hr>
+
+        <h2>Education & Skills</h2>
+        <ul>
+          <li>→ <strong>Bachelor of Technology, Information Technology</strong> — Universidade do Oeste de Santa Catarina</li>
+          <li>→ <strong>Post-Graduate Specialization, Software Development with Java</strong> — Universidade do Oeste de Santa Catarina</li>
+          <li>→ <strong>Mechanical Engineer (incomplete)</strong> — UnoChapecó</li>
+          <li>→ <strong>Languages:</strong> English (Native), Portuguese (Native), Spanish (Professional), German (Conversational), Italian (Basic)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Fixed nav highlight on scroll
+    const sections = document.querySelectorAll('.parallax-section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const fixedNav = document.getElementById('fixedNav');
+
+    function updateNav() {
+      const scrollY = window.scrollY + window.innerHeight / 3;
+      let current = 'hero';
+      sections.forEach(section => {
+        if (scrollY >= section.offsetTop) {
+          current = section.id;
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.section === current);
+      });
+      // Show/hide nav background
+      fixedNav.classList.toggle('scrolled', window.scrollY > 100);
+    }
+
+    // Parallax effect for decorative elements
+    const parallaxGears = document.getElementById('parallaxGears');
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      if (parallaxGears) {
+        parallaxGears.style.transform = `translateY(${scrollY * 0.3}px)`;
+      }
+    }
+
+    // Scroll-triggered animations
+    const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.content-wrapper, .hero-content').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Smooth scroll for nav links
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById(link.dataset.section);
+        target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Event listeners
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          updateNav();
+          updateParallax();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+
+    // Update URL hash on scroll
+    function updateHash() {
+      const sections = ['hero', 'journey', 'philosophy', 'resume'];
+      let current = 'hero';
+      for (const id of sections) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= window.innerHeight / 3) {
+          current = id;
+        }
+      }
+      const hash = current === 'hero' ? '' : '#' + current;
+      if (window.location.hash !== hash && (hash || window.location.hash)) {
+        history.replaceState(null, '', hash || window.location.pathname);
+      }
+    }
+
+    window.addEventListener('scroll', () => {
+      requestAnimationFrame(updateHash);
+    }, { passive: true });
+
+    // Scroll to hash on page load
+    if (window.location.hash) {
+      const target = document.getElementById(window.location.hash.slice(1));
+      if (target) {
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+    }
+
+    updateNav();
+  </script>
 </body>
 
 </html>
