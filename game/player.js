@@ -10,6 +10,7 @@ const PLAYER_HEIGHT = 1.7;   // feet (y=0) to top of hair
 const COYOTE_TIME = 0.08;    // seconds of grace after leaving platform
 const JUMP_BUFFER_TIME = 0.1; // seconds of pre-landing jump buffer
 const VARIABLE_JUMP_MULT = 0.5; // multiplier when releasing jump early
+const SKIN_WIDTH = 0.01;        // small tolerance to prevent edge oscillation
 
 export function createPlayer(scene) {
     const group = new THREE.Group();
@@ -106,6 +107,7 @@ export function createPlayer(scene) {
         jumpBufferTimer: 0,    // time since jump was pressed
         holdingJump: false,    // is the player holding jump
         wasOnGround: false,    // was on ground last frame
+        prevY: 0,              // previous frame Y for swept collision
         landingSquash: 0,      // squash animation timer
         dying: false,          // death animation in progress
         deathTimer: 0,         // death animation elapsed
@@ -202,6 +204,7 @@ export function updatePlayer(player, input, dt, platforms) {
     }
 
     // ── Y movement + collision ─────────────────────
+    const prevY = pos.y;
     pos.y += player.vy * dt;
 
     player.wasOnGround = player.onGround;
@@ -224,22 +227,35 @@ export function updatePlayer(player, input, dt, platforms) {
             continue;
         }
 
-        // Landing on top (falling down)
-        if (player.vy <= 0 && pos.y <= platTop && pos.y >= platTop - Math.abs(player.vy * dt) - 0.05) {
+        // Thin platforms (h <= 0.3) are one-way: only land from above, never block from below
+        if (p.h <= 0.3) {
+            // Swept landing: player was at/above surface last frame and crossed below this frame
+            if (player.vy <= 0 && prevY >= platTop - SKIN_WIDTH && pos.y <= platTop) {
+                pos.y = platTop;
+                player.vy = 0;
+                player.onGround = true;
+            }
+            continue;
+        }
+
+        // Thick platforms: swept landing detection
+        if (player.vy <= 0 && prevY >= platTop - SKIN_WIDTH && pos.y <= platTop && pos.y > platBottom) {
             pos.y = platTop;
             player.vy = 0;
             player.onGround = true;
             continue;
         }
 
-        // Ceiling collision (only for thick platforms, jumping up)
-        if (p.h > 0.3 && player.vy > 0 &&
-            pos.y + PLAYER_HEIGHT >= platBottom && pos.y + PLAYER_HEIGHT <= platBottom + player.vy * dt + 0.1 &&
-            pos.y < platBottom) {
+        // Ceiling collision (thick platforms only, jumping up)
+        if (player.vy > 0 &&
+            prevY + PLAYER_HEIGHT <= platBottom + SKIN_WIDTH &&
+            pos.y + PLAYER_HEIGHT >= platBottom) {
             pos.y = platBottom - PLAYER_HEIGHT;
             player.vy = 0;
         }
     }
+
+    player.prevY = pos.y;
 
     // ── Landing detection ──────────────────────────
     if (player.onGround && !player.wasOnGround && player.landingSquash <= 0) {
@@ -420,6 +436,7 @@ export function resetPlayer(player) {
     player.jumpBufferTimer = 0;
     player.holdingJump = false;
     player.wasOnGround = false;
+    player.prevY = 0;
     player.landingSquash = 0;
     player.dying = false;
     player.deathTimer = 0;
