@@ -7,7 +7,8 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { initInput, getInput } from './input.js';
 import { initAudio, resumeAudio, playJump, playCollect, playThrow, playImpact,
     playHit, playEngine, playVictory, startAmbient, stopAmbient } from './audio.js';
-import { createPlayer, updatePlayer, createWrench, updateWrench, resetPlayer } from './player.js';
+import { createPlayer, updatePlayer, createWrench, updateWrench, resetPlayer,
+    startDeathAnimation, updateDeathAnimation, resetDeathAnimation } from './player.js';
 import { createWorld, updateWorld, checkCollectibles, checkFallingBlocks,
     checkOilSlick, getWeldingPositions, resetWorld } from './world.js';
 import { createBoss, activateBoss, updateBoss, checkWrenchHit, checkColumnHit,
@@ -32,6 +33,8 @@ let winTimer = 0;
 let comingSoonTimer = 0;
 let screenShake = 0;       // remaining shake duration
 let screenShakeIntensity = 0; // shake strength
+let respawnState = 'NONE'; // NONE, DYING, FADE_OUT, REPOSITION, FADE_IN
+let respawnTimer = 0;
 
 // UI elements
 const ui = {};
@@ -55,6 +58,7 @@ async function init() {
     ui.bossHealthFill = document.getElementById('boss-health-fill');
     ui.rendererBadge = document.getElementById('renderer-badge');
     ui.damageFlash = document.getElementById('damage-flash');
+    ui.respawnFade = document.getElementById('respawn-fade');
 
     // Scene
     scene = new THREE.Scene();
@@ -341,17 +345,16 @@ function updatePlaying(input, dt) {
         }
     }
 
+    // Respawn sequence
+    updateRespawn(dt);
+
     // Fall death
-    if (player.mesh.position.y < -4) {
+    if (player.mesh.position.y < -4 && respawnState === 'NONE' && player.alive) {
         takeDamage();
-        if (player.alive) {
-            // Respawn on nearest platform
-            respawnPlayer();
-        }
     }
 
     // Check boss area
-    if (isBossArea(player.mesh.position.x)) {
+    if (isBossArea(player.mesh.position.x) && respawnState === 'NONE') {
         gameState = 'BOSS';
         activateBoss(boss);
     }
@@ -421,10 +424,12 @@ function updateBossFight(input, dt) {
         takeDamage();
     }
 
+    // Respawn sequence
+    updateRespawn(dt);
+
     // Fall death
-    if (player.mesh.position.y < -4) {
+    if (player.mesh.position.y < -4 && respawnState === 'NONE' && player.alive) {
         takeDamage();
-        if (player.alive) respawnPlayer();
     }
 
     // Clamp player in boss arena
@@ -502,9 +507,8 @@ function updateComingSoon(input, dt) {
 
 // ─── Helpers ─────────────────────────────────────────
 function takeDamage() {
-    if (player.invincible > 0) return;
+    if (player.invincible > 0 || respawnState !== 'NONE') return;
     lives--;
-    player.invincible = 2;
     playHit();
     sparkSystem.emit(player.mesh.position.x, player.mesh.position.y + 0.8, 0, 20,
         { r: 1, g: 0.2, b: 0.1 }, 4, -8);
@@ -520,16 +524,79 @@ function takeDamage() {
     }
 
     if (lives <= 0) {
+        // Final death — start death animation then go to game over
         player.alive = false;
-        gameState = 'GAMEOVER';
-        gameOverTimer = 0;
+        startDeathAnimation(player);
+        respawnState = 'DYING';
+        respawnTimer = 0;
         screenShake = 0.5;
         screenShakeIntensity = 0.6;
-        stopAmbient();
+    } else {
+        // Start death + respawn sequence
+        player.alive = false;
+        startDeathAnimation(player);
+        respawnState = 'DYING';
+        respawnTimer = 0;
     }
 }
 
-function respawnPlayer() {
+function updateRespawn(dt) {
+    if (respawnState === 'NONE') return;
+
+    respawnTimer += dt;
+
+    if (respawnState === 'DYING') {
+        const done = updateDeathAnimation(player, dt);
+        if (done || respawnTimer > 1.0) {
+            if (lives <= 0) {
+                // Game over
+                resetDeathAnimation(player);
+                gameState = 'GAMEOVER';
+                gameOverTimer = 0;
+                respawnState = 'NONE';
+                stopAmbient();
+                return;
+            }
+            // Start fade out
+            respawnState = 'FADE_OUT';
+            respawnTimer = 0;
+            if (ui.respawnFade) {
+                ui.respawnFade.classList.remove('fade-in');
+                ui.respawnFade.classList.add('fade-out');
+            }
+        }
+    } else if (respawnState === 'FADE_OUT') {
+        if (respawnTimer > 0.35) {
+            // Reposition player while screen is black
+            respawnState = 'REPOSITION';
+            respawnTimer = 0;
+            resetDeathAnimation(player);
+            repositionPlayer();
+            player.alive = true;
+            player.invincible = 2.5;
+            player.mesh.visible = true;
+        }
+    } else if (respawnState === 'REPOSITION') {
+        if (respawnTimer > 0.2) {
+            // Start fade in
+            respawnState = 'FADE_IN';
+            respawnTimer = 0;
+            if (ui.respawnFade) {
+                ui.respawnFade.classList.remove('fade-out');
+                ui.respawnFade.classList.add('fade-in');
+            }
+        }
+    } else if (respawnState === 'FADE_IN') {
+        if (respawnTimer > 0.5) {
+            respawnState = 'NONE';
+            if (ui.respawnFade) {
+                ui.respawnFade.classList.remove('fade-in');
+            }
+        }
+    }
+}
+
+function repositionPlayer() {
     const px = player.mesh.position.x;
     // Find nearest platform behind player
     let bestPlat = world.platforms[0];

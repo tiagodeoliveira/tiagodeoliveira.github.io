@@ -107,6 +107,9 @@ export function createPlayer(scene) {
         holdingJump: false,    // is the player holding jump
         wasOnGround: false,    // was on ground last frame
         landingSquash: 0,      // squash animation timer
+        dying: false,          // death animation in progress
+        deathTimer: 0,         // death animation elapsed
+        deathParts: [],        // scattered part data
     };
 }
 
@@ -323,6 +326,73 @@ export function updateWrench(wrench, dt) {
     if (wrench.age > 2) wrench.alive = false;
 }
 
+// Death animation — scatter player parts outward
+export function startDeathAnimation(player) {
+    player.deathTimer = 0;
+    player.dying = true;
+    // Store part scatter velocities
+    player.deathParts = [];
+    const partNames = ['leftArm', 'rightArm', 'leftLeg', 'rightLeg', 'head', 'body'];
+    for (const name of partNames) {
+        const part = player.parts[name];
+        if (part) {
+            player.deathParts.push({
+                mesh: part,
+                origPos: part.position.clone(),
+                origRot: part.rotation.clone(),
+                vx: (Math.random() - 0.5) * 6,
+                vy: 3 + Math.random() * 5,
+                vz: (Math.random() - 0.5) * 4,
+                vr: (Math.random() - 0.5) * 10,
+            });
+        }
+    }
+}
+
+export function updateDeathAnimation(player, dt) {
+    if (!player.dying) return false;
+    player.deathTimer += dt;
+
+    for (const dp of player.deathParts) {
+        dp.vy -= 20 * dt;
+        dp.mesh.position.x += dp.vx * dt;
+        dp.mesh.position.y += dp.vy * dt;
+        dp.mesh.position.z += dp.vz * dt;
+        dp.mesh.rotation.x += dp.vr * dt;
+        dp.mesh.rotation.z += dp.vr * 0.7 * dt;
+    }
+
+    // Fade out over time
+    const fade = Math.max(0, 1 - player.deathTimer / 0.8);
+    player.mesh.traverse((child) => {
+        if (child.isMesh && child.material) {
+            child.material.transparent = true;
+            child.material.opacity = fade;
+        }
+    });
+
+    return player.deathTimer >= 0.8; // animation complete
+}
+
+export function resetDeathAnimation(player) {
+    player.dying = false;
+    player.deathTimer = 0;
+    // Restore part positions and opacity
+    if (player.deathParts) {
+        for (const dp of player.deathParts) {
+            dp.mesh.position.copy(dp.origPos);
+            dp.mesh.rotation.copy(dp.origRot);
+        }
+        player.deathParts = [];
+    }
+    player.mesh.traverse((child) => {
+        if (child.isMesh && child.material) {
+            child.material.transparent = false;
+            child.material.opacity = 1;
+        }
+    });
+}
+
 export function resetPlayer(player) {
     player.mesh.position.set(3, 1, 0);
     player.vx = 0;
@@ -341,4 +411,7 @@ export function resetPlayer(player) {
     player.holdingJump = false;
     player.wasOnGround = false;
     player.landingSquash = 0;
+    player.dying = false;
+    player.deathTimer = 0;
+    player.deathParts = [];
 }

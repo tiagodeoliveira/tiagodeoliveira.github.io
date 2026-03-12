@@ -392,6 +392,28 @@
             transition: none;
         }
 
+        /* ─── Respawn Fade ────────────────────── */
+        #respawn-fade {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #0A0A08;
+            z-index: 8;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out;
+        }
+
+        #respawn-fade.fade-out {
+            opacity: 1;
+            transition: opacity 0.3s ease-in;
+        }
+
+        #respawn-fade.fade-in {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
+        }
+
         /* ─── Loading ──────────────────────────── */
         #loading {
             position: fixed;
@@ -504,6 +526,9 @@
 
     <!-- Damage Flash -->
     <div id="damage-flash"></div>
+
+    <!-- Respawn Fade Overlay -->
+    <div id="respawn-fade"></div>
 
     <!-- Renderer Badge -->
     <div id="renderer-badge">WebGL</div>
