@@ -59,6 +59,8 @@ async function init() {
     ui.rendererBadge = document.getElementById('renderer-badge');
     ui.damageFlash = document.getElementById('damage-flash');
     ui.respawnFade = document.getElementById('respawn-fade');
+    ui.finalScore = document.getElementById('final-score');
+    ui.winScore = document.getElementById('win-score');
 
     // Scene
     scene = new THREE.Scene();
@@ -472,6 +474,7 @@ function updateBossFight(input, dt) {
 function updateWin(input, dt) {
     ui.winScreen.style.display = 'flex';
     ui.bossHealth.style.display = 'none';
+    if (ui.winScore) ui.winScore.textContent = score;
 
     winTimer += dt;
 
@@ -499,6 +502,7 @@ function updateGameOver(input, dt) {
     ui.gameOver.style.display = 'flex';
     ui.hud.style.display = 'none';
     ui.bossHealth.style.display = 'none';
+    if (ui.finalScore) ui.finalScore.textContent = score;
 
     gameOverTimer += dt;
 
@@ -681,6 +685,7 @@ function updateHUD() {
 function updateBossHUD() {
     const pct = ((8 - boss.health) / 8) * 100;
     ui.bossHealthFill.style.width = pct + '%';
+    // Color shifts from red (broken) to green (repaired) via the CSS gradient
 }
 
 // ─── Start ───────────────────────────────────────────
