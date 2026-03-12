@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>The Journey - A Game by Tiago Oliveira</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            overflow: hidden;
+            background: #0A0A08;
+            font-family: 'Courier New', monospace;
+            color: #FFE8C8;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        canvas {
+            display: block;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+
+        /* ─── UI Overlay ───────────────────────── */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .overlay > * { pointer-events: auto; }
+
+        /* ─── Title Screen ─────────────────────── */
+        #title-screen {
+            background: radial-gradient(ellipse at center, rgba(30,20,10,0.7) 0%, rgba(10,10,8,0.95) 70%);
+        }
+
+        #title-screen h1 {
+            font-size: clamp(2rem, 8vw, 5rem);
+            letter-spacing: 0.3em;
+            text-shadow:
+                0 0 20px rgba(255, 150, 50, 0.8),
+                0 0 40px rgba(255, 100, 30, 0.4),
+                0 4px 0 #332200;
+            color: #FFCC66;
+            animation: titlePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { text-shadow: 0 0 20px rgba(255,150,50,0.8), 0 0 40px rgba(255,100,30,0.4), 0 4px 0 #332200; }
+            50% { text-shadow: 0 0 30px rgba(255,180,80,1), 0 0 60px rgba(255,120,40,0.6), 0 4px 0 #332200; }
+        }
+
+        #title-screen .subtitle {
+            font-size: clamp(0.7rem, 2vw, 1.1rem);
+            color: #AA8855;
+            margin-top: 1rem;
+            letter-spacing: 0.2em;
+        }
+
+        #title-screen .prompt {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: #FFAA44;
+            margin-top: 3rem;
+            animation: blink 1.2s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        #title-screen .controls-hint {
+            font-size: 0.75rem;
+            color: #665533;
+            margin-top: 1.5rem;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        /* ─── Intro Screen ─────────────────────── */
+        #intro-screen {
+            background: rgba(10, 10, 8, 0.85);
+        }
+
+        #intro-screen .level-name {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #FFCC66;
+            text-shadow: 0 0 15px rgba(255,150,50,0.6);
+        }
+
+        #intro-screen .level-detail {
+            font-size: clamp(0.8rem, 2vw, 1.2rem);
+            color: #AA8855;
+            margin-top: 0.8rem;
+        }
+
+        #intro-screen .level-location {
+            font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+            color: #776644;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        /* ─── HUD ──────────────────────────────── */
+        #hud {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 12px 20px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+            background: linear-gradient(to bottom, rgba(10,10,8,0.6), transparent);
+            pointer-events: none;
+        }
+
+        .hud-left, .hud-center, .hud-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #lives {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        #score {
+            font-size: 1.1rem;
+            color: #FFCC66;
+        }
+
+        .score-label {
+            font-size: 0.7rem;
+            color: #776644;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .parts-bar {
+            width: 120px;
+            height: 12px;
+            background: #222211;
+            border: 1px solid #554422;
+            border-radius: 2px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #parts-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #FF6622, #FFAA33);
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        #parts-text {
+            font-size: 0.7rem;
+            color: #AA8855;
+        }
+
+        .parts-label {
+            font-size: 0.65rem;
+            color: #665533;
+            text-transform: uppercase;
+        }
+
+        /* ─── Boss Health ──────────────────────── */
+        #boss-health {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .boss-name {
+            font-size: 0.8rem;
+            color: #FF6644;
+            letter-spacing: 0.2em;
+            margin-bottom: 4px;
+            text-shadow: 0 0 10px rgba(255,80,40,0.5);
+        }
+
+        .boss-bar {
+            width: 200px;
+            height: 8px;
+            background: #221111;
+            border: 1px solid #663322;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        #boss-health-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #22AA44, #44FF66);
+            transition: width 0.3s ease;
+        }
+
+        .boss-label {
+            font-size: 0.6rem;
+            color: #556644;
+            margin-top: 2px;
+        }
+
+        /* ─── Game Over ────────────────────────── */
+        #game-over {
+            background: rgba(10, 5, 0, 0.9);
+        }
+
+        #game-over h2 {
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: #FF4422;
+            text-shadow: 0 0 20px rgba(255,50,20,0.8);
+        }
+
+        #game-over .prompt {
+            font-size: 1rem;
+            color: #AA6644;
+            margin-top: 2rem;
+            animation: blink 1.2s step-end infinite;
+        }
+
+        /* ─── Win Screen ───────────────────────── */
+        #win-screen {
+            background: rgba(10, 15, 5, 0.85);
+        }
+
+        #win-screen h2 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #44FF66;
+            text-shadow: 0 0 20px rgba(50,255,80,0.8);
+        }
+
+        #win-screen .detail {
+            font-size: 1rem;
+            color: #88AA66;
+            margin-top: 1rem;
+        }
+
+        #win-screen .prompt {
+            font-size: 0.9rem;
+            color: #668844;
+            margin-top: 2rem;
+            animation: blink 1.2s step-end infinite;
+        }
+
+        /* ─── Coming Soon ─────────────────────── */
+        #coming-soon {
+            background: radial-gradient(ellipse at center, rgba(10,15,30,0.85) 0%, rgba(5,5,15,0.95) 70%);
+        }
+
+        #coming-soon .coming-label {
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: #5588CC;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        #coming-soon h2 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+            color: #66BBFF;
+            text-shadow: 0 0 20px rgba(80,150,255,0.8), 0 0 40px rgba(50,100,200,0.4);
+            margin-top: 0.8rem;
+            letter-spacing: 0.15em;
+        }
+
+        #coming-soon .coming-subtitle {
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+            color: #4477AA;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        #coming-soon .coming-detail {
+            font-size: 0.85rem;
+            color: #445566;
+            margin-top: 1.5rem;
+            text-align: center;
+            line-height: 1.8;
+        }
+
+        #coming-soon .prompt {
+            font-size: 0.9rem;
+            color: #5588CC;
+            margin-top: 2rem;
+            animation: blink 1.2s step-end infinite;
+        }
+
+        /* ─── Renderer Badge ───────────────────── */
+        #renderer-badge {
+            position: fixed;
+            bottom: 8px;
+            right: 12px;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            z-index: 20;
+            letter-spacing: 0.1em;
+            opacity: 0.6;
+        }
+
+        #renderer-badge.webgpu {
+            background: #1a3a1a;
+            color: #44FF66;
+            border: 1px solid #336633;
+        }
+
+        #renderer-badge.webgl {
+            background: #1a1a3a;
+            color: #6688FF;
+            border: 1px solid #333366;
+        }
+
+        /* ─── Mobile Touch Controls ────────────── */
+        .touch-controls {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px 20px 20px;
+            display: none;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        .touch-dpad, .touch-actions {
+            display: flex;
+            gap: 8px;
+            pointer-events: auto;
+        }
+
+        .touch-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(255, 200, 100, 0.15);
+            border: 2px solid rgba(255, 200, 100, 0.3);
+            color: rgba(255, 200, 100, 0.6);
+            font-size: 1.4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: none;
+        }
+
+        .touch-btn:active {
+            background: rgba(255, 200, 100, 0.3);
+            border-color: rgba(255, 200, 100, 0.6);
+        }
+
+        .touch-btn.large {
+            width: 64px;
+            height: 64px;
+        }
+
+        @media (pointer: coarse), (max-width: 768px) {
+            .touch-controls { display: flex; }
+        }
+
+        /* ─── Damage Flash ────────────────────── */
+        #damage-flash {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(ellipse at center, rgba(255,30,10,0.4) 0%, rgba(255,30,10,0) 70%);
+            z-index: 9;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s ease-out;
+        }
+
+        #damage-flash.active {
+            opacity: 1;
+            transition: none;
+        }
+
+        /* ─── Loading ──────────────────────────── */
+        #loading {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #0A0A08;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            transition: opacity 0.5s;
+        }
+
+        #loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            color: #776644;
+            font-size: 1rem;
+            letter-spacing: 0.3em;
+            animation: blink 1s step-end infinite;
+        }
+    </style>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <!-- Loading -->
+    <div id="loading">
+        <div class="loading-text">LOADING...</div>
+    </div>
+
+    <!-- Three.js Canvas -->
+    <canvas id="game-canvas"></canvas>
+
+    <!-- Title Screen -->
+    <div id="title-screen" class="overlay">
+        <h1>THE JOURNEY</h1>
+        <div class="subtitle">From the shop floor to the cloud</div>
+        <div class="prompt">[ PRESS ENTER OR TAP TO START ]</div>
+        <div class="controls-hint">
+            ← → or A/D — Move &nbsp;|&nbsp; SPACE — Jump &nbsp;|&nbsp; X — Throw Wrench
+        </div>
+    </div>
+
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="overlay">
+        <div class="level-name">LEVEL 1</div>
+        <div class="level-detail">The Shop Floor</div>
+        <div class="level-location">Xanxerê, Santa Catarina, Brazil — 1994</div>
+    </div>
+
+    <!-- HUD -->
+    <div id="hud">
+        <div class="hud-left">
+            <div id="lives">❤❤❤</div>
+        </div>
+        <div class="hud-center">
+            <div class="parts-label">TRUCK FIX</div>
+            <div class="parts-bar"><div id="parts-fill"></div></div>
+            <div id="parts-text">0/20</div>
+        </div>
+        <div class="hud-right">
+            <div class="score-label">SCORE</div>
+            <div id="score">0</div>
+        </div>
+    </div>
+
+    <!-- Boss Health -->
+    <div id="boss-health">
+        <div class="boss-name">FORD F-600 "QUEIXO DURO"</div>
+        <div class="boss-bar"><div id="boss-health-fill"></div></div>
+        <div class="boss-label">REPAIR PROGRESS</div>
+    </div>
+
+    <!-- Game Over -->
+    <div id="game-over" class="overlay">
+        <h2>GAME OVER</h2>
+        <div class="prompt">[ PRESS ENTER TO RETRY ]</div>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="win-screen" class="overlay">
+        <h2>TRUCK FIXED!</h2>
+        <div class="detail">The F-600 roars to life. The journey continues...</div>
+        <div class="prompt">[ TO BE CONTINUED... PRESS ENTER ]</div>
+    </div>
+
+    <!-- Coming Soon -->
+    <div id="coming-soon" class="overlay">
+        <div class="coming-label">Coming Soon</div>
+        <h2>LEVEL 2: THE DIGITAL FRONTIER</h2>
+        <div class="coming-subtitle">From circuits to code — the next chapter begins</div>
+        <div class="coming-detail">
+            New challenges await as Tiago discovers<br>
+            the world of technology and programming.<br>
+            The journey from mechanic to developer starts here.
+        </div>
+        <div class="prompt">[ PRESS ENTER TO RETURN ]</div>
+    </div>
+
+    <!-- Damage Flash -->
+    <div id="damage-flash"></div>
+
+    <!-- Renderer Badge -->
+    <div id="renderer-badge">WebGL</div>
+
+    <!-- Mobile Touch Controls -->
+    <div class="touch-controls">
+        <div class="touch-dpad">
+            <button class="touch-btn" data-action="left">◀</button>
+            <button class="touch-btn" data-action="right">▶</button>
+        </div>
+        <div class="touch-actions">
+            <button class="touch-btn" data-action="throw">✕</button>
+            <button class="touch-btn large" data-action="jump">▲</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import './main.js';
+        // Hide loading screen once module loads
+        setTimeout(() => {
+            document.getElementById('loading').classList.add('hidden');
+        }, 500);
+    </script>
+
+</body>
+</html>
