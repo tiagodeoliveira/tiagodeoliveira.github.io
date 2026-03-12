@@ -566,6 +566,9 @@ export function createWorld(scene) {
     dirLight.castShadow = true;
     scene.add(dirLight);
 
+    // Initialize falling block pool
+    initBlockPool(scene);
+
     return world;
 }
 
@@ -604,6 +607,39 @@ function createBackgroundTruck(scene, x, z) {
 const fallingBlockGeo = new THREE.BoxGeometry(0.8, 0.8, 0.8);
 const fallingBlockMat = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.6, metalness: 0.5 });
 
+// ─── Falling Block Pool ─────────────────────────
+const BLOCK_POOL_SIZE = 20;
+const blockPool = [];
+let blockPoolScene = null;
+
+function initBlockPool(scene) {
+    blockPoolScene = scene;
+    for (let i = 0; i < BLOCK_POOL_SIZE; i++) {
+        const mesh = new THREE.Mesh(fallingBlockGeo, fallingBlockMat);
+        mesh.castShadow = true;
+        mesh.visible = false;
+        scene.add(mesh);
+        blockPool.push(mesh);
+    }
+}
+
+function acquireBlock() {
+    for (const mesh of blockPool) {
+        if (!mesh.visible) {
+            mesh.visible = true;
+            mesh.rotation.set(0, 0, 0);
+            return mesh;
+        }
+    }
+    // Pool exhausted — reuse oldest visible (first in pool)
+    return null;
+}
+
+function releaseBlock(mesh) {
+    mesh.visible = false;
+    mesh.position.y = -100;
+}
+
 // ─── Update World ────────────────────────────────────
 export function updateWorld(world, playerX, dt, scene) {
     const time = Date.now() * 0.001;
@@ -613,9 +649,14 @@ export function updateWorld(world, playerX, dt, scene) {
         layer.group.position.x = -playerX * layer.factor;
     }
 
-    // Animate collectibles (bob, rotate, pulse glow)
+    // Animate collectibles (bob, rotate, pulse glow) — skip if far from player
+    const CULL_DIST = 25;
     for (const c of world.collectibles) {
         if (c.collected) continue;
+        if (Math.abs(c.x - playerX) > CULL_DIST) {
+            if (c.light) c.light.intensity = 0;
+            continue;
+        }
         c.mesh.position.y = c.baseY + Math.sin(time * 2 + c.x) * 0.15;
         c.mesh.rotation.y += dt * 2;
         // Pulsing scale for visual pop
@@ -625,32 +666,36 @@ export function updateWorld(world, playerX, dt, scene) {
         if (c.light) c.light.intensity = 0.4 + Math.sin(time * 3 + c.x) * 0.2;
     }
 
-    // Spawn falling engine blocks
+    // Spawn falling engine blocks (skip if far from player)
     for (const obs of world.obstacles) {
         if (Math.abs(obs.x - playerX) > 20) continue;
         obs.timer -= dt;
         if (obs.timer <= 0) {
             obs.timer = obs.interval;
-            const block = new THREE.Mesh(fallingBlockGeo, fallingBlockMat);
-            block.position.set(obs.x + (Math.random() - 0.5) * 2, obs.spawnY, 0);
-            block.castShadow = true;
-            scene.add(block);
-            world.fallingBlocks.push({ mesh: block, vy: 0, age: 0 });
+            const block = acquireBlock();
+            if (block) {
+                block.position.set(obs.x + (Math.random() - 0.5) * 2, obs.spawnY, 0);
+                world.fallingBlocks.push({ mesh: block, vy: 0, age: 0 });
+            }
         }
     }
 
-    // Update falling blocks
-    for (let i = world.fallingBlocks.length - 1; i >= 0; i--) {
-        const fb = world.fallingBlocks[i];
+    // Update falling blocks (swap-and-pop removal)
+    let fbi = 0;
+    while (fbi < world.fallingBlocks.length) {
+        const fb = world.fallingBlocks[fbi];
         fb.vy -= 15 * dt;
         fb.mesh.position.y += fb.vy * dt;
         fb.mesh.rotation.x += dt * 3;
         fb.mesh.rotation.z += dt * 2;
         fb.age += dt;
         if (fb.mesh.position.y < -2 || fb.age > 5) {
-            scene.remove(fb.mesh);
-            world.fallingBlocks.splice(i, 1);
+            releaseBlock(fb.mesh);
+            world.fallingBlocks[fbi] = world.fallingBlocks[world.fallingBlocks.length - 1];
+            world.fallingBlocks.pop();
+            continue;
         }
+        fbi++;
     }
 
     return world;
@@ -696,7 +741,7 @@ export function getWeldingPositions() {
 
 export function resetWorld(world, scene) {
     for (const fb of world.fallingBlocks) {
-        scene.remove(fb.mesh);
+        releaseBlock(fb.mesh);
     }
     world.fallingBlocks = [];
     for (const obs of world.obstacles) {
