@@ -303,9 +303,22 @@ function updatePlaying(input, dt) {
         playThrow();
     }
 
-    // Update wrenches
+    // Update wrenches (with world collision)
     for (let i = wrenches.length - 1; i >= 0; i--) {
         updateWrench(wrenches[i], dt);
+        // Check wrench-platform collision
+        if (wrenches[i].alive) {
+            for (const p of world.platforms) {
+                if (p.type === 'oil' || p.h < 0.3) continue;
+                if (wrenches[i].x > p.x - p.w / 2 && wrenches[i].x < p.x + p.w / 2 &&
+                    wrenches[i].y > p.y - p.h / 2 && wrenches[i].y < p.y + p.h / 2) {
+                    sparkSystem.emit(wrenches[i].x, wrenches[i].y, 0, 5,
+                        { r: 0.8, g: 0.8, b: 0.6 }, 2, -5);
+                    wrenches[i].alive = false;
+                    break;
+                }
+            }
+        }
         if (!wrenches[i].alive) {
             scene.remove(wrenches[i].mesh);
             wrenches.splice(i, 1);
@@ -432,9 +445,14 @@ function updateBossFight(input, dt) {
         takeDamage();
     }
 
-    // Clamp player in boss arena
+    // Clamp player in boss arena (both sides)
     if (player.mesh.position.x > BOSS_X + 8) {
         player.mesh.position.x = BOSS_X + 8;
+        player.vx = 0;
+    }
+    if (player.mesh.position.x < BOSS_X - 12) {
+        player.mesh.position.x = BOSS_X - 12;
+        player.vx = 0;
     }
 
     // Boss exhaust particles
