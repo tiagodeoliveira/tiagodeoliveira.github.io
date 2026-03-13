@@ -239,7 +239,11 @@ export function updatePlayer(player, input, dt, platforms) {
         }
 
         // Thick platforms: swept landing detection
-        if (player.vy <= 0 && prevY >= platTop - SKIN_WIDTH && pos.y <= platTop && pos.y > platBottom) {
+        // No lower-bound check (pos.y > platBottom) — at high fall speeds the
+        // player can cross the entire platform thickness in one frame, so we
+        // only require the feet to have been above the surface last step and
+        // to be at-or-below it now.
+        if (player.vy <= 0 && prevY >= platTop - SKIN_WIDTH && pos.y <= platTop) {
             pos.y = platTop;
             player.vy = 0;
             player.onGround = true;
