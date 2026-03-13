@@ -185,12 +185,13 @@ export function updatePlayer(player, input, dt, platforms) {
             const overlapLeft = (pos.x + PLAYER_HALF_W) - platLeft;
             const overlapRight = platRight - (pos.x - PLAYER_HALF_W);
 
-            // Corner nudge: if player is very close to top edge, nudge up instead of blocking
+            // Corner nudge: if player is very close to top edge, nudge up instead of blocking.
+            // Don't set onGround here — the Y collision pass is the sole authority on
+            // ground state, and it will detect the player on this platform correctly.
             const overlapTop = platTop - pos.y;
             if (overlapTop > 0 && overlapTop < 0.15 && player.vy <= 0) {
                 pos.y = platTop;
                 player.vy = 0;
-                player.onGround = true;
                 continue;
             }
 

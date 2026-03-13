@@ -35,8 +35,8 @@ const PLATFORM_DATA = [
     { x: 53, y: 1.8, w: 3, h: 0.3, type: 'metal' },
     { x: 58, y: -0.25, w: 8, h: 0.5, type: 'concrete' },
     { x: 58, y: 3.5, w: 3, h: 0.3, type: 'wood' },
-    // Section 3: Shelf climbing
-    { x: 67, y: -0.25, w: 6, h: 0.5, type: 'concrete' },
+    // Section 3: Shelf climbing (w=10 to close gap with Section 2)
+    { x: 67, y: -0.25, w: 10, h: 0.5, type: 'concrete' },
     { x: 72, y: 1.5, w: 3, h: 0.25, type: 'wood' },
     { x: 77, y: 3.0, w: 3, h: 0.25, type: 'wood' },
     { x: 82, y: 4.5, w: 3, h: 0.25, type: 'wood' },

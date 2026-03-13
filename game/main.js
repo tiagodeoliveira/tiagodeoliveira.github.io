@@ -187,7 +187,7 @@ function createTitleWrench() {
 // ─── Game Loop ───────────────────────────────────────
 function gameLoop() {
     requestAnimationFrame(gameLoop);
-    const dt = Math.min(clock.getDelta(), 0.05); // Cap delta time
+    const dt = Math.min(clock.getDelta(), 1 / 30); // Cap dt at ~33ms to prevent tunneling on tab-unfocus / GC spikes
     const input = getInput();
 
     switch (gameState) {
