@@ -777,6 +777,31 @@ hr::after {
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
 }
 
+/* Blog post list */
+.blog-post-card {
+  margin-bottom: 1.5rem;
+}
+
+.blog-post-card h2 {
+  margin-bottom: 0.25rem;
+  font-size: 1.2rem;
+}
+
+.blog-post-card .post-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 0.6;
+  margin-bottom: 0.25rem;
+}
+
+.blog-post-card p:last-child {
+  margin-top: 0.15rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
 @media (max-width: 768px) {
   .section-banner {
     height: 35vh;

@@ -1,8 +1,14 @@
+---
+title: Resume
+section: resume
+banner: images/resume.jpg
+---
+
 # Tiago Oliveira
 
-**Principal Engineer & Architect | AI Platforms at Carrier Scale**
+**Principal Engineer & Architect \| AI Platforms at Carrier Scale**
 
-[tiago@tiago.sh](mailto:tiago@tiago.sh) | [LinkedIn](https://www.linkedin.com/in/tiagode) | [tiago.sh](https://tiago.sh) | Greater Seattle Area
+[tiago@tiago.sh](mailto:tiago@tiago.sh) · [LinkedIn](https://www.linkedin.com/in/tiagode) · [tiago.sh](https://tiago.sh) · Greater Seattle Area
 
 ---
 
@@ -21,7 +27,7 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 ## Experience
 
 ### Principal Solutions Architect | Generative AI Platforms
-**Amazon Web Services (AWS)** | *October 2024 - Present | Seattle, WA*
+**Amazon Web Services (AWS)** · *October 2024 – Present · Seattle, WA*
 
 *Architecting real-time AI platforms at carrier scale for major telecommunications operators*
 
@@ -36,7 +42,7 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 → All of this with zero prior telecommunications experience. Learned SIP/RTP, network hairpinning, carrier-grade reliability patterns, and regulatory requirements from first principles, then became the person carrier engineers seek out for guidance.
 
 ### Senior Product Architect | Computer Vision & AI
-**Amazon Web Services (AWS)** | *October 2021 - October 2024 | Austin, TX*
+**Amazon Web Services (AWS)** · *October 2021 – October 2024 · Austin, TX*
 
 *Built AI platform reducing investigation time by 35% for major security companies*
 
@@ -47,7 +53,7 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 → Achieved sub-100ms latency at 5,000+ predictions/second. Lambda control plane with auto-scaling Fargate data plane. Architecture handled seamless scaling from POC to production video processing workloads.
 
 ### Senior Solutions Architect | Industry 4.0 & Edge AI
-**Amazon Web Services (AWS)** | *May 2020 - October 2021 | Stuttgart, Germany*
+**Amazon Web Services (AWS)** · *May 2020 – October 2021 · Stuttgart, Germany*
 
 *Transformed manufacturing with edge-to-cloud AI achieving 99.99% reliability*
 
@@ -58,7 +64,7 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 → Reduced robot safety incidents through simulation, not sensors. Built ROS-based system learning from human patterns and generating collision-free routes automatically. 33% reduction in space invasion, 21% fewer safety stops.
 
 ### Principal Software Engineer | Platform Architecture
-**Mercedes-Benz.io** | *September 2018 - May 2020 | Stuttgart, Germany*
+**Mercedes-Benz.io** · *September 2018 – May 2020 · Stuttgart, Germany*
 
 *Built the technical foundation for Mercedes-Benz's global digital transformation*
 
@@ -67,14 +73,14 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 → Pioneered Hypothesis-Driven Development for ML. Built production-grade MVPs to validate before scaling full pipelines. High-performance pricing engine processing 1,000+ evaluations/second on decades of sales data proved the pattern works under real load.
 
 ### Senior Staff Software Engineer | FinTech & IoT Security
-**PayU · OSRAM** | *May 2017 - September 2018 | Berlin, Germany*
+**PayU · OSRAM** · *May 2017 – September 2018 · Berlin, Germany*
 
 → Consolidated 14 markets' payment reconciliation into single serverless platform. Normalized disparate formats from banks, merchants, and acquirers across markets into a common model. 60% cost reduction from consolidation and elastic scaling. Built ML-based fraud detection with autonomous weekly retraining handling millions of daily transactions.
 
 → Architected zero-trust IoT security for smart lighting infrastructure. Built custom OAuth 2.0/OpenID Connect extensions for fine-grained device permissions with HSM-backed cryptography.
 
 ### Senior Software Architect | AgTech IoT
-**e-Core** | *February 2016 - May 2017 | Porto Alegre, Brazil*
+**e-Core** · *February 2016 – May 2017 · Porto Alegre, Brazil*
 
 *Military-grade IoT platform for agricultural machinery*
 
@@ -83,7 +89,7 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 → Orchestrated autonomous machine-to-machine coordination. Harvesters and grain carts communicating directly for autonomous operation (approach, align, transfer, signal, separate). Built MQTT-based handshake mechanism with sub-meter GPS accuracy.
 
 ### Early Career Foundation
-**Incrosolda Serviços e Mecânica · NewFocus · Nokia Siemens · Zenvia Mobile · Dell Technologies** | *1994 - 2016*
+**Incrosolda Serviços e Mecânica · NewFocus · Nokia Siemens · Zenvia Mobile · Dell Technologies** · *1994–2016*
 
 → 19 years as truck mechanic starting at age 8, maintaining diesel engines, hydraulics, pneumatic systems, and fabricating parts from scratch when none existed. Built digital controllers interfacing with mechanical, hydraulic, and pneumatic systems for industrial automation.
 
@@ -95,14 +101,14 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 
 ## Education & Recognition
 
-→ **Bachelor of Technology, Information Technology** | Universidade do Oeste de Santa Catarina
+→ **Bachelor of Technology, Information Technology** — Universidade do Oeste de Santa Catarina
 
-→ **Post-Graduate Specialization, Software Development with Java** | Universidade do Oeste de Santa Catarina
+→ **Post-Graduate Specialization, Software Development with Java** — Universidade do Oeste de Santa Catarina
 
-→ **12+ Patents Filed** | Computer vision model monitoring, cryptographic video signing, multi-modal scene understanding, device optimization, smart storage
+→ **12+ Patents Filed** — Computer vision model monitoring, cryptographic video signing, multi-modal scene understanding, device optimization, smart storage
 
-→ **AWS AllStar Award** | Customer Obsession
+→ **AWS AllStar Award** — Customer Obsession
 
 → **Languages:** English (Native-level), Portuguese (Native), Spanish (Professional), German (Conversational), Italian (Basic)
 
-→ **Led community of 5,000+ technical advisors.** Promoted 4 engineers across multiple seniority levels through hands-on mentorship.
+→ **Led hundreds of technical advisors.** Promoted 25+ engineers across multiple seniority levels through hands-on mentorship.
