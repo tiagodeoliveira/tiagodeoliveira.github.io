@@ -517,6 +517,11 @@ li { margin-bottom: 10px; line-height: 1.7; }
 
 strong { font-weight: 600; color: var(--text-light); }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 .year-tag {
   font-family: var(--font-mono);
   font-size: 14px;

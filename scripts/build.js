@@ -123,6 +123,16 @@ function createRenderer() {
     return `<a href="${href}"${titleAttr}>${text}</a>`;
   };
 
+  // Images — wrap in link to open full-size in new tab for blog posts
+  renderer.image = function ({ href, title, text }) {
+    const titleAttr = title ? ` title="${title}"` : '';
+    const alt = text || '';
+    if (currentSection === 'post') {
+      return `<a href="${href}" target="_blank" rel="noopener"><img src="${href}" alt="${alt}"${titleAttr} /></a>`;
+    }
+    return `<img src="${href}" alt="${alt}"${titleAttr} />`;
+  };
+
   // HR — close resume-role if open before rendering the rule
   renderer.hr = function () {
     let prefix = '';
