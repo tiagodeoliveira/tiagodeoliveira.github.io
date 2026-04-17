@@ -13,7 +13,7 @@ tags: [ai, memory, bedrock, serverless, developer-tools]
 
 I use AI coding assistants daily, across multiple machines, multiple projects, and multiple tools. Each of them has gotten remarkably good at remembering things within their own walls. Claude Code has its CLAUDE.md files and auto-memory. ChatGPT has conversation history. Cursor has project context. The tools themselves are not the problem. The problem is that their memories don't travel with me.
 
-When I switch from Claude Code to Codex, everything I've established in one tool stays behind. When I move to a different workstation, the context I've built up over days of work doesn't come along. And when I have a conversation on Telegram through [OpenClaw](https://openclaw.com), none of that knowledge shows up in my coding sessions the next morning. Every tool remembers on its own, but nothing carries across.
+When I switch from Claude Code to Codex, everything I've established in one tool stays behind. When I move to a different workstation, the context I've built up over days of work doesn't come along. And when I have a conversation with OpenClaw, none of that knowledge shows up in my coding sessions the next morning. Every tool remembers on its own, but nothing carries across.
 
 I kept running into the same friction: preferences I'd established in one place needed re-establishing in another, project decisions captured by one tool were invisible to the rest, and context accumulated in fragments across a half-dozen different systems with no way to unify it.
 
