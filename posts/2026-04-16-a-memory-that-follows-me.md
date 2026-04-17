@@ -3,7 +3,6 @@ title: A Memory That Follows Me
 description: Building a centralized memory system that travels with me across AI tools, machines, and sessions, using Amazon Bedrock AgentCore Memory
 date: 2026-04-16
 tags: [ai, memory, bedrock, serverless, developer-tools]
-draft: true
 ---
 
 # A Memory That Follows Me
