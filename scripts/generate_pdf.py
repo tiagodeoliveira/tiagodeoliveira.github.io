@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Resume PDF Generator - Clean rebuild
-Starting with header only
+Generates a PDF resume from the markdown source at content/resume.md.
 """
 
 import re
@@ -20,6 +20,10 @@ import sys
 class MarkdownParser:
     """Parse markdown resume into structured data"""
 
+    # Separators allowed between company name and dates on the metadata line.
+    # The canonical resume uses '·' (middle dot). '|' is kept for back-compat.
+    COMPANY_DATES_SEPARATORS = ('·', '|')
+
     def __init__(self, markdown_text):
         self.markdown = markdown_text
         self.lines = markdown_text.split('\n')
@@ -29,7 +33,7 @@ class MarkdownParser:
         self.title = ''
         self.contact_line = ''
 
-        # Body sections (we'll add this later)
+        # Body sections
         self.sections = []
 
     def parse(self):
@@ -40,37 +44,85 @@ class MarkdownParser:
 
     def _parse_header(self):
         """Parse header section (everything before first ---)"""
-        in_header = True
+        in_frontmatter = False
+        frontmatter_seen = False
 
         for line in self.lines:
-            line = line.strip()
+            stripped = line.strip()
 
-            # Header ends at first ---
-            if line == '---':
-                in_header = False
+            # Skip Hugo frontmatter block (--- ... ---) at the very top
+            if stripped == '---' and not frontmatter_seen:
+                in_frontmatter = True
+                frontmatter_seen = True
+                continue
+            if in_frontmatter:
+                if stripped == '---':
+                    in_frontmatter = False
+                continue
+
+            # After frontmatter: consume header until next ---
+            if stripped == '---':
                 break
 
-            if not in_header or not line:
+            if not stripped:
                 continue
 
             # H1 = Name
-            if line.startswith('# '):
-                self.name = line[2:].strip()
+            if stripped.startswith('# '):
+                self.name = stripped[2:].strip()
                 continue
 
             # Bold line after name = Title/tagline
-            if self.name and not self.title and line.startswith('**') and line.endswith('**'):
-                self.title = line[2:-2].strip()
+            if self.name and not self.title and stripped.startswith('**') and stripped.endswith('**'):
+                self.title = stripped[2:-2].strip()
                 continue
 
-            # Line with links/pipes = Contact info
-            if self.name and ('|' in line or 'mailto:' in line or 'linkedin' in line.lower()):
-                self.contact_line = line
+            # Line with links/pipes/middots = Contact info
+            if self.name and ('|' in stripped or '·' in stripped or 'mailto:' in stripped or 'linkedin' in stripped.lower()):
+                self.contact_line = stripped
                 continue
+
+    def _parse_company_dates(self, line):
+        """Parse a '**Company** · *dates · location*' line.
+
+        Returns (company, dates) or (None, None) if the line doesn't match.
+        """
+        if '**' not in line or '*' not in line:
+            return None, None
+
+        separator = None
+        for candidate in self.COMPANY_DATES_SEPARATORS:
+            if candidate in line:
+                separator = candidate
+                break
+        if separator is None:
+            return None, None
+
+        parts = line.split(separator, 1)
+        if len(parts) != 2:
+            return None, None
+
+        company_part = parts[0].strip()
+        dates_part = parts[1].strip()
+
+        if not (company_part.startswith('**') and company_part.endswith('**')):
+            return None, None
+        company = company_part[2:-2].strip()
+
+        # Dates can be wrapped in single asterisks or may contain more
+        # separator characters (e.g. "*Oct 2024 – Present · Seattle, WA*").
+        if dates_part.startswith('*') and dates_part.endswith('*'):
+            dates = dates_part[1:-1].strip()
+        else:
+            dates = dates_part
+
+        return company, dates
 
     def _parse_body(self):
         """Parse body sections (after first ---)"""
         in_body = False
+        in_frontmatter = False
+        frontmatter_seen = False
         current_section = None
         current_job = None
 
@@ -78,7 +130,19 @@ class MarkdownParser:
         while i < len(self.lines):
             line = self.lines[i].strip()
 
-            # Skip until we hit the first ---
+            # Skip Hugo frontmatter at top of file
+            if line == '---' and not frontmatter_seen:
+                in_frontmatter = True
+                frontmatter_seen = True
+                i += 1
+                continue
+            if in_frontmatter:
+                if line == '---':
+                    in_frontmatter = False
+                i += 1
+                continue
+
+            # Skip until we hit the first --- after the header
             if not in_body:
                 if line == '---':
                     in_body = True
@@ -104,9 +168,9 @@ class MarkdownParser:
                 # Start new section
                 section_title = line[3:].strip()
 
-                # Determine section type based on content
-                # Experience section contains job entries with bullets
-                # All other sections are prose (paragraphs)
+                # Experience section contains job entries with bullets.
+                # All other sections are prose (paragraphs with optional
+                # markdown bullets).
                 if section_title == 'Experience':
                     section_type = 'experience'
                 else:
@@ -155,30 +219,29 @@ class MarkdownParser:
 
             # If we're in a job, parse job details
             if current_job:
-                # Company and dates line: **Company** | *dates*
-                if '|' in line and '**' in line and '*' in line and not current_job['company']:
-                    # Split by pipe to separate company and dates
-                    parts = line.split('|', 1)
-                    if len(parts) == 2:
-                        # Extract company (remove **)
-                        company_part = parts[0].strip()
-                        if company_part.startswith('**') and company_part.endswith('**'):
-                            current_job['company'] = company_part[2:-2].strip()
-
-                        # Extract dates (remove *)
-                        dates_part = parts[1].strip()
-                        if dates_part.startswith('*') and dates_part.endswith('*'):
-                            current_job['dates'] = dates_part[1:-1].strip()
-                    i += 1
-                    continue
+                # Company and dates line: **Company** · *dates · location*
+                if not current_job['company']:
+                    company, dates = self._parse_company_dates(line)
+                    if company:
+                        current_job['company'] = company
+                        current_job['dates'] = dates or ''
+                        i += 1
+                        continue
 
                 # Description (italic line after dates)
-                if line.startswith('*') and line.endswith('*') and not line.startswith('**') and current_job['dates'] and not current_job['description']:
+                if (line.startswith('*') and line.endswith('*')
+                        and not line.startswith('**')
+                        and current_job['dates']
+                        and not current_job['description']):
                     current_job['description'] = line[1:-1].strip()
                     i += 1
                     continue
 
-                # Bullet points
+                # Bullet points — canonical is markdown '- ', legacy '→' kept
+                if line.startswith('- '):
+                    current_job['bullets'].append(line[2:].strip())
+                    i += 1
+                    continue
                 if line.startswith('→'):
                     current_job['bullets'].append(line[1:].strip())
                     i += 1
@@ -200,6 +263,11 @@ class MarkdownParser:
 class PDFGenerator:
     """Generate PDF from parsed markdown"""
 
+    # Visual bullet character used in the rendered PDF. Decoupled from the
+    # markdown source so the .md can stay ATS-friendly with '- ' bullets while
+    # the PDF renders a proper typographic bullet.
+    BULLET_CHAR = '•'
+
     def __init__(self, parser):
         self.parser = parser
         self.styles = self._create_styles()
@@ -217,7 +285,7 @@ class PDFGenerator:
             textColor=HexColor('#000000'),
             spaceBefore=0,
             spaceAfter=0,
-            leading=15  # Line height
+            leading=15
         )
 
         # Title/tagline - smaller, centered
@@ -256,7 +324,7 @@ class PDFGenerator:
             leading=13
         )
 
-        # Body text / paragraphs - SMALLER FONT, TIGHTER SPACING
+        # Body text / prose paragraphs
         styles['Body'] = ParagraphStyle(
             'Body',
             fontName='Helvetica',
@@ -304,7 +372,7 @@ class PDFGenerator:
             leading=10
         )
 
-        # Job description (italic summary) - SMALLER FONT
+        # Job description (italic summary)
         styles['JobDescription'] = ParagraphStyle(
             'JobDescription',
             fontName='Helvetica-Oblique',
@@ -316,9 +384,24 @@ class PDFGenerator:
             leading=10
         )
 
-        # Bullet points - SMALLER FONT
+        # Bullet points
         styles['Bullet'] = ParagraphStyle(
             'Bullet',
+            fontName='Helvetica',
+            fontSize=8,
+            alignment=TA_LEFT,
+            textColor=HexColor('#333333'),
+            spaceBefore=0,
+            spaceAfter=3,
+            leading=11,
+            leftIndent=10,
+            firstLineIndent=0
+        )
+
+        # Skills / Education-style prose bullets get slightly less indent
+        # so they align nicely with surrounding body text.
+        styles['ProseBullet'] = ParagraphStyle(
+            'ProseBullet',
             fontName='Helvetica',
             fontSize=8,
             alignment=TA_LEFT,
@@ -334,15 +417,11 @@ class PDFGenerator:
 
     def _format_contact_line(self, line):
         """Convert markdown links to HTML for contact line"""
-        # Convert [text](url) to clickable links
-        # Pattern: [Text](URL)
         line = re.sub(
             r'\[([^\]]+)\]\(([^\)]+)\)',
             r'<a href="\2" color="blue">\1</a>',
             line
         )
-
-        # Handle plain URLs if any
         return line
 
     def _format_text(self, text):
@@ -364,15 +443,14 @@ class PDFGenerator:
         canvas_obj.setFont('Helvetica', 8)
         canvas_obj.setFillColor(HexColor('#666666'))
         canvas_obj.drawRightString(
-            letter[0] - 0.4 * inch,  # Right margin
-            0.3 * inch,              # 0.3 inch from bottom
+            letter[0] - 0.4 * inch,
+            0.3 * inch,
             text
         )
 
     def generate_pdf(self, filename='resume.pdf'):
         """Generate PDF"""
 
-        # Create document
         doc = SimpleDocTemplate(
             filename,
             pagesize=letter,
@@ -401,52 +479,51 @@ class PDFGenerator:
 
         # Add all sections
         for section in self.parser.sections:
-            # Section header
             story.append(Paragraph(section['title'], self.styles['SectionHeader']))
 
-            # Render based on section type
             if section['type'] == 'prose':
-                # Render paragraphs
                 for paragraph in section['paragraphs']:
-                    formatted_text = self._format_text(paragraph)
-                    story.append(Paragraph(formatted_text, self.styles['Body']))
+                    # Markdown bullets in prose sections (e.g. Education, Skills)
+                    # render as proper bullets rather than literal '- ' text.
+                    if paragraph.startswith('- '):
+                        text = paragraph[2:].strip()
+                        bullet_text = f"{self.BULLET_CHAR}&nbsp;&nbsp;{self._format_text(text)}"
+                        story.append(Paragraph(bullet_text, self.styles['ProseBullet']))
+                    else:
+                        formatted_text = self._format_text(paragraph)
+                        story.append(Paragraph(formatted_text, self.styles['Body']))
 
             elif section['type'] == 'experience':
-                # Render job entries
                 for job in section['jobs']:
-                    # Job title (with subtitle if exists)
                     if job['subtitle']:
                         title_text = f"{job['title']} | {job['subtitle']}"
                     else:
                         title_text = job['title']
                     story.append(Paragraph(title_text, self.styles['JobTitle']))
 
-                    # Company and dates on one line
                     if job['company'] or job['dates']:
                         company_dates_parts = []
                         if job['company']:
                             company_dates_parts.append(f"<b>{job['company']}</b>")
                         if job['dates']:
-                            company_dates_parts.append(f'<i><font color="#666666">{job["dates"]}</font></i>')
-                        company_dates_text = " | ".join(company_dates_parts)
+                            company_dates_parts.append(
+                                f'<i><font color="#666666">{job["dates"]}</font></i>'
+                            )
+                        company_dates_text = " &nbsp;·&nbsp; ".join(company_dates_parts)
                         story.append(Paragraph(company_dates_text, self.styles['Company']))
 
-                    # Job description
                     if job['description']:
                         story.append(Paragraph(job['description'], self.styles['JobDescription']))
 
-                    # Bullets
                     for bullet in job['bullets']:
-                        bullet_text = f"→ {self._format_text(bullet)}"
+                        bullet_text = f"{self.BULLET_CHAR}&nbsp;&nbsp;{self._format_text(bullet)}"
                         story.append(Paragraph(bullet_text, self.styles['Bullet']))
 
-        # Build PDF with page numbers
         doc.build(story, onFirstPage=self._add_page_number, onLaterPages=self._add_page_number)
         return filename
 
 
 def main():
-    """Main function"""
     parser = argparse.ArgumentParser(description='Generate PDF resume from Markdown')
     parser.add_argument(
         '--output', '-o',
@@ -460,7 +537,6 @@ def main():
 
     args = parser.parse_args()
 
-    # Get markdown content
     if args.local:
         print(f"Reading local file: {args.local}")
         try:
@@ -473,18 +549,20 @@ def main():
         print("Error: Please provide a local file with --local")
         sys.exit(1)
 
-    # Parse markdown
     print("Parsing markdown...")
     md_parser = MarkdownParser(markdown_content)
     md_parser.parse()
 
-    # Show what we found
     print(f"  Name: {md_parser.name}")
     print(f"  Title: {md_parser.title}")
     print(f"  Contact: {md_parser.contact_line}")
     print(f"  Sections: {len(md_parser.sections)}")
+    for section in md_parser.sections:
+        if section['type'] == 'experience':
+            print(f"    - {section['title']} ({len(section['jobs'])} jobs)")
+        else:
+            print(f"    - {section['title']} ({len(section['paragraphs'])} paragraphs)")
 
-    # Generate PDF
     print("Generating PDF...")
     generator = PDFGenerator(md_parser)
     generator.generate_pdf(args.output)

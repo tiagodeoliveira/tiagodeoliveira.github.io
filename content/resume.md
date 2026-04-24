@@ -6,21 +6,31 @@ banner: images/resume.jpg
 
 # Tiago Oliveira
 
-**Principal Engineer & Architect \| AI Platforms at Carrier Scale**
+**Principal Engineer & Architect | AI Platforms at Carrier Scale**
 
 [tiago@tiago.sh](mailto:tiago@tiago.sh) · [LinkedIn](https://www.linkedin.com/in/tiagode) · [tiago.sh](https://tiago.sh) · Greater Seattle Area
 
 ---
 
-## What I Do
+## Summary
 
-I build the systems that turn ambitious technical bets into production platforms. The pattern is consistent: walk into an ambiguous, high-stakes problem, prototype something that changes the conversation, then architect it for scale and operational excellence.
+Principal Engineer and Architect building real-time AI platforms at carrier scale. Currently architecting a network-integrated AI platform for a top-three US operator: sub-100ms latency, millions of subscribers, foundation of an $800M+ strategic partnership. 12+ patents filed across computer vision, video intelligence, and multimodal systems. Prior platform work at Mercedes-Benz (event sourcing), PayU (serverless payments across 14 markets), OSRAM (zero-trust IoT). Before software, 19 years rebuilding diesel engines in my father's truck shop. Every distributed system is another machine with predictable failure modes.
 
-My current work is real-time AI embedded directly into telecommunications networks, serving tens of millions of subscribers with sub-second latency requirements. The platforms I build don't just solve today's problem; they're designed so product teams can ship new AI capabilities independently without platform rewrites.
+---
 
-I spent 19 years rebuilding truck transmissions before writing my first line of code. That's not a fun fact, it's the foundation. Every distributed system is just another machine with predictable failure modes. Whether diagnosing why a diesel engine fails under load or why a distributed system fails under load, the mental model is the same.
+## Skills
 
-I learn new technologies fast and ship production systems in weeks. I've built at carrier scale across cloud providers, from serverless to Kubernetes to bare metal. The technology stack is the easy part. The hard part is knowing which problem actually needs solving.
+**Languages:** Rust, Go, Python, C, TypeScript, Erlang, Java
+
+**AI / ML:** OpenAI Realtime API, Amazon Nova Sonic, Gemini Live, Bedrock AgentCore, agentic systems, multi-tenant AI isolation, RAG, MCP, Silero VAD, LLM inference optimization, RLHF
+
+**Cloud & Infrastructure:** AWS (EKS, Lambda, Fargate, Outposts, MEC, IAM, SigV4, ABAC, Direct Connect), Kubernetes, serverless, cell-based architecture, multi-region HA, Firecracker microVMs
+
+**Telecom & Media:** SIP, RTP, B2BUA, G.711, PCMU, STIR/SHAKEN, IMS AKA, Twilio, Vonage, GStreamer, WebRTC, WebSocket streaming
+
+**Systems & Security:** distributed systems, event sourcing, event-driven architecture, zero-trust, OAuth 2.0, OpenID Connect, mutual TLS, HSM, Domain-Driven Design, TLA+
+
+**Observability & Quality:** OpenTelemetry, utterance-level latency, SLO design, p50/p95/p99 analysis, privacy-preserving evaluation frameworks
 
 ---
 
@@ -31,88 +41,88 @@ I learn new technologies fast and ship production systems in weeks. I've built a
 
 *Architecting real-time AI platforms at carrier scale for major telecommunications operators*
 
-→ Built an overnight prototype that displaced an incumbent multi-year engagement. What started as a proof of concept became the foundation for the world's first network-integrated real-time AI platform, announced at the carrier's investor event and now in beta serving millions of subscribers. Designed the core streaming architecture: bidirectional audio over SIP/RTP, dual-channel inference (independent streams per speaker), custom B2BUA, 7 SIP dialogs + 6 RTP sessions per translated call across 4 AWS regions.
+- Built an overnight prototype that displaced an incumbent multi-year engagement. What started as a proof of concept became the foundation for the world's first network-integrated real-time AI platform, announced at the carrier's investor event and now in beta serving millions of subscribers. Designed the core streaming architecture: bidirectional audio over SIP/RTP, dual-channel inference (independent streams per speaker), custom B2BUA, 7 SIP dialogs + 6 RTP sessions per translated call across 4 AWS regions.
 
-→ Drove the strategic pivot from point solution to platform. Fought for and won the architectural framing that positions real-time AI as a network capability, not a standalone feature. This platform approach directly enabled expansion into AI agents, virtual assistants, and dozens of additional agentic workloads. Drove $60M ARR Phase 1, single-handedly closed a multi-million dollar professional services contract to build the next wave, establishing the foundation for an $800M+ strategic partnership projected to become the largest customer for multiple flagship AWS AI services.
+- Drove the strategic pivot from point solution to platform. Fought for and won the architectural framing that positions real-time AI as a network capability, not a standalone feature. This platform approach directly enabled expansion into AI agents, virtual assistants, and dozens of additional agentic workloads. Drove $60M ARR Phase 1, single-handedly closed a multi-million dollar professional services contract to build the next wave, establishing the foundation for an $800M+ strategic partnership projected to become the largest customer for multiple flagship AWS AI services.
 
-→ Fully embedded in the customer's engineering organization, not treated as a vendor. Perform code reviews, push code, and mentor engineers across all levels. Customer senior leadership made my personal involvement a contractual condition, with directors and senior directors putting their own career reputations behind the project. Hands-on across the full stack: pioneered voice ducking techniques that transformed translated calls from robotic turn-taking into natural conversation, and built graceful barge-in handling for real-time interruption.
+- Fully embedded in the customer's engineering organization, not treated as a vendor. Perform code reviews, push code, and mentor engineers across all levels. Customer senior leadership made my personal involvement a contractual condition, with directors and senior directors putting their own career reputations behind the project. Hands-on across the full stack: pioneered voice ducking techniques that transformed translated calls from robotic turn-taking into natural conversation, and built graceful barge-in handling for real-time interruption.
 
-→ Authored open-source GStreamer plugin for bidirectional audio streaming over WebSocket. Handles G.711 mu-law/A-law and PCM codecs, RTP jitter buffering, configurable frame pacing, and barge-in flush commands. Built in C with libsoup-3.0. Became the core audio transport layer enabling the carrier's automated contact center platform.
+- Authored open-source GStreamer plugin for bidirectional audio streaming over WebSocket. Handles G.711 mu-law/A-law and PCM codecs, RTP jitter buffering, configurable frame pacing, and barge-in flush commands. Built in C with libsoup-3.0. Became the core audio transport layer enabling the carrier's automated contact center platform.
 
-→ Solo-built a complete multi-tenant AI agent platform with voice-over-WebSocket, multi-model inference (Nova Sonic, OpenAI Realtime API, Gemini Live), custom SIP User Agent, cell-based HA, and MCP gateway. From architecture to production, including 13 ADRs covering codec selection to tenant isolation.
+- Solo-built a complete multi-tenant AI agent platform with voice-over-WebSocket, multi-model inference (Nova Sonic, OpenAI Realtime API, Gemini Live), custom SIP User Agent, cell-based HA, and MCP gateway. From architecture to production, including 13 ADRs covering codec selection to tenant isolation.
 
-→ Designed comprehensive tenant isolation architecture for multi-tenant AI agent platforms using full-silo isolation on serverless managed services. Published internal research demonstrating why shared infrastructure for AI agents creates structural vulnerabilities (cross-tenant retrieval attacks, memory contamination, credential leakage) that application-level isolation cannot address. Built utterance-level latency observability using Silero VAD as T=0, exported to OpenTelemetry for p50/p95/p99 per-utterance analysis. Built a privacy-preserving evaluation framework for translation quality (Go, patent filing in progress).
+- Designed comprehensive tenant isolation architecture for multi-tenant AI agent platforms using full-silo isolation on serverless managed services. Published internal research demonstrating why shared infrastructure for AI agents creates structural vulnerabilities (cross-tenant retrieval attacks, memory contamination, credential leakage) that application-level isolation cannot address. Built utterance-level latency observability using Silero VAD as T=0, exported to OpenTelemetry for p50/p95/p99 per-utterance analysis. Built a privacy-preserving evaluation framework for translation quality (Go, patent filing in progress).
 
-→ All of this with zero prior telecommunications experience. Learned SIP/RTP, network hairpinning, carrier-grade reliability patterns, and regulatory requirements from first principles, then became the person carrier engineers seek out for guidance.
+- All of this with zero prior telecommunications experience. Learned SIP/RTP, network hairpinning, carrier-grade reliability patterns, and regulatory requirements from first principles, then became the person carrier engineers seek out for guidance.
 
 ### Senior Product Architect | Computer Vision & AI
 **Amazon Web Services (AWS)** · *October 2021 – October 2024 · Austin, TX*
 
 *Built AI platform reducing investigation time by 35% for major security companies*
 
-→ Built video intelligence platform reducing security investigation time 35%. Architected edge-to-cloud continuum (MEC/Outposts for near-edge, TFLite for embedded edge). 40% reduction in false-positive dispatches through intelligent multi-stream correlation and GenAI-powered summarization.
+- Built video intelligence platform reducing security investigation time 35%. Architected edge-to-cloud continuum (MEC/Outposts for near-edge, TFLite for embedded edge). 40% reduction in false-positive dispatches through intelligent multi-stream correlation and GenAI-powered summarization.
 
-→ Pioneered CVOps framework (Computer Vision Operations) that became the team's foundation. Personally coded initial Python/Rust implementation to prove the pattern, then established CI/CD and shared libraries enabling the team to scale independently. System handled millions of cameras with sub-millisecond inference. 12+ patents filed covering model monitoring, cryptographic video signing, multi-modal scene understanding, and device optimization.
+- Pioneered CVOps framework (Computer Vision Operations) that became the team's foundation. Personally coded initial Python/Rust implementation to prove the pattern, then established CI/CD and shared libraries enabling the team to scale independently. System handled millions of cameras with sub-millisecond inference. 12+ patents filed covering model monitoring, cryptographic video signing, multi-modal scene understanding, and device optimization.
 
-→ Achieved sub-100ms latency at 5,000+ predictions/second. Lambda control plane with auto-scaling Fargate data plane. Architecture handled seamless scaling from POC to production video processing workloads.
+- Achieved sub-100ms latency at 5,000+ predictions/second. Lambda control plane with auto-scaling Fargate data plane. Architecture handled seamless scaling from POC to production video processing workloads.
 
 ### Senior Solutions Architect | Industry 4.0 & Edge AI
 **Amazon Web Services (AWS)** · *May 2020 – October 2021 · Stuttgart, Germany*
 
 *Transformed manufacturing with edge-to-cloud AI achieving 99.99% reliability*
 
-→ Solved the "cloud latency kills production lines" problem. Manufacturing control systems needed millisecond response times. Architected edge computing framework keeping critical decisions local while maintaining cloud connectivity for analytics. 99.99% reliability, 35% reduction in unplanned downtime.
+- Solved the "cloud latency kills production lines" problem. Manufacturing control systems needed millisecond response times. Architected edge computing framework keeping critical decisions local while maintaining cloud connectivity for analytics. 99.99% reliability, 35% reduction in unplanned downtime.
 
-→ Built IoT fleet management for 10,000+ heterogeneous industrial endpoints. The challenge was enabling modern AI/ML on decades-old legacy machinery that couldn't be replaced. Created abstraction layer bridging legacy equipment with cloud intelligence.
+- Built IoT fleet management for 10,000+ heterogeneous industrial endpoints. The challenge was enabling modern AI/ML on decades-old legacy machinery that couldn't be replaced. Created abstraction layer bridging legacy equipment with cloud intelligence.
 
-→ Reduced robot safety incidents through simulation, not sensors. Built ROS-based system learning from human patterns and generating collision-free routes automatically. 33% reduction in space invasion, 21% fewer safety stops.
+- Reduced robot safety incidents through simulation, not sensors. Built ROS-based system learning from human patterns and generating collision-free routes automatically. 33% reduction in space invasion, 21% fewer safety stops.
 
 ### Principal Software Engineer | Platform Architecture
 **Mercedes-Benz.io** · *September 2018 – May 2020 · Stuttgart, Germany*
 
 *Built the technical foundation for Mercedes-Benz's global digital transformation*
 
-→ Solved the "every department needs a different view of the vehicle" problem through event sourcing. Architected event-sourcing platform creating unified vehicle state across all lifecycle stages. 60+ systems integrated, 47% cost reduction by eliminating manual integration. Deployment velocity from months to days.
+- Solved the "every department needs a different view of the vehicle" problem through event sourcing. Architected event-sourcing platform (Lambda, containers, S3, DynamoDB, EventBridge, ElastiCache) creating unified vehicle state across all lifecycle stages. Any department could materialize their own view from the same event stream with query flexibility. 60+ systems integrated, 47% cost reduction by eliminating manual integration and view maintenance. Deployment velocity from months to days.
 
-→ Pioneered Hypothesis-Driven Development for ML. Built production-grade MVPs to validate before scaling full pipelines. High-performance pricing engine processing 1,000+ evaluations/second on decades of sales data proved the pattern works under real load.
+- Pioneered Hypothesis-Driven Development for ML. Built production-grade MVPs to validate before scaling full pipelines. High-performance pricing engine processing 1,000+ evaluations/second on decades of sales data proved the pattern works under real load.
 
 ### Senior Staff Software Engineer | FinTech & IoT Security
 **PayU · OSRAM** · *May 2017 – September 2018 · Berlin, Germany*
 
-→ Consolidated 14 markets' payment reconciliation into single serverless platform. Normalized disparate formats from banks, merchants, and acquirers across markets into a common model. 60% cost reduction from consolidation and elastic scaling. Built ML-based fraud detection with autonomous weekly retraining handling millions of daily transactions.
+- Consolidated 14 markets' payment reconciliation into single serverless platform. Normalized disparate formats from banks, merchants, and acquirers across markets into a common model. 60% cost reduction from consolidation and elastic scaling. Built ML-based fraud detection with autonomous weekly retraining handling millions of daily transactions.
 
-→ Architected zero-trust IoT security for smart lighting infrastructure. Built custom OAuth 2.0/OpenID Connect extensions for fine-grained device permissions with HSM-backed cryptography.
+- Architected zero-trust IoT security for smart lighting infrastructure. Built custom OAuth 2.0 and OpenID Connect extensions for fine-grained device permissions with HSM-backed cryptography.
 
 ### Senior Software Architect | AgTech IoT
 **e-Core** · *February 2016 – May 2017 · Porto Alegre, Brazil*
 
 *Military-grade IoT platform for agricultural machinery*
 
-→ Built near-realtime auth platform without sacrificing security. Implemented custom nonce calculation on mutual TLS using Erlang and RabbitMQ, contributed plugin back to RabbitMQ project. Built air-gapped firmware signing process using Yubikey hardware API for supply chain integrity.
+- Built near-realtime auth platform without sacrificing security. Implemented custom nonce calculation on mutual TLS using Erlang and RabbitMQ, contributed plugin back to RabbitMQ project. Built air-gapped firmware signing process using Yubikey hardware API for supply chain integrity. 30% infrastructure cost reduction through protocol optimization.
 
-→ Orchestrated autonomous machine-to-machine coordination. Harvesters and grain carts communicating directly for autonomous operation (approach, align, transfer, signal, separate). Built MQTT-based handshake mechanism with sub-meter GPS accuracy.
+- Orchestrated autonomous machine-to-machine coordination. Harvesters and grain carts communicating directly for autonomous operation (approach, align, transfer, signal, separate). Built MQTT-based handshake mechanism with sub-meter GPS accuracy.
 
-### Early Career Foundation
-**Incrosolda Serviços e Mecânica · NewFocus · Nokia Siemens · Zenvia Mobile · Dell Technologies** · *1994–2016*
+### Early Career Foundation | 1994 – 2016 · Brazil
 
-→ 19 years as truck mechanic starting at age 8, maintaining diesel engines, hydraulics, pneumatic systems, and fabricating parts from scratch when none existed. Built digital controllers interfacing with mechanical, hydraulic, and pneumatic systems for industrial automation.
+- **Zenvia Mobile, Principal Software Engineer** (2014 – 2016). Pioneered Docker pre-1.0 containerization (2014) for unpredictable SMS traffic spikes; built the L1/L2/L3 incident framework still in operational use today.
 
-→ Pioneered early containerization (Docker pre-1.0, 2014) for handling unpredictable traffic spikes serving millions of users. Built server-side JavaScript rendering years before React SSR existed. Created incident management frameworks still in operational use today.
+- **Dell Technologies, Senior Software Engineer** (2013 – 2014). Pioneered SPA architecture at Dell with Java Nashorn server-side components, years before React SSR. First recipient of Dell's Application Development Quality Gold Award.
 
-→ Built ERP integrations connecting physical operations to digital systems: PDAs tracking truck departures, weighing systems feeding load data, factory floor operations flowing into business systems.
+- **Nokia Siemens Networks, Software Engineer** (2013). Built SLA maintenance matrix for global cellphone sites using graph theory, adjacency maps, and finite state machines; 3GPP and ETSI compliant.
+
+- **NewFocus, ERP Consultant** (2013). Built bespoke ERP modules across industries; my favorite project was a PIC-controller hack that streamed readings from a semi-analog truck weighing scale straight into the ERP in real time.
+
+- **Incrosolda Serviços e Mecânica, Truck Mechanic & Machine Builder** (1994 – 2013). 19 years maintaining diesel engines, hydraulics, and pneumatic systems starting at age 8 in my father's truck shop. Fabricated parts from scratch when none existed. Built machines and digital controllers bridging mechanical, hydraulic, and pneumatic systems for industrial automation.
 
 ---
 
 ## Education & Recognition
 
-→ **Bachelor of Technology, Information Technology** — Universidade do Oeste de Santa Catarina
-
-→ **Post-Graduate Specialization, Software Development with Java** — Universidade do Oeste de Santa Catarina
-
-→ **12+ Patents Filed** — Computer vision model monitoring, cryptographic video signing, multi-modal scene understanding, device optimization, smart storage
-
-→ **AWS AllStar Award** — Customer Obsession
-
-→ **Languages:** English (Native-level), Portuguese (Native), Spanish (Professional), German (Conversational), Italian (Basic)
-
-→ **Led hundreds of technical advisors.** Promoted 25+ engineers across multiple seniority levels through hands-on mentorship.
+- **Bachelor of Technology, Information Technology**, Universidade do Oeste de Santa Catarina (2004 – 2007)
+- **Mechanical Engineering**, Unochapecó (2011 – 2013)
+- **Post-Graduate Specialization, Java Software Development**, Universidade do Oeste de Santa Catarina (2006 – 2007)
+- **12+ Patents Filed** covering computer vision model monitoring, cryptographic video signing, multi-modal scene understanding, device optimization, smart storage, and privacy-preserving translation quality evaluation
+- **AWS AllStar Award**, Customer Obsession
+- **AWS Certifications:** Certified AI Practitioner, Well-Architected Proficient, Certified Solutions Architect – Associate
+- **Languages:** English (Native-level), Portuguese (Native), Spanish (Professional), German (Conversational), Italian (Basic)
+- **Mentorship:** Led hundreds of technical advisors. Promoted 25+ engineers across multiple seniority levels through hands-on mentorship.
