@@ -583,13 +583,33 @@ a:hover { color: var(--spark-orange); }
 .resume-role ul {
   list-style: none;
   padding-left: 0;
+  margin: 12px 0 0;
 }
 
 .resume-role li {
+  position: relative;
   margin-bottom: 12px;
-  padding-left: 0;
+  padding-left: 20px;
   font-size: 15px;
   line-height: 1.7;
+}
+
+.resume-role li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--rust-warm);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.resume-role li > p {
+  margin: 0 0 8px;
+}
+
+.resume-role li > p:last-child {
+  margin-bottom: 0;
 }
 
 /* ============================================
