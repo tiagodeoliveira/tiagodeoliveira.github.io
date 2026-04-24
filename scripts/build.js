@@ -349,7 +349,7 @@ function buildPostPage(post, contentHtml) {
 
 function copyStatic() {
   ensureDir(DIST);
-  const assets = ['styles.css', 'favicon.ico', 'CNAME', 'images'];
+  const assets = ['styles.css', 'CNAME', 'images', 'icons'];
   for (const asset of assets) {
     const src = path.join(ROOT, asset);
     if (fs.existsSync(src)) {
