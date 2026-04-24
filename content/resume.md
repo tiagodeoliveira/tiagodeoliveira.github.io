@@ -14,23 +14,17 @@ banner: images/resume.jpg
 
 ## Summary
 
-Principal Engineer and Architect building real-time AI platforms at carrier scale. Currently architecting a network-integrated AI platform for a top-three US operator: sub-100ms latency, millions of subscribers, foundation of an $800M+ strategic partnership. 12+ patents filed across computer vision, video intelligence, and multimodal systems. Prior platform work at Mercedes-Benz (event sourcing), PayU (serverless payments across 14 markets), OSRAM (zero-trust IoT). Before software, 19 years rebuilding diesel engines in my father's truck shop. Every distributed system is another machine with predictable failure modes.
+Principal Engineer and Architect building real-time AI platforms at carrier scale. Architected a network-integrated AI platform for a top-three US operator: sub-100ms latency, millions of subscribers, foundation of an $800M+ strategic partnership. Now technical lead for the hands-on build, driving a 20-engineer core team within a ~120-person cross-functional initiative spanning verticals and domains. 12+ patents filed across computer vision, video intelligence, and multimodal systems. Prior platform work at Mercedes-Benz (event sourcing), PayU (serverless payments across 14 markets), OSRAM (zero-trust IoT). Before software, 19 years rebuilding diesel engines in my father's truck shop. Every distributed system is another machine with predictable failure modes.
 
 ---
 
 ## Skills
 
-**Languages:** Rust, Go, Python, C, TypeScript, Erlang, Java
+**Languages & Systems:** Rust, Go, Python, C, TypeScript, Erlang, Java; distributed systems, event sourcing, event-driven architecture, zero-trust, OAuth 2.0, OpenID Connect, mutual TLS, HSM, Domain-Driven Design, TLA+
 
-**AI / ML:** OpenAI Realtime API, Amazon Nova Sonic, Gemini Live, Bedrock AgentCore, agentic systems, multi-tenant AI isolation, RAG, MCP, Silero VAD, LLM inference optimization, RLHF
+**AI & Cloud:** OpenAI Realtime API, Amazon Nova Sonic, Gemini Live, Bedrock AgentCore, agentic systems, multi-tenant AI isolation, RAG, MCP, LLM inference optimization, RLHF; AWS (EKS, Lambda, Fargate, Outposts, MEC, IAM, SigV4, ABAC, Direct Connect), Kubernetes, serverless, cell-based architecture, multi-region HA, Firecracker microVMs
 
-**Cloud & Infrastructure:** AWS (EKS, Lambda, Fargate, Outposts, MEC, IAM, SigV4, ABAC, Direct Connect), Kubernetes, serverless, cell-based architecture, multi-region HA, Firecracker microVMs
-
-**Telecom & Media:** SIP, RTP, B2BUA, G.711, PCMU, STIR/SHAKEN, IMS AKA, Twilio, Vonage, GStreamer, WebRTC, WebSocket streaming
-
-**Systems & Security:** distributed systems, event sourcing, event-driven architecture, zero-trust, OAuth 2.0, OpenID Connect, mutual TLS, HSM, Domain-Driven Design, TLA+
-
-**Observability & Quality:** OpenTelemetry, utterance-level latency, SLO design, p50/p95/p99 analysis, privacy-preserving evaluation frameworks
+**Telecom & Observability:** SIP, RTP, B2BUA, G.711, STIR/SHAKEN, IMS AKA, GStreamer, WebRTC, WebSocket streaming; OpenTelemetry, SLO design, p50/p95/p99 analysis, privacy-preserving evaluation frameworks
 
 ---
 
@@ -41,19 +35,13 @@ Principal Engineer and Architect building real-time AI platforms at carrier scal
 
 *Architecting real-time AI platforms at carrier scale for major telecommunications operators*
 
-- Built an overnight prototype that displaced an incumbent multi-year engagement. What started as a proof of concept became the foundation for the world's first network-integrated real-time AI platform, announced at the carrier's investor event and now in beta serving millions of subscribers. Designed the core streaming architecture: bidirectional audio over SIP/RTP, dual-channel inference (independent streams per speaker), custom B2BUA, 7 SIP dialogs + 6 RTP sessions per translated call across 4 AWS regions.
+- Built an overnight prototype that became the world's first network-integrated real-time AI platform for a top-three US carrier, announced at their investor event and now in beta serving millions of subscribers. Streaming architecture: bidirectional audio over SIP/RTP, dual-channel inference, custom B2BUA across 4 AWS regions. All with zero prior telecom experience, learned from first principles.
 
-- Drove the strategic pivot from point solution to platform. Fought for and won the architectural framing that positions real-time AI as a network capability, not a standalone feature. This platform approach directly enabled expansion into AI agents, virtual assistants, and dozens of additional agentic workloads. Drove $60M ARR Phase 1, single-handedly closed a multi-million dollar professional services contract to build the next wave, establishing the foundation for an $800M+ strategic partnership projected to become the largest customer for multiple flagship AWS AI services.
+- Drove the strategic pivot from point solution to platform, unlocking AI agents, virtual assistants, and dozens of agentic workloads. Foundation of an $800M+ strategic partnership projected to become the largest customer for multiple flagship AWS AI services.
 
-- Fully embedded in the customer's engineering organization, not treated as a vendor. Perform code reviews, push code, and mentor engineers across all levels. Customer senior leadership made my personal involvement a contractual condition, with directors and senior directors putting their own career reputations behind the project. Hands-on across the full stack: pioneered voice ducking techniques that transformed translated calls from robotic turn-taking into natural conversation, and built graceful barge-in handling for real-time interruption.
+- Fully embedded in the customer's engineering organization; personal involvement made a contractual condition. Authored the open-source GStreamer plugin (C, libsoup-3.0) that became the carrier's core audio transport layer. Pioneered voice ducking and barge-in handling that turned translated calls from robotic turn-taking into natural conversation.
 
-- Authored open-source GStreamer plugin for bidirectional audio streaming over WebSocket. Handles G.711 mu-law/A-law and PCM codecs, RTP jitter buffering, configurable frame pacing, and barge-in flush commands. Built in C with libsoup-3.0. Became the core audio transport layer enabling the carrier's automated contact center platform.
-
-- Solo-built a complete multi-tenant AI agent platform with voice-over-WebSocket, multi-model inference (Nova Sonic, OpenAI Realtime API, Gemini Live), custom SIP User Agent, cell-based HA, and MCP gateway. From architecture to production, including 13 ADRs covering codec selection to tenant isolation.
-
-- Designed comprehensive tenant isolation architecture for multi-tenant AI agent platforms using full-silo isolation on serverless managed services. Published internal research demonstrating why shared infrastructure for AI agents creates structural vulnerabilities (cross-tenant retrieval attacks, memory contamination, credential leakage) that application-level isolation cannot address. Built utterance-level latency observability using Silero VAD as T=0, exported to OpenTelemetry for p50/p95/p99 per-utterance analysis. Built a privacy-preserving evaluation framework for translation quality (Go, patent filing in progress).
-
-- All of this with zero prior telecommunications experience. Learned SIP/RTP, network hairpinning, carrier-grade reliability patterns, and regulatory requirements from first principles, then became the person carrier engineers seek out for guidance.
+- Solo-built a multi-tenant AI agent platform (voice-over-WebSocket, multi-model inference across Nova Sonic, OpenAI Realtime, and Gemini Live, custom SIP UA, cell-based HA, MCP gateway). Designed full-silo tenant isolation on serverless managed services and published internal research on cross-tenant retrieval attacks, memory contamination, and credential leakage that application-level controls cannot address. Added utterance-level latency observability (OpenTelemetry) and a privacy-preserving translation quality evaluation framework (Go, patent pending).
 
 ### Senior Product Architect | Computer Vision & AI
 **Amazon Web Services (AWS)** · *October 2021 – October 2024 · Austin, TX*
