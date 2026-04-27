@@ -534,6 +534,11 @@ def main():
         '--local', '-l',
         help='Use local markdown file instead of fetching from GitHub'
     )
+    parser.add_argument(
+        '--phone', '-p',
+        help='Phone number to inject into the PDF contact line (kept out of '
+             'the markdown source so it never gets committed)'
+    )
 
     args = parser.parse_args()
 
@@ -552,6 +557,13 @@ def main():
     print("Parsing markdown...")
     md_parser = MarkdownParser(markdown_content)
     md_parser.parse()
+
+    if args.phone and md_parser.contact_line:
+        parts = md_parser.contact_line.split(' · ', 1)
+        if len(parts) == 2:
+            md_parser.contact_line = f"{parts[0]} · {args.phone} · {parts[1]}"
+        else:
+            md_parser.contact_line = f"{md_parser.contact_line} · {args.phone}"
 
     print(f"  Name: {md_parser.name}")
     print(f"  Title: {md_parser.title}")

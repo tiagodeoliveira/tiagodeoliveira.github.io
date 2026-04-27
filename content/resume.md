@@ -48,7 +48,7 @@ Principal Engineer and Architect building real-time AI platforms at carrier scal
 
 *Built AI platform reducing investigation time by 35% for major security companies*
 
-- Built video intelligence platform reducing security investigation time 35%. Architected edge-to-cloud continuum (MEC/Outposts for near-edge, TFLite for embedded edge). 40% reduction in false-positive dispatches through intelligent multi-stream correlation and GenAI-powered summarization.
+- 40% reduction in false-positive dispatches and 35% faster security investigations. Architected edge-to-cloud continuum (MEC/Outposts for near-edge, TFLite for embedded edge) with intelligent multi-stream correlation and GenAI-powered summarization.
 
 - Pioneered CVOps framework (Computer Vision Operations) that became the team's foundation. Personally coded initial Python/Rust implementation to prove the pattern, then established CI/CD and shared libraries enabling the team to scale independently. System handled millions of cameras with sub-millisecond inference. 12+ patents filed covering model monitoring, cryptographic video signing, multi-modal scene understanding, and device optimization.
 
@@ -59,34 +59,39 @@ Principal Engineer and Architect building real-time AI platforms at carrier scal
 
 *Transformed manufacturing with edge-to-cloud AI achieving 99.99% reliability*
 
-- Solved the "cloud latency kills production lines" problem. Manufacturing control systems needed millisecond response times. Architected edge computing framework keeping critical decisions local while maintaining cloud connectivity for analytics. 99.99% reliability, 35% reduction in unplanned downtime.
+- 99.99% reliability and 35% reduction in unplanned downtime. Architected edge computing framework keeping critical decisions local while maintaining cloud connectivity for analytics, solving the "cloud latency kills production lines" problem for manufacturing control systems needing millisecond response times.
 
 - Built IoT fleet management for 10,000+ heterogeneous industrial endpoints. The challenge was enabling modern AI/ML on decades-old legacy machinery that couldn't be replaced. Created abstraction layer bridging legacy equipment with cloud intelligence.
 
-- Reduced robot safety incidents through simulation, not sensors. Built ROS-based system learning from human patterns and generating collision-free routes automatically. 33% reduction in space invasion, 21% fewer safety stops.
+- 33% reduction in robot space invasion and 21% fewer safety stops. Built ROS-based system learning from human patterns and generating collision-free routes automatically, reducing robot safety incidents through simulation rather than sensors.
 
 ### Principal Software Engineer | Platform Architecture
 **Mercedes-Benz.io** · *September 2018 – May 2020 · Stuttgart, Germany*
 
 *Built the technical foundation for Mercedes-Benz's global digital transformation*
 
-- Solved the "every department needs a different view of the vehicle" problem through event sourcing. Architected event-sourcing platform (Lambda, containers, S3, DynamoDB, EventBridge, ElastiCache) creating unified vehicle state across all lifecycle stages. Any department could materialize their own view from the same event stream with query flexibility. 60+ systems integrated, 47% cost reduction by eliminating manual integration and view maintenance. Deployment velocity from months to days.
+- 47% cost reduction and deployment velocity from months to days, with 60+ systems integrated. Architected event-sourcing platform (Lambda, containers, S3, DynamoDB, EventBridge, ElastiCache) creating unified vehicle state across all lifecycle stages — any department could materialize their own view from the same event stream, eliminating manual integration.
 
 - Pioneered Hypothesis-Driven Development for ML. Built production-grade MVPs to validate before scaling full pipelines. High-performance pricing engine processing 1,000+ evaluations/second on decades of sales data proved the pattern works under real load.
 
-### Senior Staff Software Engineer | FinTech & IoT Security
-**PayU · OSRAM** · *May 2017 – September 2018 · Berlin, Germany*
+### Senior Staff Software Engineer | IoT Security
+**OSRAM** · *April 2018 – September 2018 · Berlin, Germany*
 
-- Consolidated 14 markets' payment reconciliation into single serverless platform. Normalized disparate formats from banks, merchants, and acquirers across markets into a common model. 60% cost reduction from consolidation and elastic scaling. Built ML-based fraud detection with autonomous weekly retraining handling millions of daily transactions.
+- Architected zero-trust IoT security for smart lighting infrastructure from scratch. Built custom OAuth 2.0 and OpenID Connect extensions for fine-grained device permissions, with hands-on cryptographic implementation and HSM integration for key management.
 
-- Architected zero-trust IoT security for smart lighting infrastructure. Built custom OAuth 2.0 and OpenID Connect extensions for fine-grained device permissions with HSM-backed cryptography.
+### Senior Staff Software Engineer | FinTech
+**PayU** · *May 2017 – March 2018 · Berlin, Germany*
+
+- 60% cost reduction by consolidating 14 markets' payment reconciliation into a single serverless platform. Normalized disparate formats from banks, merchants, and acquirers across markets into a common model; serverless auto-scaled per market and scaled to zero when idle.
+
+- Built ML-based fraud detection with autonomous weekly retraining, handling millions of daily transactions across all markets.
 
 ### Senior Software Architect | AgTech IoT
 **e-Core** · *February 2016 – May 2017 · Porto Alegre, Brazil*
 
 *Military-grade IoT platform for agricultural machinery*
 
-- Built near-realtime auth platform without sacrificing security. Implemented custom nonce calculation on mutual TLS using Erlang and RabbitMQ, contributed plugin back to RabbitMQ project. Built air-gapped firmware signing process using Yubikey hardware API for supply chain integrity. 30% infrastructure cost reduction through protocol optimization.
+- 30% infrastructure cost reduction through protocol optimization, while delivering near-realtime auth without sacrificing security. Implemented custom nonce calculation on mutual TLS using Erlang and RabbitMQ, contributed plugin back to RabbitMQ project. Built air-gapped firmware signing process using Yubikey hardware API for supply chain integrity.
 
 - Orchestrated autonomous machine-to-machine coordination. Harvesters and grain carts communicating directly for autonomous operation (approach, align, transfer, signal, separate). Built MQTT-based handshake mechanism with sub-meter GPS accuracy.
 
