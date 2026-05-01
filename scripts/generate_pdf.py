@@ -434,6 +434,14 @@ class PDFGenerator:
         # Convert **bold** to <b>bold</b>
         text = re.sub(r'\*\*([^\*]+)\*\*', r'<b>\1</b>', text)
 
+        # Convert [text](url) to clickable links, matching the contact line
+        # styling so every hyperlink in the PDF looks the same.
+        text = re.sub(
+            r'\[([^\]]+)\]\(([^\)]+)\)',
+            r'<a href="\2" color="blue">\1</a>',
+            text
+        )
+
         return text
 
     def _add_page_number(self, canvas_obj, doc):
