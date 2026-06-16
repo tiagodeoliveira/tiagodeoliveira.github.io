@@ -140,12 +140,21 @@
       el.classList.add('visible');
     });
 
+    // Detect if the page opened with a text fragment directive (e.g. #journey:~:text=...).
+    // The directive is stripped from location.* by the browser but survives in the
+    // Navigation Timing entry name. While it's active we leave the URL alone so the
+    // shareable highlight link is preserved as the visitor scrolls. An explicit nav-link
+    // click is intentional navigation, so it clears this and resumes section tracking.
+    const navEntry = performance.getEntriesByType('navigation')[0];
+    let preserveFragment = !!(navEntry && navEntry.name.includes(':~:'));
+
     // Smooth scroll for nav links with data-section (index page only)
     document.querySelectorAll('.nav-link[data-section]').forEach(link => {
       link.addEventListener('click', (e) => {
         const target = document.getElementById(link.dataset.section);
         if (target) {
           e.preventDefault();
+          preserveFragment = false;
           target.scrollIntoView({ behavior: 'smooth' });
         }
       });
@@ -164,17 +173,11 @@
       }
     });
 
-    // Detect if the page opened with a text fragment directive (e.g. #journey:~:text=...).
-    // The directive is stripped from location.* by the browser but survives in the
-    // Navigation Timing entry name. When present, leave the URL alone so the shareable
-    // highlight link is preserved instead of being overwritten by the scroll handler below.
-    const navEntry = performance.getEntriesByType('navigation')[0];
-    const hasTextFragment = !!(navEntry && navEntry.name.includes(':~:'));
-
-    // Update URL hash on scroll (only on pages with sections, and never when a text
-    // fragment is active — rewriting the hash would drop the :~: directive from the URL)
-    if (sections.length && !hasTextFragment) {
+    // Update URL hash on scroll (only on pages with sections). While a text fragment is
+    // being preserved, skip rewriting so the :~: directive isn't dropped from the URL.
+    if (sections.length) {
       function updateHash() {
+        if (preserveFragment) return;
         const sectionIds = ['hero', 'journey', 'philosophy', 'resume'];
         let current = 'hero';
         for (const id of sectionIds) {
