@@ -164,8 +164,16 @@
       }
     });
 
-    // Update URL hash on scroll (only on pages with sections)
-    if (sections.length) {
+    // Detect if the page opened with a text fragment directive (e.g. #journey:~:text=...).
+    // The directive is stripped from location.* by the browser but survives in the
+    // Navigation Timing entry name. When present, leave the URL alone so the shareable
+    // highlight link is preserved instead of being overwritten by the scroll handler below.
+    const navEntry = performance.getEntriesByType('navigation')[0];
+    const hasTextFragment = !!(navEntry && navEntry.name.includes(':~:'));
+
+    // Update URL hash on scroll (only on pages with sections, and never when a text
+    // fragment is active — rewriting the hash would drop the :~: directive from the URL)
+    if (sections.length && !hasTextFragment) {
       function updateHash() {
         const sectionIds = ['hero', 'journey', 'philosophy', 'resume'];
         let current = 'hero';
@@ -183,13 +191,10 @@
       window.addEventListener('scroll', () => requestAnimationFrame(updateHash), { passive: true });
     }
 
-    // Scroll to hash on page load
-    if (window.location.hash) {
-      const target = document.getElementById(window.location.hash.slice(1));
-      if (target) {
-        setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
-      }
-    }
+    // Note: scrolling to a #hash or a :~:text= fragment on page load is left to
+    // the browser. Native handling (plus `scroll-behavior: smooth` in CSS) covers
+    // both, and a manual scrollIntoView here would override — and break — text
+    // fragment navigation, which is invisible to JS (stripped from location).
 
     // Nav background on sub-pages (no scroll sections)
     if (fixedNav && !sections.length) {
