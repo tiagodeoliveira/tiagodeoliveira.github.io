@@ -27,7 +27,7 @@ I think about how we communicate with people as a spectrum. Something like this:
 
 **2. Direct.** Clear and honest, no detours. And here's the thing: 1 and 2 sit really close to each other. The vast majority of people who claim to be direct are actually being disrespectful and inconsiderate. Not because they're bad people, but because being direct is a *skill*. It takes time to master. It takes experience. When you do it right, you know when it's the moment to be direct and when it's the moment to be something else. When you don't do it properly, you slide straight into 1, and you probably don't even notice.
 
-**3. Kind and considerate.** This is where I want to live most of the time. You can be direct while being respectful. You understand that directness is not binary: sometimes being direct is not the right call, sometimes you need to polish your words. I always say that we don't know what the person in front of us is going through. We don't know what is happening in their lives. Sometimes a few kind words make all the difference.
+**3. Kind and considerate.** This is where I want to live most of the time. You can be direct while being respectful. You understand that directness is not binary: sometimes being direct is not the right call, sometimes you need to polish your words. I always say that we don't know what the person in front of us is going through. We don't know what is happening in their lives. Sometimes a few kind words make all the difference. That's empathy, and IMO it's the thing that actually makes all of this work. Before you choose your words, you try to see the moment from the other person's side.
 
 **4. Sugarcoating.** Push kindness further and the message starts to get lost. The feedback is so wrapped in padding that the other person walks away without hearing it.
 
@@ -57,4 +57,4 @@ There's a short video I keep coming back to, [Because Kindness Keeps The World A
 
 So the next time you're about to say "I'm just being direct", pause for a second. Ask yourself where on the spectrum you really are. Ask what the person in front of you might be going through. You can still say the hard thing. Just say it like a human talking to another human.
 
-Direct is a skill. Kind is a choice. And I believe the best communicators practice both, every single day. :D
+Direct is a skill. Kind is a choice. Empathy is what tells you which one the moment needs. And I believe the best communicators practice all three, every single day. :D
